@@ -1260,6 +1260,26 @@
       white-space: nowrap;
     }
 
+    .version-build-download-icon {
+      width: 23px;
+      height: 23px;
+      padding: 4px;
+      border-radius: 999px;
+      border: 1px solid rgba(141, 204, 255, 0.34);
+      background: rgba(42, 72, 100, 0.52);
+      color: #9fd6ff;
+      opacity: 0.95;
+      transition: opacity 160ms ease, transform 160ms ease, border-color 160ms ease, background 160ms ease;
+      flex: 0 0 auto;
+      box-sizing: border-box;
+    }
+
+    .version-build-item:hover .version-build-download-icon {
+      opacity: 1;
+      border-color: rgba(164, 220, 255, 0.52);
+      background: rgba(54, 90, 122, 0.62);
+    }
+
     .group-more-wrap {
       margin-top: 8px;
       display: flex;
@@ -2349,6 +2369,7 @@
       build_menu_copy_sha: "SHA-256 복사",
       build_menu_no_hash: "SHA-256 없음",
       build_integrity_verified: "검증됨",
+      build_click_download_hint: "클릭하여 다운로드",
       release_date: "릴리즈: {date}",
       release_size: "파일 크기: {size}",
       release_downloads: "다운로드: {count}",
@@ -2475,6 +2496,7 @@
       build_menu_copy_sha: "Copy SHA-256",
       build_menu_no_hash: "No SHA-256",
       build_integrity_verified: "Verified",
+      build_click_download_hint: "Click to download",
       release_date: "Released: {date}",
       release_size: "File size: {size}",
       release_downloads: "Downloads: {count}",
@@ -2581,6 +2603,17 @@
       month: "2-digit",
       day: "2-digit"
     }).format(date);
+  }
+
+  function formatBuildListDate(dateString) {
+    const date = new Date(dateString);
+    if (Number.isNaN(date.getTime())) return LOCALE === "ko" ? "날짜 정보 없음" : "No date";
+    const now = new Date();
+    const isCurrentYear = date.getFullYear() === now.getFullYear();
+    const formatOptions = isCurrentYear
+      ? { month: "2-digit", day: "2-digit" }
+      : { year: "numeric", month: "2-digit", day: "2-digit" };
+    return new Intl.DateTimeFormat(LOCALE === "ko" ? "ko-KR" : "en-US", formatOptions).format(date);
   }
 
   function formatSize(bytes) {
@@ -2987,11 +3020,16 @@
         <li class="version-build-item" data-download-url="${item.jarAsset.browser_download_url}" role="link" tabindex="0">
           <div class="version-build-top">
             <div class="version-build-left">
+              <svg class="version-build-download-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 4.5v10.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="m7.9 10.8 4.1 4.3 4.1-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M5.2 19.2h13.6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
               <span class="version-group-build">#${buildTag}</span>
               ${integrityMarkup}
             </div>
             <div class="version-build-right">
-              <span class="version-build-date">${formatDate(item.release.published_at)}</span>
+              <span class="version-build-date">${formatBuildListDate(item.release.published_at)}</span>
               <div class="version-build-actions">
                 <button
                   class="version-build-more-btn"
