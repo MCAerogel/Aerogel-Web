@@ -555,11 +555,43 @@
     .controls {
       margin-top: 10px;
       margin-bottom: 14px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
+      align-items: stretch;
+      gap: 10px;
+    }
+
+    .sort-toggle {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 10px;
+      gap: 6px;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      padding: 4px;
+      background: rgba(16, 23, 32, 0.72);
+      min-height: 100%;
+      width: 100%;
+    }
+
+    .sort-btn {
+      border: 0;
+      background: transparent;
+      color: #9db2ca;
+      border-radius: 999px;
+      padding: 0 12px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      min-height: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1 1 0;
+    }
+
+    .sort-btn.active {
+      background: rgba(96, 169, 235, 0.24);
+      color: #dff1ff;
     }
 
     .search {
@@ -801,6 +833,17 @@
     }
 
     .compare-link:hover {
+      text-decoration: underline;
+    }
+
+    .issue-link {
+      color: #f3ba7e;
+      font-size: 0.82rem;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .issue-link:hover {
       text-decoration: underline;
     }
 
@@ -1109,10 +1152,16 @@
 
       .controls {
         align-items: stretch;
+        grid-template-columns: 1fr 1fr;
       }
 
       .search {
         width: 100%;
+      }
+
+      .sort-toggle {
+        width: 100%;
+        justify-content: center;
       }
 
       .grid {
@@ -1250,6 +1299,10 @@
         aria-label="버전 검색"
         data-i18n-aria-label="search_aria_label"
       />
+      <div class="sort-toggle" role="group" aria-label="정렬 방식" data-i18n-aria-label="sort_group_aria">
+        <button id="sortLatestBtn" class="sort-btn active" type="button" data-i18n="sort_latest">최신순</button>
+        <button id="sortVersionBtn" class="sort-btn" type="button" data-i18n="sort_version">버전순</button>
+      </div>
     </div>
     <div id="releases" class="grid" aria-live="polite"></div>
   </section>
@@ -1380,6 +1433,10 @@
       issues_item_2: "이 단계에서는 API 동작과 호환성이 예고 없이 변경될 수 있습니다.",
       issues_item_3: "안정성 목표가 공개되기 전까지 운영 환경 배포는 권장되지 않습니다.",
       issues_link: "이슈 트래커 열기",
+      issue_report_link: "이 버전 이슈 등록",
+      sort_latest: "최신순",
+      sort_version: "버전순",
+      sort_group_aria: "정렬 방식",
       integrity_ok: "검증됨 (SHA-256)",
       integrity_missing: "체크섬 없음",
       section_title: "버전별 다운로드",
@@ -1472,6 +1529,10 @@
       issues_item_2: "API behavior and compatibility can change without notice in this phase.",
       issues_item_3: "Production deployment is not recommended until stability targets are announced.",
       issues_link: "Open Issue Tracker",
+      issue_report_link: "Report issue for this version",
+      sort_latest: "Latest",
+      sort_version: "Version",
+      sort_group_aria: "Sort mode",
       integrity_ok: "Verified (SHA-256)",
       integrity_missing: "No checksum",
       section_title: "Downloads by Version",
@@ -1525,12 +1586,15 @@
   const statusEl = document.getElementById("status");
   const latestSectionEl = document.getElementById("latestSection");
   const searchInputEl = document.getElementById("searchInput");
+  const sortLatestBtnEl = document.getElementById("sortLatestBtn");
+  const sortVersionBtnEl = document.getElementById("sortVersionBtn");
   const notesPreviewEl = document.getElementById("notesPreview");
   const notesLinkEl = document.getElementById("notesLink");
   const headerStarsChipEl = document.getElementById("headerStarsChip");
   const headerForksChipEl = document.getElementById("headerForksChip");
   const headerIssuesChipEl = document.getElementById("headerIssuesChip");
   let releaseItems = [];
+  let sortMode = "latest";
 
   function t(key, vars = {}) {
     const table = I18N[LOCALE] || I18N.en;
@@ -1584,6 +1648,37 @@
   function getCompareUrl(currentTag, previousTag) {
     if (!currentTag || !previousTag) return "";
     return `https://github.com/MCAerogel/Aerogel/compare/${encodeURIComponent(previousTag)}...${encodeURIComponent(currentTag)}`;
+  }
+
+  function getIssueReportUrl(tag) {
+    const title = `[${tag}] `;
+    const body = `Version: ${tag}\nEnvironment:\nJava:\nOS:\n\nDescribe the issue:\n`;
+    return `https://github.com/MCAerogel/Aerogel/issues/new?title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
+  }
+
+  function compareVersionTags(a, b) {
+    const left = String(a || "").split(".").map((part) => Number.parseInt(part, 10));
+    const right = String(b || "").split(".").map((part) => Number.parseInt(part, 10));
+    const maxLength = Math.max(left.length, right.length);
+    for (let i = 0; i < maxLength; i += 1) {
+      const l = Number.isFinite(left[i]) ? left[i] : 0;
+      const r = Number.isFinite(right[i]) ? right[i] : 0;
+      if (l !== r) return l - r;
+    }
+    return String(a || "").localeCompare(String(b || ""), undefined, { numeric: true, sensitivity: "base" });
+  }
+
+  function sortItems(items) {
+    const list = [...items];
+    if (sortMode === "version") {
+      return list.sort((a, b) => compareVersionTags(a.release.tag_name, b.release.tag_name));
+    }
+    return list.sort((a, b) => new Date(b.release.published_at).getTime() - new Date(a.release.published_at).getTime());
+  }
+
+  function syncSortButtons() {
+    sortLatestBtnEl.classList.toggle("active", sortMode === "latest");
+    sortVersionBtnEl.classList.toggle("active", sortMode === "version");
   }
 
   function saveReleasesCache(releases) {
@@ -1650,6 +1745,7 @@
     const compareMarkup = compareUrl
       ? `<a class="compare-link" href="${compareUrl}" target="_blank" rel="noopener noreferrer">${t("compare_link")}</a>`
       : `<span class="compare-empty">${t("compare_empty")}</span>`;
+    const issueMarkup = `<a class="issue-link" href="${getIssueReportUrl(release.tag_name)}" target="_blank" rel="noopener noreferrer">${t("issue_report_link")}</a>`;
     const checksumValue = digest || t("checksum_empty");
     const integrityMarkup = digest
       ? `<span class="integrity-badge integrity-ok">${t("integrity_ok")}</span>`
@@ -1687,6 +1783,7 @@
         <a class="btn download-btn" href="${jarAsset.browser_download_url}" target="_blank" rel="noopener noreferrer">${t("download")}</a>
         <div class="extra-links">
           ${compareMarkup}
+          ${issueMarkup}
         </div>
       </div>
     `;
@@ -1773,7 +1870,7 @@
       ? releaseItems.filter(({ release }) => release.tag_name.toLowerCase().includes(query))
       : releaseItems;
 
-    renderItems(filtered);
+    renderItems(sortItems(filtered));
     setStatus(query ? t("status_filtered", { filtered: filtered.length, total: releaseItems.length }) : t("status_total", { count: releaseItems.length }));
   }
 
@@ -1885,6 +1982,16 @@
   }
 
   applyStaticTranslations();
+  sortLatestBtnEl.addEventListener("click", () => {
+    sortMode = "latest";
+    syncSortButtons();
+    applyFilter();
+  });
+  sortVersionBtnEl.addEventListener("click", () => {
+    sortMode = "version";
+    syncSortButtons();
+    applyFilter();
+  });
   document.addEventListener("click", (event) => {
     const target = event.target;
     if (!(target instanceof HTMLElement)) return;
@@ -1893,6 +2000,7 @@
       copyHashFromButton(button);
     }
   });
+  syncSortButtons();
   searchInputEl.addEventListener("input", applyFilter);
   loadReleases();
   loadRepoMeta();
