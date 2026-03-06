@@ -233,6 +233,7 @@
       min-width: 0;
       position: relative;
       z-index: 1;
+      text-align: left;
     }
 
     .hero-side {
@@ -324,11 +325,33 @@
       box-shadow: 0 0 16px #67bcff;
     }
 
-    h1 {
-      margin: 14px 0 10px;
+    .hero-main h1 {
+      margin: 14px 0 18px;
       font-size: clamp(2rem, 3vw, 2.8rem);
       letter-spacing: -0.02em;
       line-height: 1.1;
+      display: block;
+      width: max-content;
+      max-width: 100%;
+      position: relative;
+      color: #eef7ff;
+      background: linear-gradient(120deg, #f4fbff 0%, #b9e1ff 42%, #ffd6b4 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 8px 24px rgba(106, 176, 246, 0.25);
+    }
+
+    .hero-main h1::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      width: 100%;
+      height: 3px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(120, 199, 255, 0.95), rgba(255, 183, 124, 0.85));
+      box-shadow: 0 0 14px rgba(119, 201, 255, 0.45);
     }
 
     .hero p {
@@ -451,6 +474,96 @@
     .status {
       color: var(--text-sub);
       font-size: 0.9rem;
+    }
+
+    .update-banner {
+      margin-top: 14px;
+      border: 1px solid rgba(118, 214, 161, 0.32);
+      border-radius: 14px;
+      background: linear-gradient(140deg, rgba(29, 72, 54, 0.46), rgba(17, 48, 37, 0.62));
+      padding: 16px 20px;
+      color: #bff6da;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 180ms ease, box-shadow 180ms ease, transform 170ms ease, filter 170ms ease;
+    }
+
+    .update-banner::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border-radius: inherit;
+      background:
+        radial-gradient(circle at 14% 18%, rgba(130, 245, 193, 0.18), transparent 38%),
+        radial-gradient(circle at 84% 80%, rgba(132, 232, 188, 0.12), transparent 34%);
+      opacity: 0;
+      transition: opacity 190ms ease;
+    }
+
+    .update-banner.clickable {
+      cursor: pointer;
+      border-color: rgba(132, 232, 188, 0.5);
+      box-shadow: 0 8px 24px rgba(10, 24, 18, 0.3), 0 0 0 1px rgba(132, 232, 188, 0.08) inset;
+    }
+
+    .update-banner.clickable:hover {
+      transform: translateY(-1px);
+      border-color: rgba(148, 242, 202, 0.72);
+      box-shadow: 0 12px 28px rgba(14, 32, 24, 0.34), 0 0 18px rgba(109, 229, 177, 0.22);
+      filter: brightness(1.03);
+    }
+
+    .update-banner.clickable:hover::after {
+      opacity: 1;
+    }
+
+    .update-banner.clickable:active {
+      transform: translateY(0);
+      filter: brightness(1);
+    }
+
+    .update-banner[hidden] {
+      display: none;
+    }
+
+    .update-banner-main {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .update-banner-icon {
+      width: 20px;
+      height: 20px;
+      flex: 0 0 auto;
+      color: #8df2c4;
+      filter: drop-shadow(0 1px 4px rgba(95, 224, 165, 0.35));
+      transform: translateY(-1px);
+    }
+
+    .update-banner-text {
+      min-width: 0;
+      line-height: 1.35;
+      text-align: center;
+    }
+
+    .update-banner-link {
+      color: #86e8bc;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .update-banner-link:hover {
+      text-decoration: underline;
     }
 
     .latest {
@@ -618,6 +731,27 @@
       gap: 10px;
     }
 
+    .list-stats {
+      margin-top: -2px;
+      margin-bottom: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .list-stat {
+      border: 1px solid rgba(141, 181, 220, 0.28);
+      background: rgba(24, 33, 45, 0.68);
+      border-radius: 999px;
+      padding: 10px 14px;
+      display: inline-flex;
+      align-items: center;
+      color: #b7cce4;
+      font-size: 0.79rem;
+      line-height: 1;
+      letter-spacing: 0.01em;
+    }
+
     .sort-toggle {
       display: flex;
       align-items: center;
@@ -738,6 +872,18 @@
     .meta-group {
       display: grid;
       gap: 2px;
+    }
+
+    .change-summary {
+      margin: 0;
+      color: #a9d6ff;
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+
+    .latest-change {
+      margin-top: 9px;
+      color: #ffd2d2;
     }
 
     .integrity-badge {
@@ -1339,6 +1485,21 @@
         grid-template-columns: 1fr 1fr;
       }
 
+      .update-banner {
+        align-items: center;
+        padding: 13px 14px;
+      }
+
+      .update-banner-main {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .update-banner-link {
+        width: 100%;
+        text-align: center;
+      }
+
       .search {
         width: 100%;
       }
@@ -1481,6 +1642,7 @@
       </ul>
     </section>
   </section>
+  <section id="updateBanner" class="update-banner" hidden aria-live="polite"></section>
 
   <section>
     <div class="section-head">
@@ -1501,6 +1663,10 @@
         <button id="sortLatestBtn" class="sort-btn active" type="button" data-i18n="sort_latest">최신순</button>
         <button id="sortVersionBtn" class="sort-btn" type="button" data-i18n="sort_version">버전순</button>
       </div>
+    </div>
+    <div class="list-stats" aria-live="polite">
+      <span id="resultsCount" class="list-stat"></span>
+      <span id="totalDownloadsStat" class="list-stat"></span>
     </div>
     <div id="releases" class="grid" aria-live="polite"></div>
   </section>
@@ -1624,7 +1790,11 @@
 <script>
   const API_URL = "https://api.github.com/repos/MCAerogel/Aerogel/releases";
   const REPO_API_URL = "https://api.github.com/repos/MCAerogel/Aerogel";
+  const COMPARE_API_BASE_URL = "https://api.github.com/repos/MCAerogel/Aerogel/compare";
   const RELEASES_CACHE_KEY = "aerogel_releases_cache_v1";
+  const COMPARE_CACHE_KEY = "aerogel_compare_cache_v1";
+  const LAST_SEEN_TAG_KEY = "aerogel_last_seen_tag_v1";
+  const COMPARE_PREFETCH_LIMIT = 12;
   const LOCALE = (navigator.language || "en").toLowerCase().startsWith("ko") ? "ko" : "en";
   document.documentElement.lang = LOCALE;
   const I18N = {
@@ -1693,6 +1863,9 @@
       status_fallback: "API 제한으로 캐시/폴백 데이터를 표시합니다.",
       status_total: "총 {count}개 버전",
       status_filtered: "검색 결과 {filtered}개 / 전체 {total}개",
+      results_total: "표시 중: 총 {count}개 버전",
+      results_filtered: "표시 중: {filtered}개 / 전체 {total}개",
+      total_downloads: "누적 다운로드: {count}",
       status_none: "표시할 Aerogel.jar 릴리즈가 없습니다.",
       status_error: "릴리즈를 불러오지 못했습니다.",
       search_placeholder: "버전 검색 (예: 1.21, 1.20.6)",
@@ -1702,6 +1875,14 @@
       release_title: "Minecraft {tag}",
       release_date: "릴리즈: {date}",
       release_size: "파일 크기: {size}",
+      release_downloads: "다운로드: {count}",
+      download_unknown: "데이터 없음",
+      changes_loading: "변경 요약을 불러오는 중...",
+      changes_summary: "변경 요약: 커밋 {commits}개 · +{additions} / -{deletions}",
+      changes_unavailable: "변경 요약을 불러오지 못했습니다.",
+      changes_not_available: "비교할 이전 버전이 없어 변경 요약이 없습니다.",
+      update_banner_text: "지난 방문 이후 새 릴리즈가 있습니다: {tag} (신규 {count}개)",
+      update_banner_link: "최신 릴리즈 보기",
       download: "다운로드",
       empty_search: "조건에 맞는 버전이 없습니다. 다른 키워드로 검색해 보세요.",
       empty_release: "현재 공개된 릴리즈에서 <strong>Aerogel.jar</strong> 파일을 찾지 못했습니다.",
@@ -1797,6 +1978,9 @@
       status_fallback: "Rate limit reached. Showing cached/fallback data.",
       status_total: "{count} versions",
       status_filtered: "{filtered} matches / {total} total",
+      results_total: "Showing: {count} versions",
+      results_filtered: "Showing: {filtered} / {total}",
+      total_downloads: "Total downloads: {count}",
       status_none: "No Aerogel.jar releases available to display.",
       status_error: "Failed to load releases.",
       search_placeholder: "Search versions (e.g. 1.21, 1.20.6)",
@@ -1806,6 +1990,14 @@
       release_title: "Minecraft {tag}",
       release_date: "Released: {date}",
       release_size: "File size: {size}",
+      release_downloads: "Downloads: {count}",
+      download_unknown: "No data",
+      changes_loading: "Loading change summary...",
+      changes_summary: "Change summary: {commits} commits · +{additions} / -{deletions}",
+      changes_unavailable: "Could not load change summary.",
+      changes_not_available: "No previous version to compare.",
+      update_banner_text: "New release since your last visit: {tag} ({count} new)",
+      update_banner_link: "Open latest release",
       download: "Download",
       empty_search: "No versions match your search. Try another keyword.",
       empty_release: "Could not find <strong>Aerogel.jar</strong> in current public releases.",
@@ -1841,9 +2033,12 @@
   const releasesEl = document.getElementById("releases");
   const statusEl = document.getElementById("status");
   const latestSectionEl = document.getElementById("latestSection");
+  const updateBannerEl = document.getElementById("updateBanner");
   const searchInputEl = document.getElementById("searchInput");
   const sortLatestBtnEl = document.getElementById("sortLatestBtn");
   const sortVersionBtnEl = document.getElementById("sortVersionBtn");
+  const resultsCountEl = document.getElementById("resultsCount");
+  const totalDownloadsStatEl = document.getElementById("totalDownloadsStat");
   const notesPreviewEl = document.getElementById("notesPreview");
   const notesLinkEl = document.getElementById("notesLink");
   const headerStarsChipEl = document.getElementById("headerStarsChip");
@@ -1851,6 +2046,8 @@
   const headerIssuesChipEl = document.getElementById("headerIssuesChip");
   let releaseItems = [];
   let sortMode = "latest";
+  let renderToken = 0;
+  const compareInFlight = new Map();
 
   function t(key, vars = {}) {
     const table = I18N[LOCALE] || I18N.en;
@@ -1957,6 +2154,185 @@
     }
   }
 
+  function loadCompareCache() {
+    try {
+      const raw = localStorage.getItem(COMPARE_CACHE_KEY);
+      if (!raw) return {};
+      const parsed = JSON.parse(raw);
+      return parsed && typeof parsed === "object" ? parsed : {};
+    } catch (error) {
+      console.error(error);
+      return {};
+    }
+  }
+
+  function saveCompareCache(cache) {
+    try {
+      localStorage.setItem(COMPARE_CACHE_KEY, JSON.stringify(cache));
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  function formatInteger(value) {
+    const number = Number(value);
+    if (!Number.isFinite(number)) return t("download_unknown");
+    return new Intl.NumberFormat(LOCALE === "ko" ? "ko-KR" : "en-US").format(number);
+  }
+
+  function getAssetDownloadCount(asset) {
+    const count = Number(asset?.download_count);
+    return Number.isFinite(count) ? count : null;
+  }
+
+  function getTotalDownloadCount(items) {
+    return items.reduce((sum, item) => {
+      const count = getAssetDownloadCount(item.jarAsset);
+      return sum + (Number.isFinite(count) ? count : 0);
+    }, 0);
+  }
+
+  function setListStats(filteredCount, totalCount, queryText) {
+    const hasQuery = queryText.trim() !== "";
+    resultsCountEl.textContent = hasQuery
+      ? t("results_filtered", { filtered: filteredCount, total: totalCount })
+      : t("results_total", { count: totalCount });
+    totalDownloadsStatEl.textContent = t("total_downloads", {
+      count: formatInteger(getTotalDownloadCount(releaseItems))
+    });
+  }
+
+  function getCompareCacheKey(currentTag, previousTag) {
+    return `${previousTag}...${currentTag}`;
+  }
+
+  async function fetchCompareSummary(currentTag, previousTag) {
+    if (!currentTag || !previousTag) return null;
+    const key = getCompareCacheKey(currentTag, previousTag);
+    const compareCache = loadCompareCache();
+    if (compareCache[key]) return compareCache[key];
+    if (compareInFlight.has(key)) return compareInFlight.get(key);
+
+    const promise = (async () => {
+      const response = await fetch(`${COMPARE_API_BASE_URL}/${encodeURIComponent(previousTag)}...${encodeURIComponent(currentTag)}`, {
+        headers: {
+          Accept: "application/vnd.github+json"
+        }
+      });
+      if (!response.ok) {
+        throw new Error(`Compare API 오류 (${response.status})`);
+      }
+      const data = await response.json();
+      const files = Array.isArray(data.files) ? data.files : [];
+      const additions = files.reduce((sum, file) => sum + (Number(file.additions) || 0), 0);
+      const deletions = files.reduce((sum, file) => sum + (Number(file.deletions) || 0), 0);
+      const commits = Array.isArray(data.commits) ? data.commits.length : (Number(data.total_commits) || 0);
+      const summary = { additions, deletions, commits };
+      const nextCache = { ...loadCompareCache(), [key]: summary };
+      saveCompareCache(nextCache);
+      return summary;
+    })();
+
+    compareInFlight.set(key, promise);
+    try {
+      return await promise;
+    } finally {
+      compareInFlight.delete(key);
+    }
+  }
+
+  async function hydrateChangeSummaries(token) {
+    const nodes = Array.from(document.querySelectorAll(".change-summary[data-current-tag]"));
+    for (let i = 0; i < nodes.length; i += 1) {
+      if (token !== renderToken) return;
+      const node = nodes[i];
+      if (!(node instanceof HTMLElement)) continue;
+      const currentTag = node.dataset.currentTag || "";
+      const previousTag = node.dataset.previousTag || "";
+      if (!previousTag) {
+        node.textContent = t("changes_not_available");
+        continue;
+      }
+      if (i >= COMPARE_PREFETCH_LIMIT) {
+        node.textContent = t("changes_unavailable");
+        continue;
+      }
+      try {
+        const summary = await fetchCompareSummary(currentTag, previousTag);
+        if (token !== renderToken) return;
+        if (!summary) {
+          node.textContent = t("changes_not_available");
+          continue;
+        }
+        node.textContent = t("changes_summary", {
+          commits: formatInteger(summary.commits),
+          additions: formatInteger(summary.additions),
+          deletions: formatInteger(summary.deletions)
+        });
+      } catch (error) {
+        node.textContent = t("changes_unavailable");
+        console.error(error);
+      }
+    }
+  }
+
+  function renderUpdateBanner(items) {
+    if (!updateBannerEl) return;
+    if (!Array.isArray(items) || items.length === 0) {
+      updateBannerEl.hidden = true;
+      updateBannerEl.classList.remove("clickable");
+      delete updateBannerEl.dataset.url;
+      updateBannerEl.innerHTML = "";
+      return;
+    }
+    const latestRelease = items[0].release;
+    const latestTag = latestRelease?.tag_name || "";
+    if (!latestTag) {
+      updateBannerEl.hidden = true;
+      updateBannerEl.classList.remove("clickable");
+      delete updateBannerEl.dataset.url;
+      updateBannerEl.innerHTML = "";
+      return;
+    }
+    const bannerUrl = latestRelease.html_url || "https://github.com/MCAerogel/Aerogel/releases";
+    const getBannerMarkup = (count) => `
+      <span class="update-banner-main">
+        <svg class="update-banner-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 3.2 3.8 7.1v5.8c0 4.7 3.1 9.1 8.2 10.9 5.1-1.8 8.2-6.2 8.2-10.9V7.1L12 3.2Z" fill="currentColor" fill-opacity=".22" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+          <path d="m8.7 12.2 2.3 2.3 4.5-4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="update-banner-text">${t("update_banner_text", { tag: latestTag, count })}</span>
+      </span>
+      <a class="update-banner-link" href="${bannerUrl}" target="_blank" rel="noopener noreferrer">${t("update_banner_link")}</a>
+    `;
+    let lastSeenTag = "";
+    try {
+      lastSeenTag = localStorage.getItem(LAST_SEEN_TAG_KEY) || "";
+    } catch (error) {
+      console.error(error);
+    }
+
+    const lastSeenIndex = items.findIndex((item) => item.release?.tag_name === lastSeenTag);
+    const newCount = lastSeenTag && lastSeenIndex > 0 ? lastSeenIndex : 0;
+    if (newCount > 0) {
+      updateBannerEl.hidden = false;
+      updateBannerEl.classList.add("clickable");
+      updateBannerEl.dataset.url = bannerUrl;
+      updateBannerEl.innerHTML = getBannerMarkup(newCount);
+    } else {
+      updateBannerEl.hidden = true;
+      updateBannerEl.classList.remove("clickable");
+      delete updateBannerEl.dataset.url;
+      updateBannerEl.innerHTML = "";
+    }
+
+    try {
+      localStorage.setItem(LAST_SEEN_TAG_KEY, latestTag);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   function parseReleaseItems(releases) {
     return releases
       .filter((release) => !release.draft)
@@ -1997,6 +2373,7 @@
     const card = document.createElement("article");
     card.className = "release-card";
     const digest = getSha256Digest(jarAsset);
+    const downloadCount = getAssetDownloadCount(jarAsset);
     const compareUrl = getCompareUrl(release.tag_name, previousTag);
     const compareMarkup = compareUrl
       ? `<a class="compare-link" href="${compareUrl}" target="_blank" rel="noopener noreferrer">${t("compare_link")}</a>`
@@ -2025,8 +2402,10 @@
       <div class="meta-group">
         <p class="meta">${t("release_date", { date: formatDate(release.published_at) })}</p>
         <p class="meta">${t("release_size", { size: formatSize(jarAsset.size) })}</p>
+        <p class="meta">${t("release_downloads", { count: downloadCount === null ? t("download_unknown") : formatInteger(downloadCount) })}</p>
       </div>
       ${integrityMarkup}
+      <p class="change-summary" data-current-tag="${release.tag_name}" data-previous-tag="${previousTag}">${previousTag ? t("changes_loading") : t("changes_not_available")}</p>
       <div class="checksum">
         <div class="checksum-head">
           <span class="checksum-label">${t("checksum_label")}</span>
@@ -2071,6 +2450,7 @@
     }
 
     const digest = getSha256Digest(item.jarAsset);
+    const latestDownloadCount = getAssetDownloadCount(item.jarAsset);
     const compareUrl = getCompareUrl(item.release.tag_name, previousTag);
     const compareMarkup = compareUrl
       ? `<a class="compare-link" href="${compareUrl}" target="_blank" rel="noopener noreferrer">${t("compare_link")}</a>`
@@ -2089,7 +2469,9 @@
         <span class="latest-label">${t("latest_label")}</span>
         <h2 class="latest-title">${t("release_title", { tag: item.release.tag_name })}</h2>
         <p class="latest-meta">${t("latest_meta", { date: formatDate(item.release.published_at), size: formatSize(item.jarAsset.size) })}</p>
+        <p class="latest-meta">${t("release_downloads", { count: latestDownloadCount === null ? t("download_unknown") : formatInteger(latestDownloadCount) })}</p>
         ${integrityMarkup}
+        <p class="change-summary latest-change" data-current-tag="${item.release.tag_name}" data-previous-tag="${previousTag}">${previousTag ? t("changes_loading") : t("changes_not_available")}</p>
         <div class="latest-extra">
           <div class="checksum">
             <div class="checksum-head">
@@ -2108,6 +2490,8 @@
   }
 
   function renderItems(items) {
+    renderToken += 1;
+    const token = renderToken;
     releasesEl.innerHTML = "";
     if (items.length === 0) {
       releasesEl.innerHTML = `<div class="empty">${t("empty_search")}</div>`;
@@ -2118,6 +2502,7 @@
       const previousTag = items[index + 1]?.release?.tag_name || "";
       releasesEl.appendChild(createCard(release, jarAsset, previousTag));
     });
+    hydrateChangeSummaries(token);
   }
 
   function applyFilter() {
@@ -2128,6 +2513,7 @@
 
     renderItems(sortItems(filtered));
     setStatus(query ? t("status_filtered", { filtered: filtered.length, total: releaseItems.length }) : t("status_total", { count: releaseItems.length }));
+    setListStats(filtered.length, releaseItems.length, query);
   }
 
   function renderError(message) {
@@ -2190,13 +2576,16 @@
 
       if (items.length === 0) {
         renderLatest(null);
+        renderUpdateBanner([]);
         renderNotes(null);
         setStatus(t("status_none"));
+        setListStats(0, 0, "");
         releasesEl.innerHTML = `<div class="empty">${t("empty_release")}</div>`;
         return;
       }
 
       releaseItems = items;
+      renderUpdateBanner(items);
       renderLatest(items[0], items[1]?.release?.tag_name || "");
       renderNotes(items[0].release);
       applyFilter();
@@ -2205,12 +2594,15 @@
       const items = parseReleaseItems(fallbackReleases);
       if (items.length > 0) {
         releaseItems = items;
+        renderUpdateBanner(items);
         renderLatest(items[0], items[1]?.release?.tag_name || "");
         renderNotes(items[0].release);
         applyFilter();
         setStatus(t("status_fallback"));
       } else {
         setStatus(t("status_error"));
+        setListStats(0, 0, "");
+        renderUpdateBanner([]);
         renderError(t("error_text"));
       }
       console.error(error);
@@ -2238,6 +2630,17 @@
   }
 
   applyStaticTranslations();
+  setListStats(0, 0, "");
+  if (updateBannerEl) {
+    updateBannerEl.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) return;
+      if (target.closest("a")) return;
+      const url = updateBannerEl.dataset.url;
+      if (!url) return;
+      window.open(url, "_blank", "noopener,noreferrer");
+    });
+  }
   sortLatestBtnEl.addEventListener("click", () => {
     sortMode = "latest";
     syncSortButtons();
