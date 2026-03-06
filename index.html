@@ -206,10 +206,33 @@
       display: grid;
       grid-template-columns: minmax(0, 1.3fr) minmax(220px, 0.7fr);
       gap: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      right: -70px;
+      top: -90px;
+      background: radial-gradient(circle, rgba(110, 180, 255, 0.24), transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(255, 255, 255, 0.05), transparent 26%, transparent 72%, rgba(255, 255, 255, 0.03));
+      pointer-events: none;
     }
 
     .hero-main {
       min-width: 0;
+      position: relative;
+      z-index: 1;
     }
 
     .hero-side {
@@ -221,6 +244,32 @@
       gap: 9px;
       align-content: start;
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-lead {
+      margin: 30px 0 30px;
+      padding: 0 2px;
+    }
+
+    .hero-lead-label {
+      margin: 0;
+      color: #9ab5d5;
+      font-size: 0.74rem;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .hero-lead-title {
+      margin: 6px 0 0;
+      font-size: clamp(1.15rem, 2.2vw, 1.48rem);
+      letter-spacing: -0.015em;
+      line-height: 1.25;
+      color: #eaf4ff;
+      word-break: keep-all;
+      overflow-wrap: normal;
     }
 
     .runtime-log {
@@ -1229,6 +1278,10 @@
         grid-template-columns: 1fr;
       }
 
+      .hero-lead {
+        margin-bottom: 30px;
+      }
+
       .hero-side {
         border-radius: 15px;
         padding: 18px 16px;
@@ -1357,6 +1410,11 @@
   </a>
 
 <main class="page">
+
+  <section class="hero-lead">
+    <p class="hero-lead-label" data-i18n="hero_lead_label">Next-Gen Runtime Track</p>
+    <p class="hero-lead-title" data-i18n="hero_lead_title">Built to push Minecraft server architecture further with an independent core and aggressive iteration.</p>
+  </section>
 
   <section class="hero">
     <div class="hero-main">
@@ -1575,6 +1633,8 @@
       hero_title: "Aerogel 다운로드",
       hero_desc: "Aerogel은 병렬 청크 생성을 위해 Folia를 전용으로 사용하면서, 서버 런타임 전체를 독립적으로 구현한 커스텀 마인크래프트 서버 엔진입니다.",
       hero_slogan: "높은 병렬 처리 성능을 목표로 설계되었고, 기여와 피드백을 빠르게 반영하며 발전합니다.",
+      hero_lead_label: "Next-Gen Runtime Track",
+      hero_lead_title: "독립 코어와 빠른 반복 개발을 바탕으로, 마인크래프트 서버 아키텍처의 다음 단계를 목표로 합니다.",
       quick_repo_label: "Repository",
       quick_asset_label: "파일",
       quick_hosting_label: "호스팅",
@@ -1677,6 +1737,8 @@
       hero_title: "Download Aerogel",
       hero_desc: "Aerogel is a custom Minecraft server engine that uses Folia exclusively for parallel chunk generation while implementing the entire server runtime independently.",
       hero_slogan: "Built for high-parallel worlds, tuned for contributor velocity.",
+      hero_lead_label: "Next-Gen Runtime Track",
+      hero_lead_title: "Built to push Minecraft server architecture further with an independent core and aggressive iteration.",
       quick_repo_label: "Repository",
       quick_asset_label: "Asset",
       quick_hosting_label: "Hosting",
