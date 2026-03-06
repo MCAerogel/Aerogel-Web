@@ -1067,6 +1067,80 @@
       padding-top: 10px;
     }
 
+    .team {
+      margin-top: 22px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(20, 28, 38, 0.76);
+      padding: 18px;
+    }
+
+    .team-head {
+      margin-bottom: 12px;
+    }
+
+    .team-title {
+      margin: 0;
+      font-size: 1rem;
+      color: #ebf5ff;
+      letter-spacing: -0.01em;
+    }
+
+    .team-desc {
+      margin: 6px 0 0;
+      color: #9fb2c8;
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .member {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(18, 25, 34, 0.65);
+      border-radius: 14px;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .member-role {
+      margin: 0 0 8px;
+      color: #a5bdd8;
+      font-size: 0.76rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .member-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      object-fit: cover;
+    }
+
+    .member-name {
+      margin: 8px 0 4px;
+      font-size: 0.9rem;
+      color: #e8f3ff;
+      font-weight: 700;
+    }
+
+    .member-link {
+      color: #8fd0ff;
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .member-link:hover {
+      text-decoration: underline;
+    }
+
     .start-commands .verify-details {
       margin-top: 0;
     }
@@ -1174,6 +1248,14 @@
 
       .extra-panel {
         padding: 18px;
+      }
+
+      .team {
+        padding: 16px;
+      }
+
+      .team-grid {
+        grid-template-columns: 1fr;
       }
 
       .jar {
@@ -1377,6 +1459,33 @@
     </article>
   </section>
 
+  <section class="team">
+    <div class="team-head">
+      <h3 class="team-title" data-i18n="team_title">Development Team</h3>
+      <p class="team-desc" data-i18n="team_desc">Core contributor information from the original repository README.</p>
+    </div>
+    <div class="team-grid">
+      <article class="member">
+        <p class="member-role" data-i18n="team_role_owner">Project Owner</p>
+        <img class="member-avatar" src="https://github.com/Mkkas3145.png" alt="Mkkas3145 avatar" />
+        <p class="member-name">Mkkas3145</p>
+        <a class="member-link" href="https://github.com/Mkkas3145" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </article>
+      <article class="member">
+        <p class="member-role" data-i18n="team_role_core">Core Developer</p>
+        <img class="member-avatar" src="https://github.com/Mkkas3145.png" alt="Mkkas3145 avatar" />
+        <p class="member-name">Mkkas3145</p>
+        <a class="member-link" href="https://github.com/Mkkas3145" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </article>
+      <article class="member">
+        <p class="member-role" data-i18n="team_role_maintainer">Maintainer</p>
+        <img class="member-avatar" src="https://github.com/uniformization.png" alt="uniformization avatar" />
+        <p class="member-name">uniformization</p>
+        <a class="member-link" href="https://github.com/uniformization" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </article>
+    </div>
+  </section>
+
   <p class="footer" data-i18n="footer_text">Official releases from MCAerogel/Aerogel</p>
   <p class="legal-note" data-i18n="legal_note">Aerogel is not affiliated with Mojang Studios or Microsoft. Minecraft is a trademark of Mojang Studios.</p>
 </main>
@@ -1433,6 +1542,11 @@
       issues_item_2: "이 단계에서는 API 동작과 호환성이 예고 없이 변경될 수 있습니다.",
       issues_item_3: "안정성 목표가 공개되기 전까지 운영 환경 배포는 권장되지 않습니다.",
       issues_link: "이슈 트래커 열기",
+      team_title: "개발 팀",
+      team_desc: "원본 저장소 README 기준 기여자 정보입니다.",
+      team_role_owner: "프로젝트 오너",
+      team_role_core: "코어 개발자",
+      team_role_maintainer: "메인테이너",
       issue_report_link: "이 버전 이슈 등록",
       sort_latest: "최신순",
       sort_version: "버전순",
@@ -1529,6 +1643,11 @@
       issues_item_2: "API behavior and compatibility can change without notice in this phase.",
       issues_item_3: "Production deployment is not recommended until stability targets are announced.",
       issues_link: "Open Issue Tracker",
+      team_title: "Development Team",
+      team_desc: "Core contributor information from the original repository README.",
+      team_role_owner: "Project Owner",
+      team_role_core: "Core Developer",
+      team_role_maintainer: "Maintainer",
       issue_report_link: "Report issue for this version",
       sort_latest: "Latest",
       sort_version: "Version",
