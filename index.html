@@ -326,32 +326,35 @@
     }
 
     .hero-main h1 {
-      margin: 14px 0 18px;
-      font-size: clamp(2rem, 3vw, 2.8rem);
+      margin: 12px 0 16px;
+      font-size: clamp(1.85rem, 2.8vw, 2.45rem);
       letter-spacing: -0.02em;
-      line-height: 1.1;
+      line-height: 1.16;
+      color: #eef7ff;
+      font-weight: 800;
       display: block;
-      width: max-content;
+      width: fit-content;
       max-width: 100%;
       position: relative;
-      color: #eef7ff;
-      background: linear-gradient(120deg, #f4fbff 0%, #b9e1ff 42%, #ffd6b4 100%);
+      padding-bottom: 2px;
+      background: linear-gradient(
+        100deg,
+        #eaf4ff 0%,
+        #f3f9ff 26%,
+        #9edcff 45%,
+        #aaf4da 58%,
+        #f0f8ff 74%,
+        #eaf4ff 100%
+      );
+      background-size: 220% 100%;
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 0 8px 24px rgba(106, 176, 246, 0.25);
-    }
-
-    .hero-main h1::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -8px;
-      width: 100%;
-      height: 3px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, rgba(120, 199, 255, 0.95), rgba(255, 183, 124, 0.85));
-      box-shadow: 0 0 14px rgba(119, 201, 255, 0.45);
+      text-shadow:
+        0 0 4px rgba(175, 232, 255, 0.22),
+        0 0 10px rgba(123, 221, 255, 0.14);
+      animation: hero-title-energy-flow 5.8s ease-in-out infinite;
+      will-change: background-position;
     }
 
     .hero p {
@@ -578,6 +581,7 @@
       gap: 18px;
       flex-wrap: wrap;
       align-items: end;
+      position: relative;
     }
 
     .latest-label {
@@ -604,6 +608,73 @@
       margin: 8px 0 5px;
       font-size: clamp(1.3rem, 2.3vw, 1.8rem);
       letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .latest-version-tag,
+    .latest-build-tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      line-height: 1;
+    }
+
+    .latest-version-tag > span,
+    .latest-build-tag > span {
+      display: inline-flex;
+      align-items: center;
+      line-height: 1;
+    }
+
+    .latest-version-tag {
+      padding: 8px 13px;
+      height: 36px;
+      box-sizing: border-box;
+      background: rgba(255, 154, 154, 0.2);
+      border-color: rgba(255, 170, 170, 0.45);
+      color: #ffe3e3;
+      font-size: 1.02rem;
+      font-weight: 800;
+    }
+
+    .latest-build-tag {
+      padding: 0 11px;
+      height: 36px;
+      background: rgba(255, 199, 126, 0.24);
+      border-color: rgba(255, 210, 143, 0.45);
+      color: #ffe4b2;
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+    }
+
+    .latest-version-icon,
+    .latest-build-icon {
+      width: 16px;
+      height: 16px;
+      flex: 0 0 auto;
+    }
+
+    .latest-version-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    .latest-version-icon {
+      color: #ffc2c2;
+      filter: drop-shadow(0 1px 4px rgba(255, 152, 152, 0.35));
+    }
+
+    .latest-build-icon {
+      color: #ffd894;
+      filter: drop-shadow(0 1px 4px rgba(255, 205, 131, 0.35));
+      align-self: center;
     }
 
     .latest-meta {
@@ -631,6 +702,84 @@
     .latest > div {
       min-width: 0;
       flex: 1 1 360px;
+    }
+
+    .latest-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: end;
+      align-self: stretch;
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .latest-more-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      font-size: 1rem;
+      line-height: 1;
+      color: #ffdede;
+      border: 1px solid rgba(255, 170, 170, 0.45);
+      border-radius: 50%;
+      text-decoration: none;
+      background: rgba(71, 27, 35, 0.55);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 3;
+      box-shadow: 0 6px 16px rgba(58, 18, 24, 0.32);
+      transition: filter 160ms ease, transform 160ms ease;
+    }
+
+    .latest-more-btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.1);
+    }
+
+    .latest-more-menu {
+      position: absolute;
+      top: 66px;
+      right: 20px;
+      min-width: 186px;
+      border: 1px solid rgba(255, 170, 170, 0.34);
+      border-radius: 12px;
+      background: rgba(38, 18, 24, 0.96);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.36);
+      padding: 6px;
+      display: grid;
+      gap: 4px;
+      z-index: 4;
+    }
+
+    .latest-more-menu[hidden] {
+      display: none;
+    }
+
+    .latest-more-item {
+      border: 0;
+      border-radius: 9px;
+      color: #ffdede;
+      text-decoration: none;
+      background: transparent;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 9px 10px;
+      line-height: 1.2;
+      text-align: left;
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .latest-more-item:hover {
+      background: rgba(255, 160, 160, 0.14);
+      color: #fff0f0;
     }
 
     .latest .btn:hover {
@@ -843,6 +992,295 @@
       opacity: 1;
     }
 
+    .version-group-card {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: linear-gradient(160deg, rgba(30, 36, 47, 0.94) 0%, rgba(20, 27, 36, 0.86) 100%);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+      padding: 18px 18px 14px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+      transform-origin: center top;
+      z-index: 1;
+    }
+
+    .version-group-card:hover {
+      transform: scale(1.03);
+      border-color: rgba(140, 201, 255, 0.42);
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.48), 0 0 26px rgba(95, 176, 247, 0.2);
+      z-index: 4;
+    }
+
+    .version-group-card.expanded {
+      z-index: 3;
+    }
+
+    .version-group-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .version-group-count {
+      color: #9cb0c7;
+      font-size: 0.78rem;
+      font-weight: 700;
+      border: 1px solid rgba(146, 176, 206, 0.26);
+      border-radius: 999px;
+      padding: 5px 9px;
+      background: rgba(26, 35, 48, 0.6);
+      white-space: nowrap;
+    }
+
+    .version-group-latest {
+      border: 1px solid rgba(160, 191, 220, 0.22);
+      border-radius: 12px;
+      background: rgba(22, 31, 42, 0.62);
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: border-color 160ms ease, background 160ms ease;
+    }
+
+    .version-group-latest:hover {
+      border-color: rgba(146, 201, 245, 0.36);
+      background: rgba(26, 38, 52, 0.74);
+    }
+
+    .version-group-latest:focus-visible {
+      outline: 2px solid rgba(141, 205, 255, 0.62);
+      outline-offset: 2px;
+    }
+
+    .version-group-latest-meta {
+      min-width: 0;
+      display: grid;
+      gap: 3px;
+    }
+
+    .version-group-build {
+      color: #e6f5ff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid rgba(146, 184, 218, 0.26);
+      background: rgba(30, 44, 60, 0.68);
+      border-radius: 999px;
+      padding: 3px 8px;
+      min-height: 23px;
+      line-height: 1.1;
+    }
+
+    .version-group-expand-icon {
+      width: 18px;
+      height: 18px;
+      color: #b9dfff;
+      opacity: 0.9;
+      flex: 0 0 auto;
+      transition: transform 220ms ease, opacity 220ms ease;
+    }
+
+    .version-group-card.expanded .version-group-expand-icon {
+      transform: rotate(180deg);
+      opacity: 1;
+    }
+
+    .version-group-hint {
+      margin: 0;
+      color: #89a2bf;
+      font-size: 0.72rem;
+    }
+
+    .version-group-builds {
+      max-height: 0;
+      opacity: 0;
+      transform: translateY(-6px);
+      overflow: hidden;
+      transition: max-height 280ms ease, opacity 220ms ease, transform 220ms ease;
+    }
+
+    .version-group-card.expanded .version-group-builds {
+      max-height: 460px;
+      opacity: 1;
+      transform: translateY(0);
+      overflow: hidden;
+    }
+
+    .version-build-list {
+      margin: 6px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 8px;
+      max-height: 360px;
+      overflow: auto;
+      padding-right: 2px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .version-build-list::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+      display: none;
+    }
+
+    .version-build-item {
+      border: 1px solid rgba(141, 176, 208, 0.2);
+      border-radius: 11px;
+      background: rgba(20, 28, 38, 0.65);
+      padding: 10px 12px;
+      display: grid;
+      gap: 6px;
+      cursor: pointer;
+      transition: border-color 160ms ease, background 160ms ease;
+    }
+
+    .version-build-item:hover {
+      border-color: rgba(141, 198, 240, 0.34);
+      background: rgba(24, 35, 48, 0.74);
+    }
+
+    .version-build-item:focus-visible {
+      outline: 2px solid rgba(141, 205, 255, 0.62);
+      outline-offset: 2px;
+    }
+
+    .version-build-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .version-build-right {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .version-build-left {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-width: 0;
+    }
+
+    .version-build-integrity {
+      font-size: 0.68rem;
+      padding: 3px 7px;
+      letter-spacing: 0.01em;
+    }
+
+    .version-build-actions {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .version-build-more-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      border: 1px solid rgba(143, 192, 233, 0.28);
+      background: rgba(29, 41, 56, 0.72);
+      color: #cfe5fb;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.95rem;
+      line-height: 1;
+      padding: 0;
+    }
+
+    .version-build-more-btn:hover {
+      filter: brightness(1.12);
+    }
+
+    .floating-build-menu {
+      position: fixed;
+      min-width: 178px;
+      max-width: min(82vw, 240px);
+      border: 1px solid rgba(146, 184, 218, 0.32);
+      border-radius: 10px;
+      background: rgba(21, 31, 43, 0.98);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+      padding: 5px;
+      display: grid;
+      gap: 4px;
+      z-index: 200;
+    }
+
+    .floating-build-menu[hidden] {
+      display: none;
+    }
+
+    .floating-build-menu-item {
+      border: 0;
+      border-radius: 8px;
+      color: #d7ebff;
+      text-decoration: none;
+      background: transparent;
+      font-size: 0.79rem;
+      font-weight: 700;
+      line-height: 1.25;
+      text-align: left;
+      padding: 8px 9px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .floating-build-menu-item:hover {
+      background: rgba(137, 189, 235, 0.16);
+    }
+
+    .floating-build-menu-item.disabled {
+      color: #7f94a9;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .version-build-date {
+      color: #97a9be;
+      font-size: 0.75rem;
+      white-space: nowrap;
+    }
+
+    .group-more-wrap {
+      margin-top: 8px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .group-more-btn {
+      border: 1px solid rgba(143, 192, 233, 0.32);
+      background: rgba(32, 46, 62, 0.74);
+      color: #cce6ff;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .group-more-btn:hover {
+      filter: brightness(1.08);
+    }
+
     .release-title {
       margin: 0;
       font-size: 1.24rem;
@@ -853,6 +1291,13 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
+    }
+
+    .release-build {
+      color: #8ecbff;
+      font-weight: 700;
+      font-size: 0.92rem;
+      letter-spacing: 0.01em;
     }
 
     .mc-title-icon {
@@ -1513,6 +1958,14 @@
         grid-template-columns: 1fr;
       }
 
+      .version-group-card {
+        transform: none;
+      }
+
+      .version-group-card.expanded .version-group-builds {
+        max-height: 70vh;
+      }
+
       .extras {
         grid-template-columns: 1fr;
       }
@@ -1551,6 +2004,18 @@
         transform: translate3d(20px, -8px, 0) scale(1.07);
       }
     }
+
+    @keyframes hero-title-energy-flow {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1580,7 +2045,7 @@
   <section class="hero">
     <div class="hero-main">
       <span class="badge" data-i18n="hero_badge">Aerogel Server</span>
-      <h1 data-i18n="hero_title">Aerogel 다운로드</h1>
+      <h1 data-i18n="hero_title" data-text="Aerogel 다운로드">Aerogel 다운로드</h1>
       <p data-i18n="hero_desc">Aerogel is a custom Minecraft server engine that uses Folia exclusively for parallel chunk generation while implementing the entire server runtime independently.</p>
       <p class="hero-slogan" data-i18n="hero_slogan">Built for high-parallel worlds, tuned for contributor velocity.</p>
 
@@ -1872,7 +2337,18 @@
       search_aria_label: "버전 검색",
       latest_label: "최신 개발 초기 버전",
       latest_download: "최신 버전 다운로드",
+      latest_menu_aria: "최신 버전 메뉴 열기",
+      latest_menu_release: "릴리즈 페이지 열기",
+      latest_menu_compare: "이전 버전과 비교",
+      latest_menu_issue: "이 버전 이슈 제보",
       release_title: "Minecraft {tag}",
+      group_build_count: "빌드 {count}개",
+      group_hover_hint: "클릭해 빌드 목록 펼치기",
+      group_more_button: "+{count}개 더 보기",
+      build_menu_aria: "빌드 메뉴 열기",
+      build_menu_copy_sha: "SHA-256 복사",
+      build_menu_no_hash: "SHA-256 없음",
+      build_integrity_verified: "검증됨",
       release_date: "릴리즈: {date}",
       release_size: "파일 크기: {size}",
       release_downloads: "다운로드: {count}",
@@ -1987,7 +2463,18 @@
       search_aria_label: "Search versions",
       latest_label: "Latest Early Development Build",
       latest_download: "Download Latest",
+      latest_menu_aria: "Open latest build menu",
+      latest_menu_release: "Open release page",
+      latest_menu_compare: "Compare with previous",
+      latest_menu_issue: "Report issue for this version",
       release_title: "Minecraft {tag}",
+      group_build_count: "{count} builds",
+      group_hover_hint: "Click to expand builds",
+      group_more_button: "+{count} more",
+      build_menu_aria: "Open build menu",
+      build_menu_copy_sha: "Copy SHA-256",
+      build_menu_no_hash: "No SHA-256",
+      build_integrity_verified: "Verified",
       release_date: "Released: {date}",
       release_size: "File size: {size}",
       release_downloads: "Downloads: {count}",
@@ -2044,10 +2531,18 @@
   const headerStarsChipEl = document.getElementById("headerStarsChip");
   const headerForksChipEl = document.getElementById("headerForksChip");
   const headerIssuesChipEl = document.getElementById("headerIssuesChip");
+  const floatingBuildMenuEl = document.createElement("div");
+  floatingBuildMenuEl.className = "floating-build-menu";
+  floatingBuildMenuEl.setAttribute("hidden", "");
+  document.body.appendChild(floatingBuildMenuEl);
   let releaseItems = [];
   let sortMode = "latest";
   let renderToken = 0;
   const compareInFlight = new Map();
+  let activeBuildMenuButton = null;
+  const groupVisibleCountMap = new Map();
+  const GROUP_INITIAL_VISIBLE_COUNT = 5;
+  const GROUP_VISIBLE_INCREMENT = 5;
 
   function t(key, vars = {}) {
     const table = I18N[LOCALE] || I18N.en;
@@ -2064,6 +2559,7 @@
 
     document.querySelectorAll("[data-i18n]").forEach((el) => {
       el.textContent = t(el.dataset.i18n);
+      if (el.dataset.i18n === "hero_title") el.setAttribute("data-text", el.textContent);
     });
 
     document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
@@ -2124,7 +2620,7 @@
   function sortItems(items) {
     const list = [...items];
     if (sortMode === "version") {
-      return list.sort((a, b) => compareVersionTags(a.release.tag_name, b.release.tag_name));
+      return list.sort((a, b) => compareVersionTags(a.titleInfo?.minecraftVersion, b.titleInfo?.minecraftVersion));
     }
     return list.sort((a, b) => new Date(b.release.published_at).getTime() - new Date(a.release.published_at).getTime());
   }
@@ -2338,10 +2834,29 @@
       .filter((release) => !release.draft)
       .map((release) => {
         const jarAsset = (release.assets || []).find((asset) => asset.name === "Aerogel.jar");
-        return jarAsset ? { release, jarAsset } : null;
+        const titleInfo = parseReleaseTitleInfo(release);
+        return jarAsset ? { release, jarAsset, titleInfo } : null;
       })
       .filter(Boolean)
       .sort((a, b) => new Date(b.release.published_at).getTime() - new Date(a.release.published_at).getTime());
+  }
+
+  function parseReleaseTitleInfo(release) {
+    const tagName = (release?.tag_name || "").trim();
+    const releaseName = (release?.name || "").trim();
+    const minecraftMatch = releaseName.match(/\(([^)]+)\)/);
+    const minecraftLooseMatch = releaseName.match(/\b\d+\.\d+(?:\.\d+)?\b/);
+    const buildMatch = releaseName.match(/\[#\s*(\d+)\]/i);
+    const minecraftVersion = minecraftMatch?.[1]?.trim()
+      || minecraftLooseMatch?.[0]?.trim()
+      || releaseName
+      || tagName;
+    const buildNumber = buildMatch ? Number.parseInt(buildMatch[1], 10) : null;
+    const buildTag = Number.isInteger(buildNumber) ? `#${buildNumber}` : "";
+    return {
+      minecraftVersion,
+      buildTag
+    };
   }
 
   function getFallbackReleases() {
@@ -2369,9 +2884,11 @@
     ];
   }
 
-  function createCard(release, jarAsset, previousTag) {
+  function createCard(release, jarAsset, previousTag, titleInfo) {
     const card = document.createElement("article");
     card.className = "release-card";
+    const releaseTitleText = t("release_title", { tag: titleInfo.minecraftVersion || release.tag_name });
+    const releaseBuildMarkup = titleInfo.buildTag ? ` <span class="release-build">[${titleInfo.buildTag}]</span>` : "";
     const digest = getSha256Digest(jarAsset);
     const downloadCount = getAssetDownloadCount(jarAsset);
     const compareUrl = getCompareUrl(release.tag_name, previousTag);
@@ -2397,7 +2914,7 @@
           <rect x="7.8" y="13.4" width="3.2" height="4.2" fill="#0c1b12"/>
           <rect x="13" y="13.4" width="3.2" height="4.2" fill="#0c1b12"/>
         </svg>
-        <span>${t("release_title", { tag: release.tag_name })}</span>
+        <span>${releaseTitleText}${releaseBuildMarkup}</span>
       </h3>
       <div class="meta-group">
         <p class="meta">${t("release_date", { date: formatDate(release.published_at) })}</p>
@@ -2420,6 +2937,120 @@
           ${compareMarkup}
           ${issueMarkup}
         </div>
+      </div>
+    `;
+
+    return card;
+  }
+
+  function groupItemsByMinecraftVersion(items) {
+    const grouped = new Map();
+    items.forEach((item, index) => {
+      const version = item.titleInfo?.minecraftVersion || item.release?.tag_name || "";
+      const previousTag = items[index + 1]?.release?.tag_name || "";
+      const nextItem = { ...item, previousTag };
+      if (!grouped.has(version)) grouped.set(version, []);
+      grouped.get(version).push(nextItem);
+    });
+    return Array.from(grouped.entries()).map(([minecraftVersion, builds]) => ({
+      minecraftVersion,
+      builds
+    }));
+  }
+
+  function createVersionGroupCard(group) {
+    const card = document.createElement("article");
+    card.className = "version-group-card";
+    const latestBuild = group.builds[0];
+    const titleText = t("release_title", { tag: group.minecraftVersion });
+    const countText = t("group_build_count", { count: formatInteger(group.builds.length) });
+    const latestDate = formatDate(latestBuild.release.published_at);
+    const totalBuilds = group.builds.length;
+    const currentVisibleCount = Number(groupVisibleCountMap.get(group.minecraftVersion) || GROUP_INITIAL_VISIBLE_COUNT);
+    const visibleCount = Math.min(Math.max(currentVisibleCount, GROUP_INITIAL_VISIBLE_COUNT), totalBuilds);
+    if (!groupVisibleCountMap.has(group.minecraftVersion)) {
+      groupVisibleCountMap.set(group.minecraftVersion, visibleCount);
+    }
+    const visibleBuilds = group.builds.slice(0, visibleCount);
+    const remainingCount = Math.max(0, totalBuilds - visibleCount);
+
+    const rowsMarkup = visibleBuilds.map((item) => {
+      const buildTag = (item.titleInfo?.buildTag || item.release.tag_name || "").replace(/^#/, "");
+      const issueUrl = getIssueReportUrl(item.release.tag_name);
+      const releaseUrl = item.release.html_url || "https://github.com/MCAerogel/Aerogel/releases";
+      const compareUrl = getCompareUrl(item.release.tag_name, item.previousTag);
+      const sha256 = getSha256Digest(item.jarAsset);
+      const integrityMarkup = sha256
+        ? `<span class="integrity-badge integrity-ok version-build-integrity">${t("build_integrity_verified")}</span>`
+        : "";
+      return `
+        <li class="version-build-item" data-download-url="${item.jarAsset.browser_download_url}" role="link" tabindex="0">
+          <div class="version-build-top">
+            <div class="version-build-left">
+              <span class="version-group-build">#${buildTag}</span>
+              ${integrityMarkup}
+            </div>
+            <div class="version-build-right">
+              <span class="version-build-date">${formatDate(item.release.published_at)}</span>
+              <div class="version-build-actions">
+                <button
+                  class="version-build-more-btn"
+                  type="button"
+                  aria-label="${t("build_menu_aria")}"
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  data-compare-url="${compareUrl}"
+                  data-issue-url="${issueUrl}"
+                  data-release-url="${releaseUrl}"
+                  data-sha256="${sha256}"
+                >
+                  &#8942;
+                </button>
+              </div>
+            </div>
+          </div>
+          <p class="change-summary" data-current-tag="${item.release.tag_name}" data-previous-tag="${item.previousTag}">${item.previousTag ? t("changes_loading") : t("changes_not_available")}</p>
+        </li>
+      `;
+    }).join("");
+
+    card.innerHTML = `
+      <div class="version-group-header">
+        <h3 class="release-title release-title-row">
+          <svg class="mc-title-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="2.5" y="2.5" width="19" height="19" rx="3.2" fill="#58c86f"/>
+            <rect x="6.2" y="6.4" width="3.2" height="3.2" fill="#0c1b12"/>
+            <rect x="14.6" y="6.4" width="3.2" height="3.2" fill="#0c1b12"/>
+            <rect x="9.4" y="10.2" width="5.2" height="3.2" fill="#0c1b12"/>
+            <rect x="7.8" y="13.4" width="3.2" height="4.2" fill="#0c1b12"/>
+            <rect x="13" y="13.4" width="3.2" height="4.2" fill="#0c1b12"/>
+          </svg>
+          <span>${titleText}</span>
+        </h3>
+        <span class="version-group-count">${countText}</span>
+      </div>
+      <div class="version-group-latest" role="button" tabindex="0" aria-expanded="false">
+        <div class="version-group-latest-meta">
+          <p class="version-group-hint">${t("group_hover_hint")}</p>
+          <span class="meta">${t("release_date", { date: latestDate })}</span>
+        </div>
+        <div class="version-build-right">
+          <svg class="version-group-expand-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="m6.5 9.2 5.5 5.6 5.5-5.6" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="version-group-builds">
+        <ul class="version-build-list">
+          ${rowsMarkup}
+        </ul>
+        ${remainingCount > 0
+    ? `<div class="group-more-wrap">
+             <button class="group-more-btn" type="button" data-group-version="${group.minecraftVersion}">
+               ${t("group_more_button", { count: formatInteger(remainingCount) })}
+             </button>
+           </div>`
+    : ""}
       </div>
     `;
 
@@ -2455,6 +3086,11 @@
     const compareMarkup = compareUrl
       ? `<a class="compare-link" href="${compareUrl}" target="_blank" rel="noopener noreferrer">${t("compare_link")}</a>`
       : `<span class="compare-empty">${t("compare_empty")}</span>`;
+    const issueUrl = getIssueReportUrl(item.release.tag_name);
+    const releasePageUrl = item.release.html_url || "https://github.com/MCAerogel/Aerogel/releases";
+    const menuCompareItem = compareUrl
+      ? `<a class="latest-more-item" href="${compareUrl}" target="_blank" rel="noopener noreferrer">${t("latest_menu_compare")}</a>`
+      : "";
     const checksumValue = digest || t("checksum_empty");
     const integrityMarkup = digest
       ? `<span class="integrity-badge integrity-ok">${t("integrity_ok")}</span>`
@@ -2463,11 +3099,36 @@
       ? `<button class="copy-hash-btn" type="button" data-hash="${digest}" data-default-text="${t("copy_hash")}" data-copied-text="${t("copied")}">${t("copy_hash")}</button>`
       : "";
 
+    const releaseTitleText = t("release_title", { tag: item.titleInfo?.minecraftVersion || item.release.tag_name });
+    const releaseBuildMarkup = item.titleInfo?.buildTag
+      ? `
+        <span class="latest-build-tag">
+          <svg class="latest-build-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 2 3.2 6.4v11.2L12 22l8.8-4.4V6.4L12 2Z" stroke="currentColor" stroke-width="1.7" />
+            <path d="m3.2 6.4 8.8 4.4 8.8-4.4M12 10.8V22" stroke="currentColor" stroke-width="1.7" />
+          </svg>
+          <span>${item.titleInfo.buildTag.replace(/^#/, "")}</span>
+        </span>
+      `
+      : "";
     latestSectionEl.hidden = false;
     latestSectionEl.innerHTML = `
       <div>
         <span class="latest-label">${t("latest_label")}</span>
-        <h2 class="latest-title">${t("release_title", { tag: item.release.tag_name })}</h2>
+        <h2 class="latest-title">
+          <span class="latest-version-tag">
+            <svg class="latest-version-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect x="2.5" y="2.5" width="19" height="19" rx="3.2" stroke="currentColor" stroke-width="1.7"/>
+              <rect x="6.2" y="6.4" width="3.2" height="3.2" fill="currentColor"/>
+              <rect x="14.6" y="6.4" width="3.2" height="3.2" fill="currentColor"/>
+              <rect x="9.4" y="10.2" width="5.2" height="3.2" fill="currentColor"/>
+              <rect x="7.8" y="13.4" width="3.2" height="4.2" fill="currentColor"/>
+              <rect x="13" y="13.4" width="3.2" height="4.2" fill="currentColor"/>
+            </svg>
+            <span>${releaseTitleText}</span>
+          </span>
+          ${releaseBuildMarkup}
+        </h2>
         <p class="latest-meta">${t("latest_meta", { date: formatDate(item.release.published_at), size: formatSize(item.jarAsset.size) })}</p>
         <p class="latest-meta">${t("release_downloads", { count: latestDownloadCount === null ? t("download_unknown") : formatInteger(latestDownloadCount) })}</p>
         ${integrityMarkup}
@@ -2483,24 +3144,35 @@
           <div class="extra-links">${compareMarkup}</div>
         </div>
       </div>
-      <a class="btn" href="${item.jarAsset.browser_download_url}" target="_blank" rel="noopener noreferrer">
-        ${t("latest_download")}
-      </a>
+      <div class="latest-actions">
+        <button class="latest-more-btn" type="button" aria-label="${t("latest_menu_aria")}" aria-expanded="false" aria-haspopup="true">
+          &#8942;
+        </button>
+        <div class="latest-more-menu" hidden>
+          <a class="latest-more-item" href="${releasePageUrl}" target="_blank" rel="noopener noreferrer">${t("latest_menu_release")}</a>
+          ${menuCompareItem}
+          <a class="latest-more-item" href="${issueUrl}" target="_blank" rel="noopener noreferrer">${t("latest_menu_issue")}</a>
+        </div>
+        <a class="btn" href="${item.jarAsset.browser_download_url}" target="_blank" rel="noopener noreferrer">
+          ${t("latest_download")}
+        </a>
+      </div>
     `;
   }
 
   function renderItems(items) {
     renderToken += 1;
     const token = renderToken;
+    closeBuildMoreMenus();
     releasesEl.innerHTML = "";
     if (items.length === 0) {
       releasesEl.innerHTML = `<div class="empty">${t("empty_search")}</div>`;
       return;
     }
 
-    items.forEach(({ release, jarAsset }, index) => {
-      const previousTag = items[index + 1]?.release?.tag_name || "";
-      releasesEl.appendChild(createCard(release, jarAsset, previousTag));
+    const groups = groupItemsByMinecraftVersion(items);
+    groups.forEach((group) => {
+      releasesEl.appendChild(createVersionGroupCard(group));
     });
     hydrateChangeSummaries(token);
   }
@@ -2508,7 +3180,13 @@
   function applyFilter() {
     const query = searchInputEl.value.trim().toLowerCase();
     const filtered = query
-      ? releaseItems.filter(({ release }) => release.tag_name.toLowerCase().includes(query))
+      ? releaseItems.filter(({ release, titleInfo }) => {
+        const tag = (release.tag_name || "").toLowerCase();
+        const title = (release.name || "").toLowerCase();
+        const mc = (titleInfo?.minecraftVersion || "").toLowerCase();
+        const build = (titleInfo?.buildTag || "").toLowerCase();
+        return tag.includes(query) || title.includes(query) || mc.includes(query) || build.includes(query);
+      })
       : releaseItems;
 
     renderItems(sortItems(filtered));
@@ -2537,6 +3215,62 @@
     } catch (error) {
       console.error(error);
     }
+  }
+
+  function closeLatestMoreMenus() {
+    document.querySelectorAll(".latest-more-menu").forEach((menu) => {
+      menu.setAttribute("hidden", "");
+    });
+    document.querySelectorAll(".latest-more-btn").forEach((button) => {
+      button.setAttribute("aria-expanded", "false");
+    });
+  }
+
+  function closeBuildMoreMenus() {
+    floatingBuildMenuEl.setAttribute("hidden", "");
+    floatingBuildMenuEl.innerHTML = "";
+    if (activeBuildMenuButton) {
+      activeBuildMenuButton.setAttribute("aria-expanded", "false");
+      activeBuildMenuButton = null;
+    }
+  }
+
+  function openBuildMoreMenu(button) {
+    const compareUrl = button.dataset.compareUrl || "";
+    const issueUrl = button.dataset.issueUrl || "";
+    const releaseUrl = button.dataset.releaseUrl || "";
+    const sha256 = button.dataset.sha256 || "";
+    const compareItem = compareUrl
+      ? `<a class="floating-build-menu-item" href="${compareUrl}" target="_blank" rel="noopener noreferrer">${t("compare_link")}</a>`
+      : `<span class="floating-build-menu-item disabled">${t("compare_empty")}</span>`;
+    const copyShaItem = sha256
+      ? `<button class="floating-build-menu-item floating-build-copy-btn" type="button" data-hash="${sha256}" data-default-text="${t("build_menu_copy_sha")}" data-copied-text="${t("copied")}">${t("build_menu_copy_sha")}</button>`
+      : `<span class="floating-build-menu-item disabled">${t("build_menu_no_hash")}</span>`;
+
+    floatingBuildMenuEl.innerHTML = `
+      ${compareItem}
+      ${copyShaItem}
+      <a class="floating-build-menu-item" href="${issueUrl}" target="_blank" rel="noopener noreferrer">${t("issue_report_link")}</a>
+      <a class="floating-build-menu-item" href="${releaseUrl}" target="_blank" rel="noopener noreferrer">${t("latest_menu_release")}</a>
+    `;
+    floatingBuildMenuEl.removeAttribute("hidden");
+
+    const buttonRect = button.getBoundingClientRect();
+    const menuRect = floatingBuildMenuEl.getBoundingClientRect();
+    let left = buttonRect.right - menuRect.width;
+    left = Math.max(8, Math.min(left, window.innerWidth - menuRect.width - 8));
+    const top = Math.max(8, Math.min(buttonRect.bottom + 6, window.innerHeight - menuRect.height - 8));
+    floatingBuildMenuEl.style.left = `${Math.round(left)}px`;
+    floatingBuildMenuEl.style.top = `${Math.round(top)}px`;
+    activeBuildMenuButton = button;
+    button.setAttribute("aria-expanded", "true");
+  }
+
+  function toggleVersionGroupFromToggleRow(toggleRow) {
+    const card = toggleRow.closest(".version-group-card");
+    if (!(card instanceof HTMLElement)) return;
+    const expanded = card.classList.toggle("expanded");
+    toggleRow.setAttribute("aria-expanded", expanded ? "true" : "false");
   }
 
   function renderNotes(release) {
@@ -2654,11 +3388,116 @@
   document.addEventListener("click", (event) => {
     const target = event.target;
     if (!(target instanceof HTMLElement)) return;
+
+    const groupToggle = target.closest(".version-group-latest");
+    if (groupToggle instanceof HTMLElement) {
+      if (target.closest("a, button")) return;
+      closeBuildMoreMenus();
+      toggleVersionGroupFromToggleRow(groupToggle);
+      groupToggle.blur();
+      return;
+    }
+
+    const buildMenuButton = target.closest(".version-build-more-btn");
+    if (buildMenuButton instanceof HTMLButtonElement) {
+      const shouldOpen = activeBuildMenuButton !== buildMenuButton || floatingBuildMenuEl.hasAttribute("hidden");
+      closeBuildMoreMenus();
+      if (shouldOpen) {
+        openBuildMoreMenu(buildMenuButton);
+      }
+      return;
+    }
+
+    const floatingCopyButton = target.closest(".floating-build-copy-btn");
+    if (floatingCopyButton instanceof HTMLButtonElement) {
+      copyHashFromButton(floatingCopyButton);
+      return;
+    }
+
+    if (target.closest(".floating-build-menu-item")) {
+      closeBuildMoreMenus();
+      return;
+    }
+
+    if (!target.closest(".floating-build-menu")) {
+      closeBuildMoreMenus();
+    }
+
+    const clickableBuild = target.closest(".version-build-item");
+    if (clickableBuild instanceof HTMLElement) {
+      if (target.closest("a, button")) return;
+      const downloadUrl = clickableBuild.dataset.downloadUrl || "";
+      if (downloadUrl) {
+        window.open(downloadUrl, "_blank", "noopener,noreferrer");
+      }
+      return;
+    }
+
+    const groupMoreButton = target.closest(".group-more-btn");
+    if (groupMoreButton instanceof HTMLButtonElement) {
+      const groupVersion = groupMoreButton.dataset.groupVersion || "";
+      if (groupVersion) {
+        const current = Number(groupVisibleCountMap.get(groupVersion) || GROUP_INITIAL_VISIBLE_COUNT);
+        groupVisibleCountMap.set(groupVersion, current + GROUP_VISIBLE_INCREMENT);
+        applyFilter();
+      }
+      return;
+    }
+
+    const menuButton = target.closest(".latest-more-btn");
+    if (menuButton instanceof HTMLButtonElement) {
+      const menu = menuButton.parentElement?.querySelector(".latest-more-menu");
+      const shouldOpen = menu instanceof HTMLElement && menu.hasAttribute("hidden");
+      closeLatestMoreMenus();
+      if (shouldOpen && menu instanceof HTMLElement) {
+        menu.removeAttribute("hidden");
+        menuButton.setAttribute("aria-expanded", "true");
+      }
+      return;
+    }
+
+    if (target.closest(".latest-more-item")) {
+      closeLatestMoreMenus();
+      return;
+    }
+
+    if (!target.closest(".latest-more-menu")) {
+      closeLatestMoreMenus();
+    }
+
     const button = target.closest(".copy-hash-btn");
     if (button instanceof HTMLButtonElement) {
       copyHashFromButton(button);
     }
   });
+  document.addEventListener("keydown", (event) => {
+    const target = event.target;
+    if (target instanceof HTMLElement && (event.key === "Enter" || event.key === " ")) {
+      const groupToggle = target.closest(".version-group-latest");
+      if (groupToggle instanceof HTMLElement) {
+        event.preventDefault();
+        toggleVersionGroupFromToggleRow(groupToggle);
+        return;
+      }
+
+      const clickableBuild = target.closest(".version-build-item");
+      if (clickableBuild instanceof HTMLElement) {
+        const downloadUrl = clickableBuild.dataset.downloadUrl || "";
+        if (downloadUrl) {
+          event.preventDefault();
+          window.open(downloadUrl, "_blank", "noopener,noreferrer");
+          return;
+        }
+      }
+    }
+
+    if (event.key === "Escape") {
+      closeBuildMoreMenus();
+      closeLatestMoreMenus();
+    }
+  });
+  window.addEventListener("resize", closeBuildMoreMenus);
+  window.addEventListener("scroll", closeBuildMoreMenus, true);
   syncSortButtons();
   searchInputEl.addEventListener("input", applyFilter);
   loadReleases();
