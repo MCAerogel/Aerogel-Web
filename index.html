@@ -1,0 +1,694 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="pageTitle">Aerogel Downloads</title>
+  <meta id="metaDescription" name="description" content="Aerogel downloads by Minecraft version" />
+  <style>
+    @import url("https://cdn.jsdelivr.net/npm/spoqa-han-sans@3.3.0/css/SpoqaHanSansNeo.css");
+
+    :root {
+      --bg: #0a0d12;
+      --bg-soft: #11161d;
+      --surface: rgba(19, 25, 34, 0.76);
+      --surface-strong: rgba(28, 34, 45, 0.92);
+      --line: rgba(255, 255, 255, 0.08);
+      --line-strong: rgba(255, 255, 255, 0.15);
+      --text: #f4f7fb;
+      --text-sub: #9fabbe;
+      --accent: #7dc9ff;
+      --accent-strong: #6fb9ff;
+      --shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+      --card-blur: blur(16px);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background: radial-gradient(circle at 15% -10%, #1f3045 0%, transparent 45%),
+        radial-gradient(circle at 85% 8%, #253646 0%, transparent 32%),
+        linear-gradient(150deg, #080b10 0%, #0b1118 45%, #0a1019 100%);
+      background-color: #0a0d12;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+      color: var(--text);
+      font-family: "Spoqa Han Sans Neo", "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body {
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: auto;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    body::after {
+      width: 360px;
+      height: 360px;
+      right: -90px;
+      top: -120px;
+      background: radial-gradient(circle, rgba(61, 131, 197, 0.28), transparent 70%);
+      filter: blur(18px);
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 56px 22px 78px;
+      background: transparent;
+    }
+
+    .hero {
+      border: 1px solid var(--line);
+      background: linear-gradient(145deg, rgba(28, 35, 46, 0.65), rgba(17, 24, 33, 0.5));
+      backdrop-filter: var(--card-blur);
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      padding: 34px 28px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(132, 196, 255, 0.34);
+      background: rgba(80, 144, 210, 0.15);
+      color: #b7ddff;
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .badge::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #87d0ff;
+      box-shadow: 0 0 16px #67bcff;
+    }
+
+    h1 {
+      margin: 14px 0 10px;
+      font-size: clamp(2rem, 3vw, 2.8rem);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .hero p {
+      margin: 0;
+      color: var(--text-sub);
+      font-size: clamp(0.95rem, 1.4vw, 1.05rem);
+      max-width: 70ch;
+      line-height: 1.55;
+    }
+
+    .quick {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .quick-item {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--surface);
+      padding: 12px 14px;
+    }
+
+    .quick-label {
+      display: block;
+      color: var(--text-sub);
+      font-size: 0.75rem;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .quick-value {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #eaf4ff;
+    }
+
+    .section-head {
+      margin-top: 30px;
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: 1.16rem;
+      letter-spacing: -0.01em;
+    }
+
+    .status {
+      color: var(--text-sub);
+      font-size: 0.9rem;
+    }
+
+    .latest {
+      margin-top: 22px;
+      border: 1px solid rgba(150, 208, 255, 0.28);
+      border-radius: 22px;
+      background: linear-gradient(140deg, rgba(29, 60, 93, 0.5), rgba(20, 31, 43, 0.78));
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      align-items: end;
+    }
+
+    .latest-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: #b9ddff;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .latest-label::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #80c8ff;
+      box-shadow: 0 0 12px #6ab8ff;
+    }
+
+    .latest-title {
+      margin: 8px 0 5px;
+      font-size: clamp(1.3rem, 2.3vw, 1.8rem);
+      letter-spacing: -0.02em;
+    }
+
+    .latest-meta {
+      margin: 0;
+      color: #aac0d8;
+      font-size: 0.93rem;
+      line-height: 1.45;
+    }
+
+    .latest .btn {
+      padding: 11px 18px;
+      font-size: 0.92rem;
+    }
+
+    .notice {
+      margin-top: 12px;
+      border: 1px solid rgba(255, 196, 112, 0.28);
+      border-radius: 16px;
+      background: linear-gradient(140deg, rgba(72, 48, 21, 0.45), rgba(47, 33, 18, 0.36));
+      padding: 14px 16px;
+      color: #f2d9b4;
+    }
+
+    .notice strong {
+      display: block;
+      margin-bottom: 6px;
+      color: #ffd59f;
+      font-size: 0.88rem;
+      letter-spacing: 0.01em;
+    }
+
+    .notice p {
+      margin: 0;
+      line-height: 1.5;
+      font-size: 0.9rem;
+    }
+
+    .controls {
+      margin-top: 10px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .search {
+      width: min(380px, 100%);
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      padding: 10px 14px;
+      background: rgba(16, 23, 32, 0.82);
+      color: #ddecff;
+      font-size: 0.92rem;
+      outline: none;
+      transition: border-color 170ms ease, box-shadow 170ms ease;
+    }
+
+    .search:focus {
+      border-color: rgba(130, 194, 255, 0.7);
+      box-shadow: 0 0 0 4px rgba(104, 173, 239, 0.18);
+    }
+
+    .search::placeholder {
+      color: #8397af;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 14px;
+    }
+
+    .release-card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: linear-gradient(160deg, rgba(30, 36, 47, 0.92) 0%, rgba(21, 28, 37, 0.82) 100%);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .release-title {
+      margin: 0;
+      font-size: 1.1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .meta {
+      margin: 0;
+      color: var(--text-sub);
+      font-size: 0.84rem;
+      line-height: 1.45;
+    }
+
+    .actions {
+      margin-top: auto;
+      padding-top: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .jar {
+      font-size: 0.82rem;
+      color: #b7c6d9;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 55%;
+    }
+
+    .btn {
+      border: 1px solid rgba(140, 201, 255, 0.45);
+      background: linear-gradient(145deg, #7ec8ff, #63b2ff);
+      color: #03162a;
+      border-radius: 999px;
+      padding: 8px 14px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      transition: transform 160ms ease, filter 160ms ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.08);
+    }
+
+    .empty,
+    .error {
+      border: 1px solid var(--line-strong);
+      background: rgba(25, 32, 43, 0.75);
+      border-radius: 18px;
+      padding: 18px;
+      color: var(--text-sub);
+      line-height: 1.5;
+    }
+
+    .footer {
+      margin: 30px 0 0;
+      padding: 0;
+      border: 0;
+      color: #8394a8;
+      font-size: 0.83rem;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 760px) {
+      .page {
+        padding-top: 30px;
+      }
+
+      .hero {
+        border-radius: 24px;
+        padding: 24px 18px;
+      }
+
+      .quick {
+        grid-template-columns: 1fr;
+      }
+
+      .latest {
+        border-radius: 18px;
+        padding: 16px;
+      }
+
+      .latest .btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      .controls {
+        align-items: stretch;
+      }
+
+      .search {
+        width: 100%;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .jar {
+        max-width: 45%;
+      }
+    }
+  </style>
+</head>
+<body>
+<main class="page">
+  <section class="hero">
+    <span class="badge" data-i18n="hero_badge">Aerogel Server</span>
+    <h1 data-i18n="hero_title">Aerogel 다운로드</h1>
+    <p data-i18n="hero_desc">Aerogel is a custom Minecraft server engine that uses Folia exclusively for parallel chunk generation while implementing the entire server runtime independently.</p>
+
+    <div class="quick">
+      <div class="quick-item">
+        <span class="quick-label" data-i18n="quick_repo_label">Repository</span>
+        <span class="quick-value">MCAerogel/Aerogel</span>
+      </div>
+      <div class="quick-item">
+        <span class="quick-label" data-i18n="quick_asset_label">Asset</span>
+        <span class="quick-value">Aerogel.jar</span>
+      </div>
+      <div class="quick-item">
+        <span class="quick-label" data-i18n="quick_hosting_label">Hosting</span>
+        <span class="quick-value" data-i18n="quick_hosting_value">GitHub Pages Ready</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="latestSection" class="latest" hidden aria-live="polite"></section>
+  <section class="notice" aria-live="polite">
+    <strong data-i18n="notice_title">주의</strong>
+    <p data-i18n="notice_body">현재 Aerogel은 초기 개발 단계로, 실제 운영 환경에 사용할 만큼 안정적이지 않습니다. 기여 및 테스트 목적으로 사용을 권장합니다.</p>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2 data-i18n="section_title">버전별 다운로드</h2>
+      <span id="status" class="status" data-i18n="status_loading">릴리즈 정보를 가져오는 중...</span>
+    </div>
+    <div class="controls">
+      <input
+        id="searchInput"
+        class="search"
+        type="search"
+        placeholder="버전 검색 (예: 1.21, 1.20.6)"
+        data-i18n-placeholder="search_placeholder"
+        aria-label="버전 검색"
+        data-i18n-aria-label="search_aria_label"
+      />
+    </div>
+    <div id="releases" class="grid" aria-live="polite"></div>
+  </section>
+
+  <p class="footer" data-i18n="footer_text">Official releases from MCAerogel/Aerogel</p>
+</main>
+
+<script>
+  const API_URL = "https://api.github.com/repos/MCAerogel/Aerogel/releases";
+  const LOCALE = (navigator.language || "en").toLowerCase().startsWith("ko") ? "ko" : "en";
+  document.documentElement.lang = LOCALE;
+  const I18N = {
+    ko: {
+      hero_badge: "Aerogel Server",
+      hero_title: "Aerogel 다운로드",
+      hero_desc: "Aerogel은 병렬 청크 생성을 위해 Folia를 전용으로 사용하면서, 서버 런타임 전체를 독립적으로 구현한 커스텀 마인크래프트 서버 엔진입니다.",
+      quick_repo_label: "Repository",
+      quick_asset_label: "파일",
+      quick_hosting_label: "호스팅",
+      quick_hosting_value: "GitHub Pages 지원",
+      section_title: "버전별 다운로드",
+      status_loading: "릴리즈 정보를 가져오는 중...",
+      status_fetching: "릴리즈 정보를 불러오는 중...",
+      status_total: "총 {count}개 버전",
+      status_filtered: "검색 결과 {filtered}개 / 전체 {total}개",
+      status_none: "표시할 Aerogel.jar 릴리즈가 없습니다.",
+      status_error: "릴리즈를 불러오지 못했습니다.",
+      search_placeholder: "버전 검색 (예: 1.21, 1.20.6)",
+      search_aria_label: "버전 검색",
+      latest_label: "최신 개발 초기 버전",
+      latest_download: "최신 버전 다운로드",
+      release_title: "Minecraft {tag}",
+      release_date: "릴리즈: {date}",
+      release_size: "파일 크기: {size}",
+      download: "다운로드",
+      empty_search: "조건에 맞는 버전이 없습니다. 다른 키워드로 검색해 보세요.",
+      empty_release: "현재 공개된 릴리즈에서 <strong>Aerogel.jar</strong> 파일을 찾지 못했습니다.",
+      error_text: "릴리즈 정보를 가져오지 못했습니다. 잠시 후 다시 시도해 주세요.",
+      latest_meta: "릴리즈: {date} · 크기: {size}",
+      footer_text: "MCAerogel/Aerogel 공식 릴리즈",
+      page_title: "Aerogel 다운로드",
+      meta_description: "마인크래프트 버전별 Aerogel 다운로드 페이지",
+      notice_title: "주의",
+      notice_body: "현재 Aerogel은 초기 개발 단계로, 실제 운영 환경에 사용할 만큼 안정적이지 않습니다. 기여 및 테스트 목적으로 사용을 권장합니다."
+    },
+    en: {
+      hero_badge: "Aerogel Server",
+      hero_title: "Download Aerogel",
+      hero_desc: "Aerogel is a custom Minecraft server engine that uses Folia exclusively for parallel chunk generation while implementing the entire server runtime independently.",
+      quick_repo_label: "Repository",
+      quick_asset_label: "Asset",
+      quick_hosting_label: "Hosting",
+      quick_hosting_value: "GitHub Pages Ready",
+      section_title: "Downloads by Version",
+      status_loading: "Loading release information...",
+      status_fetching: "Fetching releases...",
+      status_total: "{count} versions",
+      status_filtered: "{filtered} matches / {total} total",
+      status_none: "No Aerogel.jar releases available to display.",
+      status_error: "Failed to load releases.",
+      search_placeholder: "Search versions (e.g. 1.21, 1.20.6)",
+      search_aria_label: "Search versions",
+      latest_label: "Latest Early Development Build",
+      latest_download: "Download Latest",
+      release_title: "Minecraft {tag}",
+      release_date: "Released: {date}",
+      release_size: "File size: {size}",
+      download: "Download",
+      empty_search: "No versions match your search. Try another keyword.",
+      empty_release: "Could not find <strong>Aerogel.jar</strong> in current public releases.",
+      error_text: "Unable to fetch release information right now. Please try again later.",
+      latest_meta: "Released: {date} · Size: {size}",
+      footer_text: "Official releases from MCAerogel/Aerogel",
+      page_title: "Aerogel Downloads",
+      meta_description: "Download Aerogel by Minecraft version",
+      notice_title: "Notice",
+      notice_body: "Aerogel is in early development and is not yet stable enough for production use. It is recommended for contribution and testing purposes."
+    }
+  };
+
+  const releasesEl = document.getElementById("releases");
+  const statusEl = document.getElementById("status");
+  const latestSectionEl = document.getElementById("latestSection");
+  const searchInputEl = document.getElementById("searchInput");
+  let releaseItems = [];
+
+  function t(key, vars = {}) {
+    const table = I18N[LOCALE] || I18N.en;
+    const template = table[key] || I18N.en[key] || key;
+    return template.replace(/\{(\w+)}/g, (_, name) => String(vars[name] ?? ""));
+  }
+
+  function applyStaticTranslations() {
+    const metaDescriptionEl = document.getElementById("metaDescription");
+    document.title = t("page_title");
+    if (metaDescriptionEl) {
+      metaDescriptionEl.setAttribute("content", t("meta_description"));
+    }
+
+    document.querySelectorAll("[data-i18n]").forEach((el) => {
+      el.textContent = t(el.dataset.i18n);
+    });
+
+    document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+      el.setAttribute("placeholder", t(el.dataset.i18nPlaceholder));
+    });
+
+    document.querySelectorAll("[data-i18n-aria-label]").forEach((el) => {
+      el.setAttribute("aria-label", t(el.dataset.i18nAriaLabel));
+    });
+  }
+
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    if (Number.isNaN(date.getTime())) return LOCALE === "ko" ? "날짜 정보 없음" : "No date";
+
+    return new Intl.DateTimeFormat(LOCALE === "ko" ? "ko-KR" : "en-US", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit"
+    }).format(date);
+  }
+
+  function formatSize(bytes) {
+    if (typeof bytes !== "number" || Number.isNaN(bytes)) return LOCALE === "ko" ? "크기 정보 없음" : "No size";
+    const mb = bytes / (1024 * 1024);
+    return mb >= 1 ? `${mb.toFixed(2)} MB` : `${(bytes / 1024).toFixed(0)} KB`;
+  }
+
+  function createCard(release, jarAsset) {
+    const card = document.createElement("article");
+    card.className = "release-card";
+
+    card.innerHTML = `
+      <h3 class="release-title">${t("release_title", { tag: release.tag_name })}</h3>
+      <p class="meta">${t("release_date", { date: formatDate(release.published_at) })}</p>
+      <p class="meta">${t("release_size", { size: formatSize(jarAsset.size) })}</p>
+      <div class="actions">
+        <span class="jar">${jarAsset.name}</span>
+        <a class="btn" href="${jarAsset.browser_download_url}" target="_blank" rel="noopener noreferrer">${t("download")}</a>
+      </div>
+    `;
+
+    return card;
+  }
+
+  function setStatus(message) {
+    statusEl.textContent = message;
+  }
+
+  function renderLatest(item) {
+    if (!item) {
+      latestSectionEl.hidden = true;
+      latestSectionEl.innerHTML = "";
+      return;
+    }
+
+    latestSectionEl.hidden = false;
+    latestSectionEl.innerHTML = `
+      <div>
+        <span class="latest-label">${t("latest_label")}</span>
+        <h2 class="latest-title">${t("release_title", { tag: item.release.tag_name })}</h2>
+        <p class="latest-meta">${t("latest_meta", { date: formatDate(item.release.published_at), size: formatSize(item.jarAsset.size) })}</p>
+      </div>
+      <a class="btn" href="${item.jarAsset.browser_download_url}" target="_blank" rel="noopener noreferrer">
+        ${t("latest_download")}
+      </a>
+    `;
+  }
+
+  function renderItems(items) {
+    releasesEl.innerHTML = "";
+    if (items.length === 0) {
+      releasesEl.innerHTML = `<div class="empty">${t("empty_search")}</div>`;
+      return;
+    }
+
+    items.forEach(({ release, jarAsset }) => {
+      releasesEl.appendChild(createCard(release, jarAsset));
+    });
+  }
+
+  function applyFilter() {
+    const query = searchInputEl.value.trim().toLowerCase();
+    const filtered = query
+      ? releaseItems.filter(({ release }) => release.tag_name.toLowerCase().includes(query))
+      : releaseItems;
+
+    renderItems(filtered);
+    setStatus(query ? t("status_filtered", { filtered: filtered.length, total: releaseItems.length }) : t("status_total", { count: releaseItems.length }));
+  }
+
+  function renderError(message) {
+    renderLatest(null);
+    releasesEl.innerHTML = `<div class="error">${message}</div>`;
+  }
+
+  async function loadReleases() {
+    try {
+      setStatus(t("status_fetching"));
+      const response = await fetch(API_URL, {
+        headers: {
+          Accept: "application/vnd.github+json"
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`GitHub API 오류 (${response.status})`);
+      }
+
+      const releases = await response.json();
+
+      const items = releases
+        .filter((release) => !release.draft)
+        .map((release) => {
+          const jarAsset = (release.assets || []).find((asset) => asset.name === "Aerogel.jar");
+          return jarAsset ? { release, jarAsset } : null;
+        })
+        .filter(Boolean)
+        .sort((a, b) => new Date(b.release.published_at).getTime() - new Date(a.release.published_at).getTime());
+
+      if (items.length === 0) {
+        renderLatest(null);
+        setStatus(t("status_none"));
+        releasesEl.innerHTML = `<div class="empty">${t("empty_release")}</div>`;
+        return;
+      }
+
+      releaseItems = items;
+      renderLatest(items[0]);
+      applyFilter();
+    } catch (error) {
+      setStatus(t("status_error"));
+      renderError(t("error_text"));
+      console.error(error);
+    }
+  }
+
+  applyStaticTranslations();
+  searchInputEl.addEventListener("input", applyFilter);
+  loadReleases();
+</script>
+</body>
+</html>
