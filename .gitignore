@@ -1,1 +1,9 @@
 .idea/
+
+# local secrets
+.env.local
+
+# Cloudflare local/secrets
+cloudflare/.dev.vars
+cloudflare/.dev.vars.*
+cloudflare/.wrangler/

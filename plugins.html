@@ -1,0 +1,2119 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aerogel Plugin Hub</title>
+  <meta id="metaDescription" name="description" content="Aerogel community plugin hub" />
+  <link rel="icon" type="image/png" href="https://github.com/MCAerogel.png" />
+  <style>
+    @import url("https://cdn.jsdelivr.net/npm/spoqa-han-sans@3.3.0/css/SpoqaHanSansNeo.css");
+
+    :root {
+      --bg: #0a0d12;
+      --line: rgba(255, 255, 255, 0.08);
+      --text: #f4f7fb;
+    }
+
+    * { box-sizing: border-box; }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background: radial-gradient(circle at 15% -10%, #1f3045 0%, transparent 45%),
+        radial-gradient(circle at 85% 8%, #253646 0%, transparent 32%),
+        linear-gradient(150deg, #080b10 0%, #0b1118 45%, #0a1019 100%);
+      color: var(--text);
+      font-family: "Spoqa Han Sans Neo", "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: auto;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      width: 48vw;
+      height: 48vw;
+      min-width: 320px;
+      min-height: 320px;
+      max-width: 720px;
+      max-height: 720px;
+      left: 18%;
+      top: -26%;
+      background: radial-gradient(circle, rgba(95, 210, 255, 0.2) 0%, rgba(64, 163, 244, 0.12) 34%, transparent 68%);
+      filter: blur(18px);
+      pointer-events: none;
+      z-index: -1;
+      animation: ambient-drift-a 18s ease-in-out infinite alternate;
+    }
+
+    body::after {
+      width: 44vw;
+      height: 44vw;
+      min-width: 280px;
+      min-height: 280px;
+      max-width: 660px;
+      max-height: 660px;
+      right: -12%;
+      top: -24%;
+      background:
+        radial-gradient(circle at 35% 35%, rgba(71, 161, 255, 0.24) 0%, transparent 52%),
+        radial-gradient(circle at 70% 60%, rgba(255, 186, 92, 0.16) 0%, transparent 58%),
+        radial-gradient(circle at 45% 78%, rgba(82, 226, 202, 0.14) 0%, transparent 58%);
+      filter: blur(20px);
+      animation: ambient-drift-b 21s ease-in-out infinite alternate;
+    }
+
+    .parallel-top-visual {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+      opacity: 0.5;
+      --grid-step: 56px;
+      --grid-line: 1px;
+      --grid-inner: calc(var(--grid-step) - var(--grid-line));
+      --chunk-nudge-x: 0px;
+      --chunk-nudge-y: 0px;
+    }
+
+    .parallel-top-visual::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(10, 14, 20, 0.2) 0%, rgba(10, 14, 20, 0.06) 64%, rgba(10, 14, 20, 0) 100%),
+        linear-gradient(to right, rgba(98, 176, 242, 0.12) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(98, 176, 242, 0.1) 1px, transparent 1px);
+      background-size: auto, var(--grid-step) var(--grid-step), var(--grid-step) var(--grid-step);
+      background-position: 0 0, 0 0, 0 0;
+    }
+
+    .parallel-top-visual::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 35%, rgba(99, 182, 247, 0.09), transparent 58%);
+      opacity: 0.2;
+    }
+
+    .parallel-chunk {
+      position: absolute;
+      width: var(--grid-inner);
+      height: var(--grid-inner);
+      left: calc(var(--gx) * var(--grid-step) + var(--grid-line) + var(--chunk-nudge-x));
+      top: calc(var(--gy) * var(--grid-step) + var(--grid-line) + var(--chunk-nudge-y));
+      border-radius: 0;
+      border: 0;
+      background: linear-gradient(145deg, rgba(129, 215, 255, 0.24), rgba(123, 230, 195, 0.18));
+      box-shadow: none;
+      opacity: 0;
+      animation: chunk-soft-activate 7.4s ease-in-out infinite;
+    }
+
+    .parallel-chunk.c1 { --gx: 2; --gy: 2; animation-delay: -0.4s; }
+    .parallel-chunk.c2 { --gx: 6; --gy: 3; animation-delay: -2.1s; }
+    .parallel-chunk.c3 { --gx: 11; --gy: 1; animation-delay: -3.2s; }
+    .parallel-chunk.c4 { --gx: 14; --gy: 5; animation-delay: -1.1s; }
+    .parallel-chunk.c5 { --gx: 4; --gy: 7; animation-delay: -4.3s; }
+    .parallel-chunk.c6 { --gx: 9; --gy: 6; animation-delay: -5.2s; }
+    .parallel-chunk.c7 { --gx: 16; --gy: 8; animation-delay: -2.7s; }
+    .parallel-chunk.c8 { --gx: 20; --gy: 3; animation-delay: -6.0s; }
+    .parallel-chunk.c9 { --gx: 22; --gy: 7; animation-delay: -0.9s; }
+    .parallel-chunk.c10 { --gx: 1; --gy: 9; animation-delay: -3.7s; }
+
+    .top-header {
+      position: fixed;
+      top: 8px;
+      left: 10px;
+      right: 10px;
+      max-width: none;
+      z-index: 40;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(18, 24, 33, 0.86);
+      backdrop-filter: blur(10px);
+      padding: 12px 14px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: center;
+      gap: 12px;
+      transition: border-color 150ms ease, background 150ms ease, transform 150ms ease;
+      box-shadow: 0 0 0 rgba(108, 185, 255, 0);
+    }
+
+    .top-header:hover {
+      border-color: rgba(138, 199, 255, 0.38);
+      background: rgba(22, 30, 40, 0.86);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 32px rgba(80, 168, 241, 0.22);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-width: 0;
+      justify-self: start;
+    }
+
+    .brand-logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      flex: 0 0 auto;
+    }
+
+    .brand-text {
+      min-width: 0;
+      display: grid;
+      gap: 1px;
+    }
+
+    .brand-label {
+      margin: 0;
+      color: #95a8c0;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .brand-name {
+      margin: 0;
+      color: #ecf5ff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .header-center {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+      flex-wrap: nowrap;
+      justify-content: center;
+      justify-self: center;
+    }
+
+    .header-chip {
+      border: 1px solid rgba(152, 174, 198, 0.28);
+      background: rgba(33, 43, 56, 0.6);
+      color: #c6d8ec;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 0.77rem;
+      white-space: nowrap;
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: nowrap;
+      justify-self: end;
+      justify-content: flex-end;
+      min-width: 0;
+      position: relative;
+    }
+
+    .header-link {
+      text-decoration: none;
+      color: #cce7ff;
+      border: 1px solid rgba(136, 198, 246, 0.32);
+      border-radius: 999px;
+      height: 34px;
+      padding: 0 12px;
+      font-size: 0.73rem;
+      font-weight: 700;
+      background: rgba(28, 44, 62, 0.6);
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .header-link.active {
+      border-color: rgba(152, 215, 255, 0.56);
+      color: #f2f9ff;
+      background: rgba(40, 62, 88, 0.76);
+    }
+
+    .header-account-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid rgba(136, 198, 246, 0.34);
+      background: rgba(28, 44, 62, 0.68);
+      color: #d3e8fb;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      overflow: hidden;
+      flex: 0 0 auto;
+    }
+
+    .header-account-btn.guest {
+      width: auto;
+      padding: 0 12px 0 10px;
+      gap: 6px;
+      border-radius: 999px;
+      background: rgba(23, 31, 42, 0.78);
+      border-color: rgba(123, 145, 170, 0.36);
+      color: #c9d8e8;
+    }
+
+    .header-account-btn.guest:hover {
+      background: rgba(29, 39, 52, 0.9);
+      border-color: rgba(142, 165, 191, 0.5);
+      color: #d8e8f8;
+      filter: none;
+    }
+
+    .header-account-btn:hover {
+      filter: brightness(1.08);
+    }
+
+    .header-account-avatar {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    .header-account-icon {
+      width: 20px;
+      height: 20px;
+      flex: 0 0 auto;
+      display: block;
+    }
+
+    .nav-link-icon {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 auto;
+      display: block;
+    }
+
+    .nav-link-icon.plugin-icon {
+      transform: scale(1.28);
+      transform-origin: center;
+    }
+
+    .header-account-label {
+      font-size: 0.73rem;
+      font-weight: 700;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .header-account-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      min-width: 220px;
+      border: 1px solid rgba(130, 187, 236, 0.28);
+      border-radius: 12px;
+      background: rgba(15, 24, 35, 0.96);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.42);
+      padding: 8px;
+      z-index: 60;
+    }
+
+    .header-account-menu[hidden] {
+      display: none;
+    }
+
+    .header-account-menu-head {
+      border: 1px solid rgba(130, 187, 236, 0.2);
+      border-radius: 9px;
+      padding: 8px 9px;
+      background: rgba(30, 47, 66, 0.52);
+      margin-bottom: 7px;
+    }
+
+    .header-account-menu-user {
+      margin: 0;
+      color: #e6f3ff;
+      font-size: 0.77rem;
+      font-weight: 700;
+    }
+
+    .header-account-menu-role {
+      margin: 3px 0 0;
+      color: #9ec0df;
+      font-size: 0.71rem;
+    }
+
+    .header-account-menu-item {
+      width: 100%;
+      border: 1px solid rgba(132, 186, 232, 0.24);
+      border-radius: 8px;
+      background: rgba(24, 40, 58, 0.7);
+      color: #d8ebfc;
+      font-size: 0.74rem;
+      padding: 8px 9px;
+      text-decoration: none;
+      text-align: left;
+      cursor: pointer;
+      display: block;
+    }
+
+    .header-account-menu-item + .header-account-menu-item {
+      margin-top: 6px;
+    }
+
+    .header-account-menu-item:hover {
+      filter: brightness(1.08);
+    }
+
+    .header-account-menu-item.logout {
+      border-color: rgba(234, 140, 140, 0.34);
+      background: rgba(82, 38, 38, 0.64);
+      color: #ffdcdc;
+    }
+
+    .header-account-menu-note {
+      margin: 0;
+      color: #8fb2d4;
+      font-size: 0.71rem;
+      line-height: 1.45;
+    }
+
+    .page {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 90px 28px 48px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 22px 20px;
+      background: linear-gradient(145deg, rgba(20, 30, 43, 0.86), rgba(11, 19, 29, 0.84));
+      margin-bottom: 16px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      border: 1px solid rgba(133, 206, 255, 0.38);
+      border-radius: 999px;
+      padding: 4px 9px;
+      font-size: 0.71rem;
+      color: #cde8ff;
+      background: rgba(29, 46, 66, 0.62);
+    }
+
+    .hero h1 {
+      margin: 10px 0 0;
+      font-size: clamp(1.25rem, 2.6vw, 2rem);
+      color: #e7f4ff;
+    }
+
+    .hero p {
+      margin: 8px 0 0;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #a8c3de;
+      max-width: 760px;
+    }
+
+    .plugin-hub {
+      margin-top: 16px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .plugin-hub-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .plugin-hub-title {
+      margin: 0;
+      font-size: 1.04rem;
+      color: #e8f4ff;
+    }
+
+    .plugin-hub-desc {
+      margin: 6px 0 0;
+      color: #a6bfd8;
+      font-size: 0.84rem;
+      line-height: 1.55;
+    }
+
+    .plugin-hub-meta {
+      color: #8eb8db;
+      font-size: 0.79rem;
+      background: rgba(27, 45, 64, 0.56);
+      border: 1px solid rgba(130, 187, 233, 0.28);
+      border-radius: 999px;
+      padding: 4px 10px;
+      white-space: nowrap;
+    }
+
+    .plugin-hub-actions {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .plugin-create-btn {
+      border: 1px solid rgba(126, 196, 250, 0.46);
+      border-radius: 10px;
+      background: rgba(26, 47, 67, 0.74);
+      color: #e6f3ff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 8px 12px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .plugin-create-btn:hover {
+      filter: brightness(1.08);
+    }
+
+    .plugin-upload-panel {
+      border-color: rgba(118, 186, 238, 0.3);
+      background: rgba(9, 16, 26, 0.86);
+    }
+
+    .plugin-upload-panel[hidden] {
+      display: none;
+    }
+
+    .plugin-panel {
+      border: 1px solid rgba(131, 177, 216, 0.22);
+      border-radius: 14px;
+      background: rgba(10, 17, 27, 0.74);
+      padding: 18px;
+    }
+
+    .plugin-panel-title {
+      margin: 0;
+      color: #dff0ff;
+      font-size: 0.9rem;
+    }
+
+    .plugin-panel-text {
+      margin: 6px 0 0;
+      color: #9db8d3;
+      font-size: 0.79rem;
+      line-height: 1.5;
+    }
+
+    .plugin-form {
+      margin-top: 11px;
+      display: grid;
+      gap: 9px;
+    }
+
+    .plugin-form-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px;
+    }
+
+    .plugin-label {
+      display: grid;
+      gap: 5px;
+      color: #cbe5ff;
+      font-size: 0.75rem;
+      letter-spacing: 0.01em;
+    }
+
+    .plugin-input,
+    .plugin-textarea {
+      border: 1px solid rgba(132, 186, 232, 0.22);
+      border-radius: 10px;
+      background: rgba(13, 22, 34, 0.92);
+      color: #e8f4ff;
+      font-size: 0.82rem;
+      padding: 9px 10px;
+      font-family: "Spoqa Han Sans Neo", "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", sans-serif;
+      min-width: 0;
+    }
+
+    .plugin-input:focus,
+    .plugin-textarea:focus {
+      outline: none;
+      border-color: rgba(139, 211, 255, 0.58);
+      box-shadow: 0 0 0 3px rgba(95, 172, 224, 0.14);
+    }
+
+    .plugin-textarea {
+      min-height: 88px;
+      resize: vertical;
+    }
+
+    .plugin-submit {
+      width: fit-content;
+      border: 1px solid rgba(126, 196, 250, 0.48);
+      border-radius: 10px;
+      background: linear-gradient(180deg, rgba(62, 133, 186, 0.86), rgba(42, 104, 153, 0.86));
+      color: #f2faff;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 10px 14px;
+      cursor: pointer;
+    }
+
+    .plugin-submit:hover { filter: brightness(1.06); }
+
+    .plugin-submit:disabled {
+      cursor: progress;
+      opacity: 0.74;
+    }
+
+    .plugin-note {
+      margin: 2px 0 0;
+      color: #83a8c9;
+      font-size: 0.73rem;
+      line-height: 1.5;
+    }
+
+    .plugin-status {
+      margin: 10px 0 0;
+      font-size: 0.78rem;
+      color: #d7ebff;
+      border: 1px solid rgba(130, 186, 230, 0.22);
+      border-radius: 10px;
+      background: rgba(22, 37, 53, 0.6);
+      padding: 8px 10px;
+    }
+
+    .plugin-status.error {
+      border-color: rgba(237, 140, 140, 0.36);
+      background: rgba(75, 34, 34, 0.44);
+      color: #ffdede;
+    }
+
+    .plugin-main-layout {
+      display: grid;
+      grid-template-columns: 250px minmax(0, 1fr);
+      gap: 18px;
+    }
+
+    .plugin-left-filters {
+      align-content: start;
+    }
+
+    .plugin-list-panel {
+      min-width: 0;
+      border: 0;
+      background: transparent;
+      padding: 2px 4px;
+    }
+
+    .plugin-search-wrap {
+      position: relative;
+      margin: 0 0 10px;
+    }
+
+    .plugin-search-icon {
+      position: absolute;
+      left: 13px;
+      top: 50%;
+      width: 15px;
+      height: 15px;
+      transform: translateY(-50%);
+      color: #91afcb;
+      pointer-events: none;
+    }
+
+    .plugin-search-input {
+      width: 100%;
+      border: 1px solid rgba(132, 186, 232, 0.24);
+      border-radius: 10px;
+      background: rgba(11, 20, 31, 0.84);
+      color: #e8f4ff;
+      font-size: 0.8rem;
+      padding: 12px 14px 12px 38px;
+      outline: none;
+      transition: border-color 140ms ease, background-color 140ms ease;
+    }
+
+    .plugin-search-input::placeholder {
+      color: #86a8c7;
+    }
+
+    .plugin-search-input:hover {
+      border-color: rgba(146, 192, 231, 0.42);
+      background: rgba(14, 24, 36, 0.9);
+    }
+
+    .plugin-search-input:focus {
+      border-color: rgba(160, 207, 244, 0.72);
+      background: rgba(15, 26, 39, 0.95);
+      box-shadow: 0 0 0 2px rgba(80, 132, 172, 0.25);
+    }
+
+    .plugin-list-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .plugin-stats {
+      color: #8eb5d8;
+      font-size: 0.76rem;
+    }
+
+    .plugin-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .plugin-item {
+      display: grid;
+      grid-template-columns: 40px minmax(0, 1fr) auto;
+      align-items: start;
+      gap: 14px;
+      padding: 16px 6px;
+      border-bottom: 1px solid rgba(128, 179, 220, 0.16);
+    }
+
+    .plugin-item-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 11px;
+      border: 1px solid rgba(130, 189, 236, 0.34);
+      background: linear-gradient(160deg, rgba(51, 84, 117, 0.7), rgba(32, 53, 76, 0.74));
+      color: #d7ecff;
+      font-size: 0.84rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      text-transform: uppercase;
+    }
+
+    .plugin-item-main {
+      min-width: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .plugin-item-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .plugin-item-title {
+      margin: 0;
+      color: #e7f4ff;
+      font-size: 0.9rem;
+      word-break: break-word;
+    }
+
+    .plugin-badges {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .plugin-badge {
+      font-size: 0.68rem;
+      border-radius: 999px;
+      padding: 2px 8px;
+      border: 1px solid rgba(130, 189, 236, 0.32);
+      background: rgba(29, 48, 68, 0.64);
+      color: #cce7ff;
+      white-space: nowrap;
+    }
+
+    .plugin-badge.pending {
+      border-color: rgba(248, 209, 107, 0.4);
+      background: rgba(85, 67, 27, 0.45);
+      color: #ffe6a9;
+    }
+
+    .plugin-badge.approved {
+      border-color: rgba(129, 222, 170, 0.42);
+      background: rgba(27, 74, 54, 0.46);
+      color: #caffdf;
+    }
+
+    .plugin-item-meta {
+      margin: 0;
+      color: #9cb8d4;
+      font-size: 0.75rem;
+      line-height: 1.5;
+      white-space: normal;
+      word-break: break-word;
+    }
+
+    .plugin-item-desc {
+      margin: 0;
+      color: #b9d4ec;
+      font-size: 0.78rem;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .plugin-item-actions {
+      display: grid;
+      justify-items: end;
+      align-content: center;
+      gap: 8px;
+    }
+
+    .plugin-item-downloads {
+      color: #8cb3d4;
+      font-size: 0.74rem;
+    }
+
+    .plugin-action-group {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 9px;
+      flex-wrap: wrap;
+    }
+
+    .plugin-btn {
+      border: 1px solid rgba(130, 187, 236, 0.34);
+      border-radius: 9px;
+      background: rgba(26, 45, 64, 0.72);
+      color: #daf0ff;
+      font-size: 0.73rem;
+      font-weight: 700;
+      padding: 9px 12px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .plugin-btn:hover { filter: brightness(1.08); }
+
+    .plugin-btn[disabled] {
+      opacity: 0.56;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .plugin-btn.approve {
+      border-color: rgba(129, 222, 170, 0.38);
+      background: rgba(25, 70, 51, 0.75);
+      color: #d7ffe7;
+    }
+
+    .plugin-btn.reject {
+      border-color: rgba(234, 140, 140, 0.36);
+      background: rgba(84, 39, 39, 0.66);
+      color: #ffd9d9;
+    }
+
+    .plugin-empty {
+      margin: 0;
+      color: #99b7d3;
+      font-size: 0.79rem;
+      border: 1px dashed rgba(130, 186, 230, 0.22);
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .plugin-filter-stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    .plugin-filter-card {
+      border: 1px solid rgba(131, 177, 216, 0.22);
+      border-radius: 12px;
+      background: rgba(10, 17, 27, 0.72);
+      backdrop-filter: blur(9px);
+      -webkit-backdrop-filter: blur(9px);
+      padding: 16px;
+      display: grid;
+      gap: 0;
+      align-content: start;
+    }
+
+    .plugin-filter-title {
+      margin: 0;
+      color: #dff0ff;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .plugin-filter-toggle {
+      width: 100%;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .plugin-filter-toggle-icon {
+      width: 14px;
+      height: 14px;
+      color: #9ec1df;
+      flex: 0 0 auto;
+      transition: transform 160ms ease;
+      transform: rotate(180deg);
+    }
+
+    .plugin-filter-toggle[aria-expanded="false"] .plugin-filter-toggle-icon {
+      transform: rotate(0deg);
+    }
+
+    .plugin-filter-panel {
+      margin-top: 0;
+      height: auto;
+      overflow: hidden;
+      opacity: 1;
+    }
+
+    .plugin-filter-panel > .plugin-check-list {
+      padding-top: 17px;
+    }
+
+    .plugin-filter-panel.collapsed {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .plugin-filter-label {
+      margin: 0;
+      color: #9cb8d4;
+      font-size: 0.72rem;
+    }
+
+    .plugin-check-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .plugin-check-item {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 18px;
+      align-items: center;
+      gap: 12px;
+      color: #cde5fb;
+      font-size: 0.77rem;
+      line-height: 1.35;
+      cursor: pointer;
+      user-select: none;
+      padding: 2px 0;
+    }
+
+    .plugin-check-item input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      pointer-events: none;
+      margin: 0;
+    }
+
+    .plugin-check-text {
+      min-width: 0;
+    }
+
+    .plugin-check-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 5px;
+      border: 1px solid rgba(132, 149, 166, 0.46);
+      background: rgba(89, 104, 121, 0.14);
+      color: #d7ebff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 150ms ease, background-color 150ms ease, color 150ms ease;
+    }
+
+    .plugin-check-icon svg {
+      width: 12px;
+      height: 12px;
+      opacity: 0;
+      transform: scale(0.88);
+      transition: opacity 140ms ease, transform 140ms ease;
+    }
+
+    .plugin-check-item:hover .plugin-check-icon {
+      border-color: rgba(158, 172, 188, 0.68);
+      background: rgba(124, 138, 154, 0.2);
+    }
+
+    .plugin-check-item input:focus-visible + .plugin-check-text + .plugin-check-icon {
+      border-color: rgba(177, 214, 246, 0.82);
+      box-shadow: 0 0 0 2px rgba(92, 138, 179, 0.24);
+    }
+
+    .plugin-check-item input:checked + .plugin-check-text + .plugin-check-icon {
+      border-color: rgba(126, 189, 236, 0.86);
+      background: rgba(54, 96, 132, 0.38);
+      color: #e5f4ff;
+    }
+
+    .plugin-check-item input:checked + .plugin-check-text + .plugin-check-icon svg {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    @media (max-width: 760px) {
+      .page { padding: 84px 16px 34px; }
+      .top-header {
+        padding: 10px 12px;
+        grid-template-columns: 1fr auto;
+      }
+      .header-center { display: none; }
+      .brand-logo {
+        width: 30px;
+        height: 30px;
+        border-radius: 9px;
+      }
+      .plugin-hub { padding: 16px; }
+      .plugin-form-row { grid-template-columns: 1fr; }
+      .plugin-main-layout { grid-template-columns: 1fr; }
+      .plugin-item { grid-template-columns: 36px minmax(0, 1fr); }
+      .plugin-item-actions {
+        grid-column: 1 / -1;
+        justify-items: start;
+      }
+      .plugin-action-group { justify-content: flex-start; }
+    }
+
+    @media (max-width: 900px) {
+      .parallel-chunk.c7,
+      .parallel-chunk.c8,
+      .parallel-chunk.c9,
+      .parallel-chunk.c10 {
+        display: none;
+      }
+    }
+
+    @keyframes ambient-drift-a {
+      0% {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+      100% {
+        transform: translate3d(-18px, 12px, 0) scale(1.06);
+      }
+    }
+
+    @keyframes ambient-drift-b {
+      0% {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+      100% {
+        transform: translate3d(20px, -8px, 0) scale(1.07);
+      }
+    }
+
+    @keyframes chunk-soft-activate {
+      0%, 100% {
+        opacity: 0;
+        filter: saturate(0.95);
+      }
+      16% {
+        opacity: 0;
+      }
+      24% {
+        opacity: 0.4;
+        filter: saturate(1.02);
+      }
+      52% {
+        opacity: 0.34;
+      }
+      64% {
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="parallel-top-visual" aria-hidden="true">
+    <span class="parallel-chunk c1"></span>
+    <span class="parallel-chunk c2"></span>
+    <span class="parallel-chunk c3"></span>
+    <span class="parallel-chunk c4"></span>
+    <span class="parallel-chunk c5"></span>
+    <span class="parallel-chunk c6"></span>
+    <span class="parallel-chunk c7"></span>
+    <span class="parallel-chunk c8"></span>
+    <span class="parallel-chunk c9"></span>
+    <span class="parallel-chunk c10"></span>
+  </div>
+  <header class="top-header">
+    <div class="brand">
+      <img class="brand-logo" src="https://github.com/MCAerogel.png" alt="MCAerogel logo" />
+      <div class="brand-text">
+        <p class="brand-label" data-i18n="header_label">Plugin Directory</p>
+        <p class="brand-name" data-i18n="page_header">Aerogel Plugin Hub</p>
+      </div>
+    </div>
+    <div class="header-center">
+      <span class="header-chip" id="pluginHeaderTotalChip" data-i18n="header_total_placeholder">전체: -</span>
+      <span class="header-chip" id="pluginHeaderApprovedChip" data-i18n="header_approved_placeholder">다운로드: -</span>
+      <span class="header-chip" id="pluginHeaderPendingChip" data-i18n="header_pending_placeholder">작성자: -</span>
+    </div>
+    <nav class="header-nav">
+      <a class="header-link" href="./index.html">
+        <svg class="nav-link-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="3.5" y="5" width="17" height="14" rx="2.4" stroke="currentColor" stroke-width="1.7"/>
+          <path d="M7.5 10 10 12l-2.5 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12.7 15h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+        </svg>
+        <span data-i18n="nav_runtime">Runtime</span>
+      </a>
+      <a class="header-link active" href="./plugins.html">
+        <svg class="nav-link-icon plugin-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M9 6.5v3.5M15 6.5v3.5M8.2 10h7.6v3a3.8 3.8 0 0 1-3.8 3.8h0A3.8 3.8 0 0 1 8.2 13z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12 16.8v2.7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+        </svg>
+        <span data-i18n="nav_plugins">Plugins</span>
+      </a>
+      <button id="headerAccountBtn" class="header-account-btn guest" type="button" aria-haspopup="true" aria-expanded="false" data-i18n-aria-label="auth_menu_aria">
+        <img id="headerAccountAvatar" class="header-account-avatar" alt="account avatar" />
+        <svg id="headerAccountIcon" class="header-account-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="12" cy="8.5" r="3.5" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M5.4 18.2c1.5-2.7 3.9-4 6.6-4 2.7 0 5.1 1.3 6.6 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        <span id="headerAccountLabel" class="header-account-label" data-i18n="auth_signin_short">로그인</span>
+      </button>
+      <div id="headerAccountMenu" class="header-account-menu" hidden></div>
+    </nav>
+  </header>
+
+  <main class="page">
+    <section class="plugin-hub">
+        <article id="pluginUploadPanel" class="plugin-panel plugin-upload-panel" hidden>
+          <h4 class="plugin-panel-title">플러그인 등록</h4>
+          <p class="plugin-panel-text">플러그인 파일과 설명을 등록하면 목록에 반영됩니다.</p>
+          <form id="pluginUploadForm" class="plugin-form">
+            <div class="plugin-form-row">
+              <label class="plugin-label">이름
+                <input class="plugin-input" name="name" type="text" maxlength="48" required />
+              </label>
+              <label class="plugin-label">버전
+                <input class="plugin-input" name="version" type="text" maxlength="24" placeholder="1.0.0" required />
+              </label>
+            </div>
+            <div class="plugin-form-row">
+              <label class="plugin-label">작성자
+                <input class="plugin-input" name="author" type="text" maxlength="32" required />
+              </label>
+              <label class="plugin-label">카테고리
+                <select class="plugin-input" name="category" id="pluginCategorySelect" required>
+                  <option value="유틸리티">유틸리티</option>
+                  <option value="서버 관리">서버 관리</option>
+                  <option value="성능 최적화">성능 최적화</option>
+                  <option value="월드/지형">월드/지형</option>
+                  <option value="경제/상점">경제/상점</option>
+                  <option value="커뮤니티">커뮤니티</option>
+                  <option value="콘텐츠">콘텐츠</option>
+                  <option value="전투/PvP">전투/PvP</option>
+                  <option value="몹/인공지능">몹/인공지능</option>
+                  <option value="아이템/장비">아이템/장비</option>
+                  <option value="스킬/직업">스킬/직업</option>
+                  <option value="파티/길드">파티/길드</option>
+                  <option value="이동/탐험">이동/탐험</option>
+                  <option value="연동/외부서비스">연동/외부서비스</option>
+                  <option value="개발/API">개발/API</option>
+                </select>
+              </label>
+            </div>
+            <div class="plugin-form-row">
+              <label class="plugin-label">MC 호환 버전
+                <input class="plugin-input" name="mcVersion" type="text" maxlength="24" placeholder="1.21.1" required />
+              </label>
+              <label class="plugin-label">파일 타입
+                <input class="plugin-input" type="text" value=".jar" disabled />
+              </label>
+            </div>
+            <label class="plugin-label">설명
+              <textarea class="plugin-textarea" name="description" maxlength="400" required></textarea>
+            </label>
+            <label class="plugin-label">플러그인 파일 (.jar, 40MB 이하)
+              <input class="plugin-input" name="file" type="file" accept=".jar,application/java-archive" required />
+            </label>
+            <label class="plugin-label">업로드 API 주소 (선택)
+              <input class="plugin-input" id="pluginApiInput" name="apiUrl" type="url" placeholder="https://your-worker.workers.dev" />
+            </label>
+            <button id="pluginSubmitBtn" class="plugin-submit" type="submit">플러그인 등록</button>
+            <p class="plugin-note">API 주소를 연결하면 계정 기반으로 업로드할 수 있습니다.</p>
+            <p id="pluginStatusEl" class="plugin-status" hidden></p>
+          </form>
+        </article>
+        <div class="plugin-main-layout">
+          <aside class="plugin-filter-stack plugin-left-filters">
+            <section class="plugin-filter-card">
+              <button id="pluginCategoryToggleBtn" class="plugin-filter-toggle" type="button" aria-expanded="true">
+                <span class="plugin-filter-title" data-i18n="filter_category_title">카테고리</span>
+                <svg class="plugin-filter-toggle-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                  <path d="M5.5 7.5 10 12l4.5-4.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <div id="pluginCategoryPanel" class="plugin-filter-panel">
+                <div id="pluginCategoryFilters" class="plugin-check-list" aria-label="category filters"></div>
+              </div>
+            </section>
+            <section class="plugin-filter-card">
+              <button id="pluginVersionToggleBtn" class="plugin-filter-toggle" type="button" aria-expanded="true">
+                <span class="plugin-filter-title" data-i18n="filter_version_title">게임 버전</span>
+                <svg class="plugin-filter-toggle-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                  <path d="M5.5 7.5 10 12l4.5-4.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <div id="pluginVersionPanel" class="plugin-filter-panel">
+                <div id="pluginVersionFilters" class="plugin-check-list" aria-label="mc version filters"></div>
+              </div>
+            </section>
+          </aside>
+          <article class="plugin-panel plugin-list-panel">
+            <div class="plugin-search-wrap">
+              <svg class="plugin-search-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <circle cx="9" cy="9" r="5.6" stroke="currentColor" stroke-width="1.7"/>
+                <path d="m13.4 13.4 3.4 3.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+              </svg>
+              <input id="pluginSearchInput" class="plugin-search-input" type="search" />
+            </div>
+            <ul id="pluginListEl" class="plugin-list" aria-live="polite"></ul>
+          </article>
+        </div>
+    </section>
+  </main>
+
+  <script src="./auth-common.js"></script>
+  <script>
+    const LOCALE = (navigator.language || "en").toLowerCase().startsWith("ko") ? "ko" : "en";
+    document.documentElement.lang = LOCALE;
+    const I18N = {
+      ko: {
+        page_title: "Aerogel 플러그인 허브",
+        meta_description: "Aerogel 커뮤니티 플러그인 허브",
+        header_label: "플러그인 디렉터리",
+        page_header: "Aerogel 플러그인 허브",
+        header_total_placeholder: "전체: -",
+        header_approved_placeholder: "다운로드: -",
+        header_pending_placeholder: "작성자: -",
+        header_total: "전체: {count}",
+        header_approved: "다운로드: {count}",
+        header_pending: "작성자: {count}",
+        nav_runtime: "런타임",
+        nav_plugins: "플러그인",
+        nav_github: "GitHub",
+        hero_badge: "커뮤니티 플러그인",
+        hero_title: "Aerogel 플러그인 허브",
+        hero_desc: "다운로드 페이지와 분리된 전용 공간입니다. 커뮤니티 플러그인을 검색하고 바로 다운로드할 수 있습니다.",
+        hub_title: "플러그인 탐색",
+        hub_desc: "커뮤니티 플러그인을 검색하고 바로 다운로드하세요.",
+        list_title: "플러그인 목록",
+        list_desc: "사용자에게 공개된 플러그인을 중심으로 표시합니다.",
+        stats_visible: "표시 {shown}개 / 전체 {total}개",
+        filter_search_title: "검색",
+        filter_search_label: "이름/작성자/설명",
+        filter_search_placeholder: "키워드 입력",
+        filter_sort_title: "정렬",
+        filter_sort_label: "정렬 기준",
+        filter_sort_latest: "최신 등록순",
+        filter_sort_downloads: "다운로드순",
+        filter_sort_name: "이름순",
+        filter_category_title: "카테고리",
+        filter_version_title: "게임 버전",
+        filter_all: "전체",
+        filter_mc_label: "MC 버전",
+        filter_mc_all: "전체",
+        filter_reset: "필터 초기화",
+        empty_none: "등록된 플러그인이 없습니다.",
+        empty_filtered: "조건에 맞는 플러그인이 없습니다.",
+        mode_api: "API 모드",
+        mode_local: "로컬 모드",
+        auth_not_logged_in: "로그인되지 않음",
+        auth_login: "GitHub 로그인",
+        auth_logout: "로그아웃",
+        auth_menu_aria: "계정 메뉴 열기",
+        auth_menu_login: "GitHub로 로그인",
+        auth_menu_profile: "GitHub 프로필",
+        auth_menu_plugins: "플러그인 관리",
+        auth_menu_guest_note: "로그인하면 업로드한 플러그인을 관리할 수 있습니다.",
+        auth_logged_in: "{login} 계정으로 로그인됨 ({role})",
+        auth_signin_short: "로그인",
+        auth_role_admin: "관리자",
+        auth_role_user: "사용자",
+        auth_need_api: "로그인을 사용하려면 업로드 API 주소를 입력해야 합니다.",
+        auth_need_login: "업로드하려면 먼저 GitHub 로그인해야 합니다.",
+        auth_session_failed: "세션 조회에 실패했습니다. API 주소와 배포 상태를 확인해 주세요.",
+        hub_create_open: "새롭게 등록",
+        hub_create_close: "등록 닫기"
+      },
+      en: {
+        page_title: "Aerogel Plugin Hub",
+        meta_description: "Aerogel community plugin hub",
+        header_label: "Plugin Directory",
+        page_header: "Aerogel Plugin Hub",
+        header_total_placeholder: "Total: -",
+        header_approved_placeholder: "Downloads: -",
+        header_pending_placeholder: "Authors: -",
+        header_total: "Total: {count}",
+        header_approved: "Downloads: {count}",
+        header_pending: "Authors: {count}",
+        nav_runtime: "Runtime",
+        nav_plugins: "Plugins",
+        nav_github: "GitHub",
+        hero_badge: "Community Plugins",
+        hero_title: "Aerogel Plugin Hub",
+        hero_desc: "This is a dedicated space separated from the downloads page. Explore community plugins and download them directly.",
+        hub_title: "Browse Plugins",
+        hub_desc: "Search community plugins and download them right away.",
+        list_title: "Plugin List",
+        list_desc: "Shows primarily plugins publicly visible to users.",
+        stats_visible: "Showing {shown} / Total {total}",
+        filter_search_title: "Search",
+        filter_search_label: "Name/Author/Description",
+        filter_search_placeholder: "Enter keyword",
+        filter_sort_title: "Sort",
+        filter_sort_label: "Sort by",
+        filter_sort_latest: "Recently added",
+        filter_sort_downloads: "Most downloads",
+        filter_sort_name: "Name",
+        filter_category_title: "Category",
+        filter_version_title: "Game Version",
+        filter_all: "All",
+        filter_mc_label: "MC Version",
+        filter_mc_all: "All",
+        filter_reset: "Reset Filters",
+        empty_none: "No plugins are registered.",
+        empty_filtered: "No plugins match the selected filters.",
+        mode_api: "API Mode",
+        mode_local: "Local Mode",
+        auth_not_logged_in: "Not logged in",
+        auth_login: "Sign in with GitHub",
+        auth_logout: "Logout",
+        auth_menu_aria: "Open account menu",
+        auth_menu_login: "Sign in with GitHub",
+        auth_menu_profile: "GitHub Profile",
+        auth_menu_plugins: "Manage Plugins",
+        auth_menu_guest_note: "Sign in to manage plugins you uploaded.",
+        auth_logged_in: "Signed in as {login} ({role})",
+        auth_signin_short: "Sign In",
+        auth_role_admin: "admin",
+        auth_role_user: "user",
+        auth_need_api: "Enter upload API URL first to use authentication.",
+        auth_need_login: "Sign in with GitHub before uploading.",
+        auth_session_failed: "Failed to load session. Check API URL and deployment status.",
+        hub_create_open: "New Upload",
+        hub_create_close: "Close Upload"
+      }
+    };
+
+    function t(key, vars = {}) {
+      const table = I18N[LOCALE] || I18N.en;
+      const template = table[key] || I18N.en[key] || key;
+      return template.replace(/\{(\w+)}/g, (_, name) => String(vars[name] ?? ""));
+    }
+
+    function applyTranslations() {
+      const metaDescriptionEl = document.getElementById("metaDescription");
+      document.title = t("page_title");
+      if (metaDescriptionEl) {
+        metaDescriptionEl.setAttribute("content", t("meta_description"));
+      }
+      document.querySelectorAll("[data-i18n]").forEach((el) => {
+        el.textContent = t(el.dataset.i18n);
+      });
+      document.querySelectorAll("[data-i18n-aria-label]").forEach((el) => {
+        el.setAttribute("aria-label", t(el.dataset.i18nAriaLabel));
+      });
+      const pluginSearchInputEl = document.getElementById("pluginSearchInput");
+      if (pluginSearchInputEl) {
+        pluginSearchInputEl.placeholder = t("filter_search_placeholder");
+        pluginSearchInputEl.setAttribute("aria-label", t("filter_search_label"));
+      }
+    }
+
+    applyTranslations();
+
+    const pluginUploadFormEl = document.getElementById("pluginUploadForm");
+    const pluginListEl = document.getElementById("pluginListEl");
+    const pluginSearchInputEl = document.getElementById("pluginSearchInput");
+    const pluginStatsEl = document.getElementById("pluginStatsEl");
+    const pluginStatusEl = document.getElementById("pluginStatusEl");
+    const pluginCategoryFiltersEl = document.getElementById("pluginCategoryFilters");
+    const pluginVersionFiltersEl = document.getElementById("pluginVersionFilters");
+    const pluginCategoryToggleBtnEl = document.getElementById("pluginCategoryToggleBtn");
+    const pluginVersionToggleBtnEl = document.getElementById("pluginVersionToggleBtn");
+    const pluginCategoryPanelEl = document.getElementById("pluginCategoryPanel");
+    const pluginVersionPanelEl = document.getElementById("pluginVersionPanel");
+    const pluginApiInputEl = document.getElementById("pluginApiInput");
+    const pluginHubModeEl = document.getElementById("pluginHubMode");
+    const pluginSubmitBtnEl = document.getElementById("pluginSubmitBtn");
+    const pluginCreateBtnEl = document.getElementById("pluginCreateBtn");
+    const pluginUploadPanelEl = document.getElementById("pluginUploadPanel");
+    const pluginHeaderTotalChipEl = document.getElementById("pluginHeaderTotalChip");
+    const pluginHeaderApprovedChipEl = document.getElementById("pluginHeaderApprovedChip");
+    const pluginHeaderPendingChipEl = document.getElementById("pluginHeaderPendingChip");
+    const headerAccountBtnEl = document.getElementById("headerAccountBtn");
+    const headerAccountAvatarEl = document.getElementById("headerAccountAvatar");
+    const headerAccountIconEl = document.getElementById("headerAccountIcon");
+    const headerAccountLabelEl = document.getElementById("headerAccountLabel");
+    const headerAccountMenuEl = document.getElementById("headerAccountMenu");
+
+    const PLUGIN_STORAGE_KEY = "aerogel_plugins_v1";
+    const PLUGIN_API_BASE_KEY = "aerogel_plugin_api_base_v1";
+    const MAX_PLUGIN_FILE_BYTES = 40 * 1024 * 1024;
+    const DEFAULT_API_BASE = "https://aerogel-plugin-auth.mcaerogel.workers.dev";
+    const authState = {
+      user: null
+    };
+    const CATEGORY_OPTIONS = [
+      "유틸리티", "서버 관리", "성능 최적화", "월드/지형", "경제/상점",
+      "커뮤니티", "콘텐츠", "전투/PvP", "몹/인공지능", "아이템/장비",
+      "스킬/직업", "파티/길드", "이동/탐험", "연동/외부서비스", "개발/API"
+    ];
+    const filterState = {
+      mcVersions: new Set(),
+      categories: new Set(),
+      query: ""
+    };
+    const AuthCommon = window.AerogelAuthCommon || {
+      buildAuthHeaders: () => ({}),
+      getAuthRedirectUrl: (url) => String(url || window.location.href),
+      consumeAuthSessionFromUrl: () => ({ hadAuthOk: false, hadAuthError: false, authErrorMessage: "", hadSession: false }),
+      setStoredAuthSessionToken: () => {}
+    };
+    let isHeaderAccountMenuOpen = false;
+    let isUploadPanelOpen = false;
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function toNumberOrZero(value) {
+      const number = Number(value);
+      return Number.isFinite(number) ? number : 0;
+    }
+
+    function formatInteger(value) {
+      const number = Number(value);
+      if (!Number.isFinite(number)) return "0";
+      return new Intl.NumberFormat(LOCALE === "ko" ? "ko-KR" : "en-US").format(number);
+    }
+
+    function normalizePluginRecord(plugin) {
+      const createdAt = typeof plugin?.createdAt === "string" && plugin.createdAt ? plugin.createdAt : new Date().toISOString();
+      return {
+        id: String(plugin?.id || `${Date.now()}_${Math.random().toString(36).slice(2, 8)}`),
+        name: String(plugin?.name || "Untitled Plugin").slice(0, 48),
+        version: String(plugin?.version || "-").slice(0, 24),
+        mcVersion: String(plugin?.mcVersion || "-").slice(0, 24),
+        category: String(plugin?.category || "유틸리티").slice(0, 24),
+        author: String(plugin?.author || "unknown").slice(0, 32),
+        description: String(plugin?.description || "").slice(0, 400),
+        status: "approved",
+        createdAt,
+        fileName: String(plugin?.fileName || "").slice(0, 120),
+        fileSize: toNumberOrZero(plugin?.fileSize),
+        downloadUrl: typeof plugin?.downloadUrl === "string" ? plugin.downloadUrl : "",
+        downloads: toNumberOrZero(plugin?.downloads)
+      };
+    }
+
+    function loadPluginRecords() {
+      try {
+        const raw = localStorage.getItem(PLUGIN_STORAGE_KEY);
+        if (!raw) return [];
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed)) return [];
+        return parsed.map(normalizePluginRecord);
+      } catch (error) {
+        console.error(error);
+        return [];
+      }
+    }
+
+    function savePluginRecords(records) {
+      try {
+        localStorage.setItem(PLUGIN_STORAGE_KEY, JSON.stringify(records.map(normalizePluginRecord)));
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    function formatPluginSize(bytes) {
+      if (!Number.isFinite(bytes) || bytes <= 0) return "0 MB";
+      const mb = bytes / (1024 * 1024);
+      return `${mb.toFixed(2)} MB`;
+    }
+
+    function formatPluginDate(isoDate) {
+      const date = new Date(isoDate);
+      if (Number.isNaN(date.getTime())) return "-";
+      return new Intl.DateTimeFormat(LOCALE === "ko" ? "ko-KR" : "en-US", { year: "numeric", month: "2-digit", day: "2-digit" }).format(date);
+    }
+
+    function setPluginStatus(message, isError = false) {
+      pluginStatusEl.textContent = message;
+      pluginStatusEl.hidden = !message;
+      pluginStatusEl.classList.toggle("error", isError);
+    }
+
+    function getPluginApiBase() {
+      return pluginApiInputEl.value.trim().replace(/\/+$/, "");
+    }
+
+    function buildAuthHeaders() {
+      return AuthCommon.buildAuthHeaders();
+    }
+
+    function refreshPluginModeBadge() {
+      if (!pluginHubModeEl) return;
+      pluginHubModeEl.textContent = getPluginApiBase() ? t("mode_api") : t("mode_local");
+    }
+
+    function syncCreateButtonLabel() {
+      if (!pluginCreateBtnEl) return;
+      pluginCreateBtnEl.textContent = isUploadPanelOpen ? t("hub_create_close") : t("hub_create_open");
+      pluginCreateBtnEl.setAttribute("aria-expanded", isUploadPanelOpen ? "true" : "false");
+    }
+
+    function setUploadPanelOpen(nextOpen) {
+      isUploadPanelOpen = Boolean(nextOpen);
+      if (pluginUploadPanelEl) {
+        pluginUploadPanelEl.hidden = !isUploadPanelOpen;
+      }
+      syncCreateButtonLabel();
+    }
+
+    function getRoleLabel(role) {
+      return role === "admin" ? t("auth_role_admin") : t("auth_role_user");
+    }
+
+    function renderHeaderAccountMenu() {
+      if (!headerAccountMenuEl) return;
+      const user = authState.user;
+      if (!user) {
+        headerAccountMenuEl.innerHTML = `
+          <p class="header-account-menu-note">${escapeHtml(t("auth_menu_guest_note"))}</p>
+          <button class="header-account-menu-item" type="button" data-auth-action="login">${escapeHtml(t("auth_menu_login"))}</button>
+        `;
+        return;
+      }
+      const roleText = getRoleLabel(user.role);
+      const profileUrl = user.profileUrl || `https://github.com/${encodeURIComponent(user.login || "")}`;
+      headerAccountMenuEl.innerHTML = `
+        <div class="header-account-menu-head">
+          <p class="header-account-menu-user">@${escapeHtml(user.login || "-")}</p>
+          <p class="header-account-menu-role">${escapeHtml(roleText)}</p>
+        </div>
+        <a class="header-account-menu-item" href="${escapeHtml(profileUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(t("auth_menu_profile"))}</a>
+        <a class="header-account-menu-item" href="./plugins.html">${escapeHtml(t("auth_menu_plugins"))}</a>
+        <button class="header-account-menu-item logout" type="button" data-auth-action="logout">${escapeHtml(t("auth_logout"))}</button>
+      `;
+    }
+
+    function closeHeaderAccountMenu() {
+      if (!headerAccountMenuEl || !headerAccountBtnEl) return;
+      isHeaderAccountMenuOpen = false;
+      headerAccountMenuEl.hidden = true;
+      headerAccountBtnEl.setAttribute("aria-expanded", "false");
+    }
+
+    function openHeaderAccountMenu() {
+      if (!headerAccountMenuEl || !headerAccountBtnEl) return;
+      isHeaderAccountMenuOpen = true;
+      renderHeaderAccountMenu();
+      headerAccountMenuEl.hidden = false;
+      headerAccountBtnEl.setAttribute("aria-expanded", "true");
+    }
+
+    function toggleHeaderAccountMenu() {
+      if (isHeaderAccountMenuOpen) {
+        closeHeaderAccountMenu();
+      } else {
+        openHeaderAccountMenu();
+      }
+    }
+
+    function setAuthUi() {
+      const user = authState.user;
+      if (headerAccountBtnEl) {
+        headerAccountBtnEl.setAttribute("aria-label", t("auth_menu_aria"));
+      }
+      if (headerAccountAvatarEl && headerAccountIconEl && headerAccountLabelEl && headerAccountBtnEl) {
+        if (user) {
+          if (user.avatarUrl) {
+            headerAccountAvatarEl.src = user.avatarUrl;
+            headerAccountAvatarEl.style.display = "block";
+            headerAccountIconEl.style.display = "none";
+          } else {
+            headerAccountAvatarEl.style.display = "none";
+            headerAccountAvatarEl.removeAttribute("src");
+            headerAccountIconEl.style.display = "block";
+          }
+          headerAccountLabelEl.style.display = "none";
+          headerAccountBtnEl.classList.remove("guest");
+        } else {
+          headerAccountAvatarEl.style.display = "none";
+          headerAccountAvatarEl.removeAttribute("src");
+          headerAccountIconEl.style.display = "block";
+          headerAccountLabelEl.style.display = "inline";
+          headerAccountLabelEl.textContent = t("auth_signin_short");
+          headerAccountBtnEl.classList.add("guest");
+        }
+      }
+      renderHeaderAccountMenu();
+    }
+
+    async function refreshAuthSession() {
+      const apiBase = getPluginApiBase();
+      if (!apiBase) {
+        authState.user = null;
+        setAuthUi();
+        return;
+      }
+      try {
+        const response = await fetch(`${apiBase}/auth/session`, {
+          method: "GET",
+          headers: buildAuthHeaders(),
+          credentials: "include"
+        });
+        if (!response.ok) {
+          throw new Error(`session ${response.status}`);
+        }
+        const data = await response.json();
+        authState.user = data?.authenticated ? data.user : null;
+        setAuthUi();
+        return Boolean(authState.user);
+      } catch (error) {
+        console.error(error);
+        authState.user = null;
+        setAuthUi();
+        setPluginStatus(t("auth_session_failed"), true);
+        return false;
+      }
+    }
+
+    function startGithubLogin() {
+      const apiBase = getPluginApiBase();
+      if (!apiBase) {
+        setPluginStatus(t("auth_need_api"), true);
+        return;
+      }
+      const redirect = encodeURIComponent(AuthCommon.getAuthRedirectUrl(window.location.href));
+      window.location.href = `${apiBase}/auth/github/start?redirect=${redirect}`;
+    }
+
+    async function logoutGithub() {
+      const apiBase = getPluginApiBase();
+      if (!apiBase) {
+        authState.user = null;
+        setAuthUi();
+        return;
+      }
+      try {
+        await fetch(`${apiBase}/auth/logout`, {
+          method: "POST",
+          headers: buildAuthHeaders(),
+          credentials: "include"
+        });
+      } catch (error) {
+        console.error(error);
+      } finally {
+        AuthCommon.setStoredAuthSessionToken("");
+        authState.user = null;
+        setAuthUi();
+        closeHeaderAccountMenu();
+        await refreshAuthSession();
+      }
+    }
+
+    function getPluginInitials(name) {
+      const safe = String(name || "").trim();
+      if (!safe) return "P";
+      return safe.slice(0, 1).toUpperCase();
+    }
+
+    function renderCategoryFilters() {
+      if (!pluginCategoryFiltersEl) return;
+      pluginCategoryFiltersEl.innerHTML = "";
+      CATEGORY_OPTIONS.forEach((category) => {
+        const label = document.createElement("label");
+        label.className = "plugin-check-item";
+        const checked = filterState.categories.has(category) ? " checked" : "";
+        label.innerHTML = `
+          <input type="checkbox" data-category-filter="${escapeHtml(category)}"${checked} />
+          <span class="plugin-check-text">${escapeHtml(category)}</span>
+          <span class="plugin-check-icon" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path d="M5 10.4 8.2 13.6 15 6.8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        `;
+        pluginCategoryFiltersEl.appendChild(label);
+      });
+    }
+
+    function renderVersionFilters(baseItems) {
+      if (!pluginVersionFiltersEl) return;
+      const versions = [...new Set([
+        "1.21.11",
+        ...baseItems.map((item) => String(item.mcVersion || "").trim()).filter(Boolean)
+      ])].sort((a, b) => b.localeCompare(a));
+      filterState.mcVersions.forEach((version) => {
+        if (!versions.includes(version)) {
+          filterState.mcVersions.delete(version);
+        }
+      });
+      pluginVersionFiltersEl.innerHTML = "";
+      versions.forEach((version) => {
+        const label = document.createElement("label");
+        label.className = "plugin-check-item";
+        const checked = filterState.mcVersions.has(version) ? " checked" : "";
+        label.innerHTML = `
+          <input type="checkbox" data-version-filter="${escapeHtml(version)}"${checked} />
+          <span class="plugin-check-text">${escapeHtml(version)}</span>
+          <span class="plugin-check-icon" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path d="M5 10.4 8.2 13.6 15 6.8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        `;
+        pluginVersionFiltersEl.appendChild(label);
+      });
+    }
+
+    function setFilterPanelExpanded(buttonEl, panelEl, expanded) {
+      if (!buttonEl || !panelEl) return;
+      const HEIGHT_EASE = "cubic-bezier(0.2, 0.7, 0.2, 1)";
+      const TRANSITION = `height 260ms ${HEIGHT_EASE}, opacity 180ms ease`;
+      const wasCollapsed = panelEl.classList.contains("collapsed");
+      const token = String(Date.now()) + Math.random().toString(16).slice(2);
+      panelEl.dataset.animToken = token;
+      buttonEl.setAttribute("aria-expanded", expanded ? "true" : "false");
+
+      if (panelEl._filterTransitionEnd) {
+        panelEl.removeEventListener("transitionend", panelEl._filterTransitionEnd);
+        panelEl._filterTransitionEnd = null;
+      }
+
+      const currentHeight = panelEl.getBoundingClientRect().height || 0;
+      panelEl.style.transition = "";
+      panelEl.style.height = `${currentHeight}px`;
+      panelEl.style.opacity = wasCollapsed ? "0" : "1";
+      panelEl.offsetHeight;
+
+      panelEl.classList.remove("collapsed");
+      const targetHeight = expanded ? panelEl.scrollHeight : 0;
+
+      panelEl.style.transition = TRANSITION;
+      if (!expanded) {
+        panelEl.classList.add("collapsed");
+      }
+      panelEl.style.height = `${targetHeight}px`;
+      panelEl.style.opacity = expanded ? "1" : "0";
+
+      const onEnd = (event) => {
+        if (panelEl.dataset.animToken !== token) return;
+        if (event.propertyName !== "height") return;
+        if (expanded) {
+          panelEl.classList.remove("collapsed");
+          panelEl.style.height = "auto";
+          panelEl.style.opacity = "1";
+        } else {
+          panelEl.classList.add("collapsed");
+          panelEl.style.height = "0px";
+          panelEl.style.opacity = "0";
+        }
+        panelEl.style.transition = "";
+        panelEl.removeEventListener("transitionend", onEnd);
+        panelEl._filterTransitionEnd = null;
+      };
+      panelEl._filterTransitionEnd = onEnd;
+      panelEl.addEventListener("transitionend", onEnd);
+    }
+
+    function toggleFilterPanel(buttonEl, panelEl) {
+      if (!buttonEl || !panelEl) return;
+      const expanded = buttonEl.getAttribute("aria-expanded") !== "false";
+      setFilterPanelExpanded(buttonEl, panelEl, !expanded);
+    }
+
+    function renderPluginHub() {
+      const all = loadPluginRecords();
+      const baseItems = all;
+      renderCategoryFilters();
+      renderVersionFilters(baseItems);
+
+      let filtered = baseItems.slice();
+      if (filterState.categories.size > 0) {
+        filtered = filtered.filter((item) => filterState.categories.has(String(item.category)));
+      }
+      if (filterState.mcVersions.size > 0) {
+        filtered = filtered.filter((item) => filterState.mcVersions.has(String(item.mcVersion)));
+      }
+      if (filterState.query) {
+        const keyword = filterState.query.toLowerCase();
+        filtered = filtered.filter((item) => {
+          const haystack = [
+            item.name,
+            item.author,
+            item.description,
+            item.category,
+            item.mcVersion
+          ].join(" ").toLowerCase();
+          return haystack.includes(keyword);
+        });
+      }
+      filtered.sort((a, b) => toNumberOrZero(b.downloads) - toNumberOrZero(a.downloads));
+
+      const totalDownloads = all.reduce((sum, item) => sum + toNumberOrZero(item.downloads), 0);
+      const uniqueAuthors = new Set(all.map((item) => String(item.author || "").trim()).filter(Boolean)).size;
+      if (pluginHeaderTotalChipEl) {
+        pluginHeaderTotalChipEl.textContent = t("header_total", { count: formatInteger(all.length) });
+      }
+      if (pluginHeaderApprovedChipEl) {
+        pluginHeaderApprovedChipEl.textContent = t("header_approved", { count: formatInteger(totalDownloads) });
+      }
+      if (pluginHeaderPendingChipEl) {
+        pluginHeaderPendingChipEl.textContent = t("header_pending", { count: formatInteger(uniqueAuthors) });
+      }
+      if (pluginStatsEl) {
+        pluginStatsEl.textContent = t("stats_visible", {
+          shown: formatInteger(filtered.length),
+          total: formatInteger(baseItems.length)
+        });
+      }
+      pluginListEl.innerHTML = "";
+
+      if (filtered.length === 0) {
+        const empty = document.createElement("li");
+        empty.className = "plugin-empty";
+        empty.textContent = baseItems.length === 0 ? t("empty_none") : t("empty_filtered");
+        pluginListEl.appendChild(empty);
+        return;
+      }
+
+      filtered.forEach((item) => {
+        const row = document.createElement("li");
+        row.className = "plugin-item";
+        const hasDownload = !!item.downloadUrl;
+        const fileMeta = item.fileName ? `${item.fileName} · ${formatPluginSize(item.fileSize)}` : "-";
+        row.innerHTML = `
+          <span class="plugin-item-icon">${escapeHtml(getPluginInitials(item.name))}</span>
+          <div class="plugin-item-main">
+            <div class="plugin-item-head">
+              <h5 class="plugin-item-title">${escapeHtml(item.name)} <span class="plugin-badge">v${escapeHtml(item.version)}</span></h5>
+              <div class="plugin-badges">
+                <span class="plugin-badge">${escapeHtml(item.category || "유틸리티")}</span>
+                <span class="plugin-badge">MC ${escapeHtml(item.mcVersion)}</span>
+              </div>
+            </div>
+            <p class="plugin-item-meta">${escapeHtml(item.author)} · ${formatPluginDate(item.createdAt)} · ${escapeHtml(fileMeta)}</p>
+            <p class="plugin-item-desc">${escapeHtml(item.description)}</p>
+          </div>
+          <div class="plugin-item-actions">
+            <span class="plugin-item-downloads">↓ ${formatInteger(item.downloads)}</span>
+            <div class="plugin-action-group">
+              ${hasDownload
+                ? `<a class="plugin-btn" href="${escapeHtml(item.downloadUrl)}" target="_blank" rel="noopener noreferrer" data-plugin-download-id="${escapeHtml(item.id)}">다운로드</a>`
+                : `<button class="plugin-btn" type="button" disabled>다운로드 준비중</button>`}
+            </div>
+          </div>
+        `;
+        pluginListEl.appendChild(row);
+      });
+    }
+
+    async function submitPluginToApi(apiBase, payload, file) {
+      const endpoint = `${apiBase}/plugins`;
+      const formData = new FormData();
+      formData.append("name", payload.name);
+      formData.append("version", payload.version);
+      formData.append("mcVersion", payload.mcVersion);
+      formData.append("category", payload.category);
+      formData.append("author", payload.author);
+      formData.append("description", payload.description);
+      formData.append("file", file);
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: buildAuthHeaders(),
+        body: formData,
+        credentials: "include"
+      });
+      if (!response.ok) throw new Error(`업로드 실패 (${response.status})`);
+      const data = await response.json();
+      return normalizePluginRecord({
+        ...payload,
+        id: data?.id || payload.id,
+        status: "approved",
+        downloadUrl: data?.downloadUrl || "",
+        fileName: file.name,
+        fileSize: file.size,
+        downloads: toNumberOrZero(data?.downloads)
+      });
+    }
+
+    function updatePluginById(id, updater) {
+      const records = loadPluginRecords();
+      const next = records.map((plugin) => (plugin.id === id ? normalizePluginRecord(updater(plugin)) : plugin));
+      savePluginRecords(next);
+      renderPluginHub();
+    }
+
+    async function handlePluginSubmit(event) {
+      event.preventDefault();
+      const name = String(pluginUploadFormEl.elements.namedItem("name")?.value || "").trim();
+      const version = String(pluginUploadFormEl.elements.namedItem("version")?.value || "").trim();
+      const author = String(pluginUploadFormEl.elements.namedItem("author")?.value || "").trim();
+      const category = String(pluginUploadFormEl.elements.namedItem("category")?.value || "유틸리티").trim();
+      const mcVersion = String(pluginUploadFormEl.elements.namedItem("mcVersion")?.value || "").trim();
+      const description = String(pluginUploadFormEl.elements.namedItem("description")?.value || "").trim();
+      const fileInput = pluginUploadFormEl.elements.namedItem("file");
+      const file = fileInput instanceof HTMLInputElement ? fileInput.files?.[0] : null;
+
+      if (!name || !version || !author || !mcVersion || !description || !file) {
+        setPluginStatus("필수 값을 모두 입력해 주세요.", true);
+        return;
+      }
+      if (!file.name.toLowerCase().endsWith(".jar")) {
+        setPluginStatus(".jar 파일만 업로드할 수 있습니다.", true);
+        return;
+      }
+      if (file.size > MAX_PLUGIN_FILE_BYTES) {
+        setPluginStatus("파일 크기는 40MB 이하여야 합니다.", true);
+        return;
+      }
+
+      const payload = normalizePluginRecord({
+        id: `${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+        name,
+        version,
+        author,
+        category,
+        mcVersion,
+        description,
+        fileName: file.name,
+        fileSize: file.size,
+        status: "approved",
+        downloads: 0
+      });
+
+      const apiBase = getPluginApiBase();
+      if (apiBase && !authState.user) {
+        setPluginStatus(t("auth_need_login"), true);
+        return;
+      }
+      pluginSubmitBtnEl.disabled = true;
+      setPluginStatus("업로드 처리 중입니다...");
+      try {
+        let saved = payload;
+        if (apiBase) saved = await submitPluginToApi(apiBase, payload, file);
+        savePluginRecords([saved, ...loadPluginRecords()]);
+        renderPluginHub();
+        pluginUploadFormEl.reset();
+        if (apiBase) pluginApiInputEl.value = apiBase;
+        setPluginStatus(apiBase
+          ? "등록 완료: 목록에 반영되었습니다."
+          : "로컬 모드로 등록되었습니다.");
+        setUploadPanelOpen(false);
+      } catch (error) {
+        console.error(error);
+        setPluginStatus(error instanceof Error ? error.message : "업로드에 실패했습니다.", true);
+      } finally {
+        pluginSubmitBtnEl.disabled = false;
+        refreshPluginModeBadge();
+      }
+    }
+
+    function initPluginHub() {
+      try {
+        pluginApiInputEl.value = localStorage.getItem(PLUGIN_API_BASE_KEY) || DEFAULT_API_BASE;
+      } catch (error) {
+        console.error(error);
+        pluginApiInputEl.value = DEFAULT_API_BASE;
+      }
+      refreshPluginModeBadge();
+      setAuthUi();
+      renderPluginHub();
+      setUploadPanelOpen(false);
+      const authQueryState = AuthCommon.consumeAuthSessionFromUrl(window.location.href);
+      if (authQueryState.hadAuthError) {
+        setPluginStatus(authQueryState.authErrorMessage, true);
+        AuthCommon.setStoredAuthSessionToken("");
+      }
+
+      pluginUploadFormEl.addEventListener("submit", handlePluginSubmit);
+      if (pluginCategoryFiltersEl) {
+        pluginCategoryFiltersEl.addEventListener("change", (event) => {
+          const target = event.target;
+          if (!(target instanceof HTMLInputElement)) return;
+          const category = target.dataset.categoryFilter || "";
+          if (!category) return;
+          if (target.checked) {
+            filterState.categories.add(category);
+          } else {
+            filterState.categories.delete(category);
+          }
+          renderPluginHub();
+        });
+      }
+      if (pluginVersionFiltersEl) {
+        pluginVersionFiltersEl.addEventListener("change", (event) => {
+          const target = event.target;
+          if (!(target instanceof HTMLInputElement)) return;
+          const version = target.dataset.versionFilter || "";
+          if (!version) return;
+          if (target.checked) {
+            filterState.mcVersions.add(version);
+          } else {
+            filterState.mcVersions.delete(version);
+          }
+          renderPluginHub();
+        });
+      }
+      if (pluginSearchInputEl) {
+        pluginSearchInputEl.addEventListener("input", () => {
+          filterState.query = String(pluginSearchInputEl.value || "").trim();
+          renderPluginHub();
+        });
+      }
+      if (pluginCategoryToggleBtnEl && pluginCategoryPanelEl) {
+        setFilterPanelExpanded(pluginCategoryToggleBtnEl, pluginCategoryPanelEl, true);
+        pluginCategoryToggleBtnEl.addEventListener("click", () => {
+          toggleFilterPanel(pluginCategoryToggleBtnEl, pluginCategoryPanelEl);
+        });
+      }
+      if (pluginVersionToggleBtnEl && pluginVersionPanelEl) {
+        setFilterPanelExpanded(pluginVersionToggleBtnEl, pluginVersionPanelEl, true);
+        pluginVersionToggleBtnEl.addEventListener("click", () => {
+          toggleFilterPanel(pluginVersionToggleBtnEl, pluginVersionPanelEl);
+        });
+      }
+      if (pluginCreateBtnEl) {
+        pluginCreateBtnEl.addEventListener("click", () => {
+          const nextOpen = !isUploadPanelOpen;
+          setUploadPanelOpen(nextOpen);
+          if (nextOpen && pluginUploadPanelEl) {
+            pluginUploadPanelEl.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        });
+      }
+      if (headerAccountBtnEl) {
+        headerAccountBtnEl.addEventListener("click", (event) => {
+          event.stopPropagation();
+          if (!authState.user) {
+            startGithubLogin();
+            return;
+          }
+          toggleHeaderAccountMenu();
+        });
+      }
+      pluginApiInputEl.addEventListener("input", () => {
+        try {
+          localStorage.setItem(PLUGIN_API_BASE_KEY, getPluginApiBase());
+        } catch (error) {
+          console.error(error);
+        }
+        refreshPluginModeBadge();
+        refreshAuthSession();
+      });
+
+      pluginListEl.addEventListener("click", (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLElement)) return;
+
+        const downloadLink = target.closest("[data-plugin-download-id]");
+        if (downloadLink instanceof HTMLAnchorElement) {
+          const id = downloadLink.dataset.pluginDownloadId || "";
+          if (!id) return;
+          updatePluginById(id, (plugin) => ({ ...plugin, downloads: toNumberOrZero(plugin.downloads) + 1 }));
+        }
+      });
+
+      document.addEventListener("click", async (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLElement)) return;
+        const actionEl = target.closest("[data-auth-action]");
+        if (actionEl instanceof HTMLElement) {
+          const action = actionEl.dataset.authAction || "";
+          if (action === "login") {
+            closeHeaderAccountMenu();
+            startGithubLogin();
+            return;
+          }
+          if (action === "logout") {
+            await logoutGithub();
+            return;
+          }
+        }
+        if (!target.closest("#headerAccountBtn, #headerAccountMenu")) {
+          closeHeaderAccountMenu();
+        }
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          closeHeaderAccountMenu();
+        }
+      });
+
+      refreshAuthSession().then((isAuthed) => {
+        if (authQueryState.hadAuthOk) {
+          if (isAuthed) {
+            setPluginStatus("GitHub 로그인에 성공했습니다.");
+          } else {
+            setPluginStatus("로그인은 완료되었지만 세션을 불러오지 못했습니다. API 배포/주소를 확인해 주세요.", true);
+          }
+        }
+      });
+    }
+
+    initPluginHub();
+  </script>
+</body>
+</html>
