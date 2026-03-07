@@ -1889,6 +1889,316 @@
       gap: 10px;
     }
 
+    .tech-architecture {
+      margin-top: 24px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: linear-gradient(160deg, rgba(14, 22, 32, 0.88), rgba(10, 18, 27, 0.9));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 22px 22px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tech-architecture::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(118, 194, 255, 0.06), transparent 34%);
+      opacity: 0.65;
+    }
+
+    .tech-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tech-title {
+      margin: 0;
+      font-size: clamp(1.12rem, 1.35vw, 1.45rem);
+      color: #dff0ff;
+      letter-spacing: normal;
+      text-transform: uppercase;
+      font-family: "Spoqa Han Sans Neo", "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", sans-serif;
+    }
+
+    .tech-badge {
+      border: 1px solid rgba(136, 198, 246, 0.38);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 0.66rem;
+      letter-spacing: normal;
+      text-transform: uppercase;
+      color: #c8e8ff;
+      background: rgba(26, 43, 58, 0.68);
+      font-family: "Spoqa Han Sans Neo", "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", sans-serif;
+    }
+
+    .tech-summary {
+      margin: 12px 0 0;
+      color: #bdd5eb;
+      font-size: clamp(0.93rem, 1.03vw, 1rem);
+      line-height: 1.62;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tech-list {
+      margin: 20px 0 0;
+      padding-left: 0;
+      list-style: none;
+      display: grid;
+      gap: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tech-item {
+      border: 1px solid rgba(132, 176, 214, 0.2);
+      border-radius: 12px;
+      background: rgba(11, 18, 27, 0.82);
+      padding: 18px 20px 18px 21px;
+      color: #bdd3ea;
+      font-size: 0.9rem;
+      position: relative;
+    }
+
+    .tech-item::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 18px;
+      height: 20px;
+      width: 4px;
+      transform: translateX(-50%);
+      border-radius: 999px;
+      background: linear-gradient(180deg, rgba(122, 204, 255, 0.8), rgba(131, 235, 194, 0.65));
+    }
+
+    .tech-item-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .tech-index {
+      min-width: 30px;
+      height: 20px;
+      border-radius: 999px;
+      border: 1px solid rgba(133, 202, 255, 0.36);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.67rem;
+      color: #a6dcff;
+      background: rgba(24, 41, 57, 0.7);
+      font-family: "Spoqa Han Sans Neo", "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", sans-serif;
+      letter-spacing: normal;
+    }
+
+    .tech-item strong {
+      color: #e5f4ff;
+      font-size: 0.95rem;
+      display: block;
+      font-family: "Spoqa Han Sans Neo", "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", sans-serif;
+      letter-spacing: normal;
+    }
+
+    .tech-item p {
+      margin: 0;
+      line-height: 1.62;
+      color: #c5daf0;
+    }
+
+    .tech-tags {
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tech-tag {
+      display: inline-flex;
+      align-items: center;
+      height: 28px;
+      border-radius: 999px;
+      border: 1px solid rgba(131, 198, 250, 0.36);
+      background: rgba(24, 41, 59, 0.72);
+      color: #cae9ff;
+      text-decoration: none;
+      font-size: 0.76rem;
+      padding: 0 12px;
+      letter-spacing: normal;
+      transition: border-color 120ms ease, background 120ms ease, color 120ms ease;
+    }
+
+    .tech-tag:hover {
+      border-color: rgba(148, 216, 255, 0.62);
+      background: rgba(33, 55, 77, 0.84);
+      color: #ecf8ff;
+    }
+
+    .tech-terms {
+      margin-top: 16px;
+      border-top: 1px solid rgba(130, 174, 214, 0.2);
+      padding-top: 12px;
+      display: grid;
+      gap: 7px;
+    }
+
+    .tech-terms p {
+      margin: 0;
+      color: #9cb8d2;
+      font-size: 0.78rem;
+      line-height: 1.55;
+    }
+
+    .tech-terms strong {
+      color: #d7ebff;
+      font-size: 0.76rem;
+      letter-spacing: normal;
+    }
+
+    .paper-compare {
+      margin-top: 18px;
+      border: 1px solid rgba(131, 176, 216, 0.24);
+      border-radius: 12px;
+      background: rgba(10, 17, 26, 0.72);
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
+    }
+
+    .paper-compare-head {
+      padding: 16px 18px;
+      border-bottom: 1px solid rgba(131, 176, 216, 0.2);
+      background: rgba(21, 32, 46, 0.65);
+    }
+
+    .paper-compare-title {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #e5f2ff;
+      font-weight: 700;
+    }
+
+    .paper-compare-desc {
+      margin: 4px 0 0;
+      font-size: 0.8rem;
+      line-height: 1.55;
+      color: #9eb8d2;
+    }
+
+    .paper-compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    .paper-compare-table thead th {
+      border-top: 0;
+      background: rgba(27, 42, 60, 0.75);
+      color: #eef7ff;
+      font-size: 0.78rem;
+    }
+
+    .paper-compare-table th,
+    .paper-compare-table td {
+      padding: 16px 18px;
+      border-top: 1px solid rgba(131, 176, 216, 0.15);
+      text-align: left;
+      vertical-align: top;
+      font-size: 0.79rem;
+      line-height: 1.55;
+      color: #bdd4ea;
+      word-break: keep-all;
+    }
+
+    .paper-compare-table th {
+      width: 22%;
+      color: #e0f0ff;
+      background: rgba(19, 30, 43, 0.55);
+      font-weight: 700;
+    }
+
+    .paper-compare-table td a {
+      color: #b2dbff;
+      text-decoration: none;
+      border-bottom: 1px dotted rgba(178, 219, 255, 0.5);
+    }
+
+    .paper-compare-table td a:hover {
+      color: #e6f5ff;
+      border-bottom-color: rgba(230, 245, 255, 0.8);
+    }
+
+    @media (max-width: 760px) {
+      .paper-compare-table th,
+      .paper-compare-table td {
+        font-size: 0.74rem;
+        padding: 12px;
+      }
+
+      .paper-compare-table th {
+        width: 30%;
+      }
+    }
+
+    .tech-addon-grid {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tech-addon {
+      border: 1px solid rgba(127, 176, 216, 0.22);
+      border-radius: 12px;
+      background: rgba(12, 19, 29, 0.78);
+      padding: 17px 19px;
+    }
+
+    .tech-addon h4 {
+      margin: 0;
+      font-size: 0.86rem;
+      color: #e4f2ff;
+    }
+
+    .tech-addon p {
+      margin: 8px 0 0;
+      font-size: 0.78rem;
+      line-height: 1.6;
+      color: #b9d1e8;
+    }
+
+    .tech-addon ul {
+      margin: 9px 0 0;
+      padding-left: 16px;
+      color: #abc6de;
+      font-size: 0.77rem;
+      line-height: 1.58;
+    }
+
+    .tech-addon li + li {
+      margin-top: 4px;
+    }
+
+    @media (max-width: 760px) {
+      .tech-addon-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     .member {
       border: 1px solid rgba(255, 255, 255, 0.08);
       background: rgba(18, 25, 34, 0.65);
@@ -1953,6 +2263,107 @@
       flex: 0 0 auto;
       display: block;
       overflow: visible;
+    }
+
+    .faq-section {
+      margin-top: 22px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(17, 25, 35, 0.78);
+      padding: 22px;
+    }
+
+    .faq-head {
+      margin-bottom: 12px;
+    }
+
+    .faq-title {
+      margin: 0;
+      font-size: 1.02rem;
+      color: #eaf5ff;
+    }
+
+    .faq-desc {
+      margin: 7px 0 0;
+      color: #9fb6cd;
+      font-size: 0.84rem;
+      line-height: 1.55;
+    }
+
+    .faq-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+
+    .faq-item {
+      border: 1px solid rgba(129, 173, 211, 0.22);
+      border-radius: 12px;
+      background: rgba(12, 19, 29, 0.74);
+      padding: 16px 17px;
+    }
+
+    .faq-line {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+    }
+
+    .faq-line-q {
+      align-items: center;
+    }
+
+    .faq-line-a {
+      align-items: flex-start;
+    }
+
+    .faq-line-a.single-line {
+      align-items: center;
+    }
+
+    .faq-line + .faq-line {
+      margin-top: 8px;
+    }
+
+    .faq-badge {
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.68rem;
+      font-weight: 800;
+      flex: 0 0 auto;
+      margin-top: 1px;
+    }
+
+    .faq-badge-q {
+      color: #d6efff;
+      border: 1px solid rgba(139, 205, 255, 0.42);
+      background: rgba(28, 64, 93, 0.72);
+    }
+
+    .faq-badge-a {
+      color: #dfffe6;
+      border: 1px solid rgba(133, 216, 171, 0.4);
+      background: rgba(27, 70, 52, 0.68);
+    }
+
+    .faq-question {
+      margin: 0;
+      color: #deefff;
+      font-size: 0.86rem;
+      font-weight: 700;
+    }
+
+    .faq-answer {
+      margin: 0;
+      color: #b4cde4;
+      font-size: 0.8rem;
+      line-height: 1.58;
     }
 
     .start-commands .verify-details {
@@ -2397,6 +2808,308 @@
     </div>
   </section>
 
+  <section class="tech-architecture">
+    <div class="tech-head">
+      <h3 class="tech-title">Aerogel 동시성/병렬 처리 아키텍처</h3>
+      <span class="tech-badge">Runtime Spec</span>
+    </div>
+    <p class="tech-summary">Aerogel의 월드 처리 경로는 락 중심 구조 대신 Actor 경계, 원자적 FSM, 비차단 파이프라인을 조합해 고부하 구간에서도 처리량과 지연 안정성을 동시에 확보하도록 설계되어 있습니다.</p>
+    <ol class="tech-list">
+      <li class="tech-item">
+        <div class="tech-item-head">
+          <span class="tech-index">01</span>
+          <strong>Chunk Actor 기반 실행 경계</strong>
+        </div>
+        <p>시스템은 청크를 동시 접근 가능한 공유 객체로 보지 않고, 청크별 단일 실행 흐름(Actor)으로 캡슐화합니다. 모든 변경 연산은 해당 청크 큐를 통과해 순차 적용되며, 교차 청크 요청은 동기 대기 대신 비차단 enqueue로 위임됩니다. 이 구조는 락 계층 설계 없이도 상호 배제와 실행 순서를 동시에 보장합니다.</p>
+        <div class="tech-tags">
+          <a class="tech-tag" href="https://en.wikipedia.org/wiki/Actor_model" target="_blank" rel="noopener noreferrer">Actor Model</a>
+          <a class="tech-tag" href="https://en.wikipedia.org/wiki/Message_queue" target="_blank" rel="noopener noreferrer">Message Queue</a>
+          <a class="tech-tag" href="https://en.wikipedia.org/wiki/Mutual_exclusion" target="_blank" rel="noopener noreferrer">Mutual Exclusion</a>
+        </div>
+        <div class="tech-terms">
+          <p><strong>Actor:</strong> 상태를 내부에 캡슐화하고 메시지 처리로만 상태를 변경하는 실행 단위입니다.</p>
+          <p><strong>Enqueue:</strong> 작업을 즉시 실행하지 않고 큐에 넣어 순차 처리하는 방식입니다.</p>
+          <p><strong>교차 청크 요청:</strong> 현재 청크 밖의 다른 청크 작업을 직접 잠그지 않고 메시지로 위임하는 호출입니다.</p>
+        </div>
+      </li>
+      <li class="tech-item">
+        <div class="tech-item-head">
+          <span class="tech-index">02</span>
+          <strong>원자적 상태 전이(Stream FSM)</strong>
+        </div>
+        <p>청크 스트리밍은 AtomicBoolean/AtomicReference/AtomicInteger를 결합한 상태기계로 동작합니다. inFlight는 단일 활성 스트림을, pendingTarget은 최신 요청을, version은 유효 세대를 표현합니다. 따라서 이동 중 연속 요청에서도 오래된 작업은 자연스럽게 폐기되고 최신 목표만 진행되어, 락 없이 일관된 전이 규칙을 유지합니다.</p>
+        <div class="tech-tags">
+          <a class="tech-tag" href="https://en.wikipedia.org/wiki/Finite-state_machine" target="_blank" rel="noopener noreferrer">Finite-State Machine</a>
+          <a class="tech-tag" href="https://en.wikipedia.org/wiki/Atomicity_(database_systems)" target="_blank" rel="noopener noreferrer">Atomicity</a>
+          <a class="tech-tag" href="https://en.wikipedia.org/wiki/Compare-and-swap" target="_blank" rel="noopener noreferrer">CAS</a>
+        </div>
+        <div class="tech-terms">
+          <p><strong>AtomicBoolean / AtomicReference / AtomicInteger:</strong> 여러 스레드가 동시에 접근해도 값 갱신이 깨지지 않도록 보장하는 원자 타입입니다.</p>
+          <p><strong>inFlight:</strong> 현재 실제로 실행 중인 단일 스트리밍 작업을 가리키는 슬롯입니다.</p>
+          <p><strong>pendingTarget:</strong> 사용자의 가장 최신 이동 목표를 보관해 오래된 목표를 자연스럽게 버리게 하는 값입니다.</p>
+          <p><strong>Version(세대):</strong> 오래된 작업을 판별해 폐기하기 위한 단조 증가 식별자입니다.</p>
+        </div>
+      </li>
+      <li class="tech-item">
+        <div class="tech-item-head">
+          <span class="tech-index">03</span>
+          <strong>생성-전송 분리 파이프라인</strong>
+        </div>
+        <p>청크 생성(월드 계산)과 패킷 구성/전송(네트워크 직렬화)을 분리한 다단계 파이프라인을 사용합니다. 각 단계는 독립 워커 풀에서 병렬 처리되고, 단계 간 완료 조건은 원자 카운터로 결합됩니다. 결과적으로 특정 단계 지연이 전체 정지를 유발하지 않으며, 처리량과 응답성을 동시에 확보하는 비차단 처리 경로가 형성됩니다.</p>
+        <div class="tech-tags">
+          <a class="tech-tag" href="https://en.wikipedia.org/wiki/Pipeline_(computing)" target="_blank" rel="noopener noreferrer">Pipeline</a>
+          <a class="tech-tag" href="https://en.wikipedia.org/wiki/Thread_pool" target="_blank" rel="noopener noreferrer">Worker Pool</a>
+          <a class="tech-tag" href="https://en.wikipedia.org/wiki/Non-blocking_algorithm" target="_blank" rel="noopener noreferrer">Non-Blocking</a>
+        </div>
+        <div class="tech-terms">
+          <p><strong>파이프라인:</strong> 처리 단계를 분리해 서로 다른 단계가 동시에 진행되도록 하는 구조입니다.</p>
+          <p><strong>워커 풀:</strong> 미리 준비된 스레드 묶음이 작업을 나눠 처리하는 실행 자원입니다.</p>
+          <p><strong>Backpressure:</strong> 느린 단계가 빠른 단계의 입력 속도를 조절해 과부하를 방지하는 제어입니다.</p>
+        </div>
+      </li>
+      <li class="tech-item">
+        <div class="tech-item-head">
+          <span class="tech-index">04</span>
+          <strong>Lock-Free 친화 데이터 평면</strong>
+        </div>
+        <p>런타임 공유 상태는 ConcurrentHashMap, ConcurrentLinkedQueue, @Volatile 중심으로 구성됩니다. 읽기 경로는 가시성 보장을 우선하고, 쓰기 경로는 CAS 기반 단발 전환으로 경쟁을 흡수합니다. 특히 채널 flush는 단일 드레이너 플래그 패턴으로 중복 스케줄링을 제거해, 고빈도 이벤트 구간에서도 락 경합 없이 안정적인 지연 특성을 제공합니다.</p>
+        <div class="tech-tags">
+          <a class="tech-tag" href="https://en.wikipedia.org/wiki/Non-blocking_algorithm" target="_blank" rel="noopener noreferrer">Lock-Free</a>
+          <a class="tech-tag" href="https://en.wikipedia.org/wiki/Linearizability" target="_blank" rel="noopener noreferrer">Linearizability</a>
+          <a class="tech-tag" href="https://en.wikipedia.org/wiki/Visibility_(software)" target="_blank" rel="noopener noreferrer">Memory Visibility</a>
+        </div>
+        <div class="tech-terms">
+          <p><strong>ConcurrentHashMap:</strong> 여러 스레드가 동시에 읽고 써도 안전한 해시맵입니다.</p>
+          <p><strong>ConcurrentLinkedQueue:</strong> 락 없이 다중 스레드가 추가/조회할 수 있는 큐입니다.</p>
+          <p><strong>@Volatile:</strong> 한 스레드가 바꾼 값을 다른 스레드가 즉시 보도록 하는 가시성 키워드입니다.</p>
+          <p><strong>CAS:</strong> 기대값과 현재값을 비교해 같을 때만 값을 교체하는 원자 연산입니다.</p>
+          <p><strong>드레이너 플래그:</strong> 한 번에 하나의 flush 처리자만 동작하도록 보장하는 스위치입니다.</p>
+        </div>
+      </li>
+      <li class="tech-item">
+        <div class="tech-item-head">
+          <span class="tech-index">05</span>
+          <strong>중복 연산 통합과 취소 전파</strong>
+        </div>
+        <p>동일 청크에 대한 동시 빌드는 in-flight 레지스트리에서 단일 작업으로 합쳐지고, 여러 소비자가 결과를 공유합니다. 대기자가 사라진 작업은 취소 의도를 원자적으로 전파해 조기 중단되며, 워밍업 또한 단일 future로 통합됩니다. 이 메커니즘은 불필요한 CPU 소비와 초기 경합을 줄여, 멀티스레드 효율을 실사용 부하에 맞게 최적화합니다.</p>
+        <div class="tech-tags">
+          <a class="tech-tag" href="https://en.wikipedia.org/wiki/Future_(programming)" target="_blank" rel="noopener noreferrer">Future</a>
+          <a class="tech-tag" href="https://en.wikipedia.org/wiki/Coalescing" target="_blank" rel="noopener noreferrer">Request Coalescing</a>
+          <a class="tech-tag" href="https://en.wikipedia.org/wiki/Cancellation_(computer_programming)" target="_blank" rel="noopener noreferrer">Cancellation</a>
+        </div>
+        <div class="tech-terms">
+          <p><strong>In-flight 레지스트리:</strong> 현재 진행 중인 작업을 키 단위로 합치는 공유 인덱스입니다.</p>
+          <p><strong>Future:</strong> 아직 끝나지 않은 비동기 작업의 완료 결과를 나중에 받는 핸들입니다.</p>
+          <p><strong>Request Coalescing:</strong> 같은 요청이 여러 번 들어오면 하나로 합쳐 중복 계산을 줄이는 기법입니다.</p>
+          <p><strong>취소 전파:</strong> 소비자가 사라졌을 때 상위 단계로 중단 의도를 전달해 낭비를 줄이는 전략입니다.</p>
+        </div>
+      </li>
+    </ol>
+    <div class="paper-compare">
+      <div class="paper-compare-head">
+        <h4 class="paper-compare-title" data-i18n="paper_compare_title">Paper 기반 기술 비교</h4>
+        <p class="paper-compare-desc" data-i18n="paper_compare_desc">Aerogel의 실행 모델, 상태 전이 규칙, 동시성 제어 구조를 기존 연구 문맥과 대응시켜 정리한 비교입니다.</p>
+      </div>
+      <table class="paper-compare-table">
+        <thead>
+          <tr>
+            <th data-i18n="paper_compare_col_topic">비교 항목</th>
+            <th data-i18n="paper_compare_col_aerogel">Aerogel 기술</th>
+            <th data-i18n="paper_compare_col_paper">Paper 기준</th>
+            <th data-i18n="paper_compare_col_diff">차이점/해석</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th data-i18n="paper_row_exec_topic">실행 경계</th>
+            <td data-i18n="paper_row_exec_aerogel">청크 단위 Actor 캡슐화 + 메시지 위임</td>
+            <td data-i18n="paper_ref_actor">Gul Agha, 1986, <em>Actors: A Model of Concurrent Computation in Distributed Systems</em></td>
+            <td data-i18n="paper_row_exec_diff">Aerogel은 Actor를 "청크 단위"로 고정해 월드 변경 순서를 명시적으로 제한합니다.</td>
+          </tr>
+          <tr>
+            <th data-i18n="paper_row_fsm_topic">상태 전이 규칙</th>
+            <td data-i18n="paper_row_fsm_aerogel">Atomic* + 세대(version) 기반 Stream FSM</td>
+            <td data-i18n="paper_ref_statecharts">David Harel, 1987, <em>Statecharts: A Visual Formalism for Complex Systems</em></td>
+            <td data-i18n="paper_row_fsm_diff">복합 상태도 대신 런타임 원자 타입 조합으로 전이 유효성만 엄격히 강제합니다.</td>
+          </tr>
+          <tr>
+            <th data-i18n="paper_row_lockfree_topic">Lock-Free 데이터 평면</th>
+            <td data-i18n="paper_row_lockfree_aerogel">Concurrent 자료구조 + CAS 단발 전환</td>
+            <td data-i18n="paper_ref_linearizability">Maurice Herlihy, Jeannette Wing, 1990, <em>Linearizability: A Correctness Condition for Concurrent Objects</em></td>
+            <td data-i18n="paper_row_lockfree_diff">형식 검증 중심 접근보다 운영 코드에서의 가시성/선형화 준수에 집중합니다.</td>
+          </tr>
+          <tr>
+            <th data-i18n="paper_row_queue_topic">큐 기반 비차단 처리</th>
+            <td data-i18n="paper_row_queue_aerogel">다중 producer 경로를 단일 소비 흐름으로 수렴</td>
+            <td data-i18n="paper_ref_queue">Maged M. Michael, Michael L. Scott, 1996, <em>Simple, Fast, and Practical Non-Blocking and Blocking Concurrent Queue Algorithms</em></td>
+            <td data-i18n="paper_row_queue_diff">일반 큐 알고리즘을 청크/패킷 파이프라인 단계 경계에 맞춰 적용합니다.</td>
+          </tr>
+          <tr>
+            <th data-i18n="paper_row_coalesce_topic">중복 요청 통합</th>
+            <td data-i18n="paper_row_coalesce_aerogel">in-flight 레지스트리에서 동일 요청 coalescing</td>
+            <td data-i18n="paper_ref_tail">Jeffrey Dean, Luiz A. Barroso, 2013, <em>The Tail at Scale</em></td>
+            <td data-i18n="paper_row_coalesce_diff">지연 최적화 자체보다 "중복 작업 제거 + 취소 전파"의 일관성 보장을 우선합니다.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tech-addon-grid">
+      <article class="tech-addon">
+        <h4 data-i18n="tech_addon_consistency_title">정합성 보장</h4>
+        <ul>
+          <li data-i18n="tech_addon_consistency_1">청크 단위 변경 연산 순서는 큐를 통해 직렬화됩니다.</li>
+          <li data-i18n="tech_addon_consistency_2">오래된 스트림 요청은 세대(version) 비교로 폐기됩니다.</li>
+          <li data-i18n="tech_addon_consistency_3">동일 키 in-flight 작업은 단일 결과로 합쳐집니다.</li>
+          <li data-i18n="tech_addon_consistency_4">모든 처리가 틱에서 한꺼번에 실행되지 않으며, 단계별 비차단 경로에서 분산 처리됩니다.</li>
+          <li data-i18n="tech_addon_consistency_5">청크 간 전역 실행 순서는 보장하지 않으며, 순서 보장은 청크 경계 내부에 한정됩니다.</li>
+        </ul>
+      </article>
+      <article class="tech-addon">
+        <h4 data-i18n="tech_addon_recovery_title">실패 복구 시퀀스</h4>
+        <ul>
+          <li data-i18n="tech_addon_recovery_1">요청 취소 감지 시 하위 단계로 취소 의도가 전파됩니다.</li>
+          <li data-i18n="tech_addon_recovery_2">중간 단계 실패는 해당 작업만 중단하고 큐는 계속 진행됩니다.</li>
+          <li data-i18n="tech_addon_recovery_3">최신 목표가 존재하면 pendingTarget 기준으로 재수행됩니다.</li>
+          <li data-i18n="tech_addon_recovery_4">실패 처리의 기본 단위는 작업 단위이며, 전체 파이프라인 트랜잭션 롤백을 전제로 하지 않습니다.</li>
+        </ul>
+      </article>
+      <article class="tech-addon">
+        <h4 data-i18n="tech_addon_risk_title">동시성 위험 맵</h4>
+        <ul>
+          <li data-i18n="tech_addon_risk_1">Race on shared state → Atomic/CAS 전환으로 흡수</li>
+          <li data-i18n="tech_addon_risk_2">중복 flush scheduling → 단일 드레이너 플래그로 차단</li>
+          <li data-i18n="tech_addon_risk_3">Stale task execution → version/target 검증으로 폐기</li>
+        </ul>
+      </article>
+      <article class="tech-addon">
+        <h4 data-i18n="tech_addon_tradeoff_title">설계 트레이드오프</h4>
+        <ul>
+          <li data-i18n="tech_addon_tradeoff_1">장점: 락 경합 감소, 단계 분리, 취소/병합 제어 명확화</li>
+          <li data-i18n="tech_addon_tradeoff_2">비용: 상태 전이 추론 복잡도 증가, 디버깅 포인트 분산</li>
+          <li data-i18n="tech_addon_tradeoff_3">운영: 관측 지표와 로그 키 표준화가 필수</li>
+        </ul>
+      </article>
+      <article class="tech-addon">
+        <h4 data-i18n="tech_addon_compat_title">호환성 경계</h4>
+        <p data-i18n="tech_addon_compat_desc">Aerogel 내부 구현체 및 플러그인에서는 아무 스레드에서나 접근이 가능합니다. 런타임이 청크 경계와 상태 전이 규칙으로 동시 접근을 흡수합니다.</p>
+        <ul>
+          <li data-i18n="tech_addon_compat_1">스레드 접근은 자유롭지만, 장시간 블로킹 호출은 큐 지연을 유발할 수 있습니다.</li>
+          <li data-i18n="tech_addon_compat_2">교차 청크 동기 대기 대신 비차단 위임 패턴 사용이 권장됩니다.</li>
+          <li data-i18n="tech_addon_compat_3">단일 전역 락 기반 코드 경로는 병렬 처리 이점을 크게 낮출 수 있습니다.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="faq-section">
+    <div class="faq-head">
+      <h3 class="faq-title" data-i18n="faq_title">FAQ</h3>
+      <p class="faq-desc" data-i18n="faq_desc">Aerogel의 실행 모델과 멀티스레드 동작에서 자주 나오는 질문을 정리했습니다.</p>
+    </div>
+    <ul class="faq-list">
+      <li class="faq-item">
+        <div class="faq-line faq-line-q">
+          <span class="faq-badge faq-badge-q" aria-hidden="true">Q</span>
+          <p class="faq-question" data-i18n="faq_q_1">왜 모든 처리를 틱에서 한 번에 실행하지 않나요?</p>
+        </div>
+        <div class="faq-line faq-line-a">
+          <span class="faq-badge faq-badge-a" aria-hidden="true">A</span>
+          <p class="faq-answer" data-i18n-html="faq_a_1">Aerogel은 틱 경계 일괄 실행 대신 단계별 비차단 파이프라인으로 작업을 분산해, 특정 단계 지연이 전체 경로를 멈추지 않도록 설계되었습니다.</p>
+        </div>
+      </li>
+      <li class="faq-item">
+        <div class="faq-line faq-line-q">
+          <span class="faq-badge faq-badge-q" aria-hidden="true">Q</span>
+          <p class="faq-question" data-i18n="faq_q_2">아무 스레드에서 접근 가능하다는 건 정확히 무슨 뜻인가요?</p>
+        </div>
+        <div class="faq-line faq-line-a">
+          <span class="faq-badge faq-badge-a" aria-hidden="true">A</span>
+          <p class="faq-answer" data-i18n="faq_a_2">플러그인/내부 구현에서 호출 스레드 제약을 강하게 두지 않되, 런타임이 청크 경계/상태 전이 규칙으로 동시 접근 충돌을 흡수한다는 의미입니다.</p>
+        </div>
+      </li>
+      <li class="faq-item">
+        <div class="faq-line faq-line-q">
+          <span class="faq-badge faq-badge-q" aria-hidden="true">Q</span>
+          <p class="faq-question" data-i18n="faq_q_3">그럼 스레드 안전성은 자동으로 해결되나요?</p>
+        </div>
+        <div class="faq-line faq-line-a">
+          <span class="faq-badge faq-badge-a" aria-hidden="true">A</span>
+          <p class="faq-answer" data-i18n="faq_a_3">완전 자동은 아닙니다. 전역 공유 상태, 장시간 블로킹 호출, 전역 락 경로는 여전히 주의가 필요하며 비차단 위임 패턴을 권장합니다.</p>
+        </div>
+      </li>
+      <li class="faq-item">
+        <div class="faq-line faq-line-q">
+          <span class="faq-badge faq-badge-q" aria-hidden="true">Q</span>
+          <p class="faq-question" data-i18n="faq_q_4">청크 간 작업 순서도 보장되나요?</p>
+        </div>
+        <div class="faq-line faq-line-a">
+          <span class="faq-badge faq-badge-a" aria-hidden="true">A</span>
+          <p class="faq-answer" data-i18n="faq_a_4">아니요. 순서 보장은 기본적으로 청크 경계 내부에서만 제공되고, 청크 간에는 전역 순서를 강제하지 않습니다.</p>
+        </div>
+      </li>
+      <li class="faq-item">
+        <div class="faq-line faq-line-q">
+          <span class="faq-badge faq-badge-q" aria-hidden="true">Q</span>
+          <p class="faq-question" data-i18n="faq_q_5">중간 실패가 나면 전체 작업이 롤백되나요?</p>
+        </div>
+        <div class="faq-line faq-line-a">
+          <span class="faq-badge faq-badge-a" aria-hidden="true">A</span>
+          <p class="faq-answer" data-i18n="faq_a_5">기본적으로 작업 단위 실패 처리입니다. 실패한 작업만 중단/재시도하고 전체 파이프라인 트랜잭션 롤백을 전제로 하지 않습니다.</p>
+        </div>
+      </li>
+      <li class="faq-item">
+        <div class="faq-line faq-line-q">
+          <span class="faq-badge faq-badge-q" aria-hidden="true">Q</span>
+          <p class="faq-question" data-i18n="faq_q_6">병렬 처리면 데이터가 무조건 깨지지 않나요?</p>
+        </div>
+        <div class="faq-line faq-line-a">
+          <span class="faq-badge faq-badge-a" aria-hidden="true">A</span>
+          <p class="faq-answer" data-i18n="faq_a_6">아닙니다. Aerogel은 청크 경계별 직렬화, Atomic/CAS 상태 전이, in-flight 작업 병합으로 동시 접근을 제어해 병렬 처리와 데이터 일관성을 함께 유지합니다.</p>
+        </div>
+      </li>
+      <li class="faq-item">
+        <div class="faq-line faq-line-q">
+          <span class="faq-badge faq-badge-q" aria-hidden="true">Q</span>
+          <p class="faq-question" data-i18n="faq_q_7">병렬 처리면 매번 결과가 랜덤해지지 않나요?</p>
+        </div>
+        <div class="faq-line faq-line-a">
+          <span class="faq-badge faq-badge-a" aria-hidden="true">A</span>
+          <p class="faq-answer" data-i18n="faq_a_7">핵심 상태 전이는 원자 규칙과 청크 경계 순서로 제한되므로, 결과를 바꾸는 비결정 경로를 줄이도록 설계되어 있습니다.</p>
+        </div>
+      </li>
+      <li class="faq-item">
+        <div class="faq-line faq-line-q">
+          <span class="faq-badge faq-badge-q" aria-hidden="true">Q</span>
+          <p class="faq-question" data-i18n="faq_q_8">동시성 구조면 항상 더 빠른가요?</p>
+        </div>
+        <div class="faq-line faq-line-a">
+          <span class="faq-badge faq-badge-a" aria-hidden="true">A</span>
+          <p class="faq-answer" data-i18n="faq_a_8">항상은 아닙니다. 병렬화 이점은 작업 특성과 경합 상태에 따라 달라지며, 블로킹 호출이나 전역 락 경로가 있으면 이점이 크게 줄어듭니다.</p>
+        </div>
+      </li>
+      <li class="faq-item">
+        <div class="faq-line faq-line-q">
+          <span class="faq-badge faq-badge-q" aria-hidden="true">Q</span>
+          <p class="faq-question" data-i18n="faq_q_9">병렬 처리 구조는 디버깅이 거의 불가능한가요?</p>
+        </div>
+        <div class="faq-line faq-line-a">
+          <span class="faq-badge faq-badge-a" aria-hidden="true">A</span>
+          <p class="faq-answer" data-i18n="faq_a_9">난이도는 올라가지만 불가능하진 않습니다. Aerogel은 상태 키(inFlight, pendingTarget, version)와 단계 로그를 기준으로 추적할 수 있게 설계되어 있습니다.</p>
+        </div>
+      </li>
+      <li class="faq-item">
+        <div class="faq-line faq-line-q">
+          <span class="faq-badge faq-badge-q" aria-hidden="true">Q</span>
+          <p class="faq-question" data-i18n="faq_q_10">청크는 무조건 전부 순차 처리해야 안전한 것 아닌가요?</p>
+        </div>
+        <div class="faq-line faq-line-a">
+          <span class="faq-badge faq-badge-a" aria-hidden="true">A</span>
+          <p class="faq-answer" data-i18n="faq_a_10">아닙니다. 안전성의 핵심은 "전체 순차"가 아니라 "경계 내 순차"입니다. Aerogel은 청크 내부 변경은 순차로 보장하고, 청크 간 작업은 경계 규칙과 원자 전이로 병렬 실행해 일관성과 처리 효율을 함께 확보합니다.</p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
   <p class="footer" data-i18n="footer_text">Official releases from MCAerogel/Aerogel</p>
   <p class="legal-note" data-i18n="legal_note">Aerogel is not affiliated with Mojang Studios or Microsoft. Minecraft is a trademark of Mojang Studios.</p>
 </main>
@@ -2465,6 +3178,78 @@
       team_role_owner: "프로젝트 오너",
       team_role_core: "코어 개발자",
       team_role_maintainer: "메인테이너",
+      paper_compare_title: "Paper 기반 기술 비교",
+      paper_compare_desc: "Aerogel의 실행 모델, 상태 전이 규칙, 동시성 제어 구조를 기존 연구 문맥과 대응시켜 정리한 비교입니다.",
+      paper_compare_col_topic: "비교 항목",
+      paper_compare_col_aerogel: "Aerogel 기술",
+      paper_compare_col_paper: "Paper 기준",
+      paper_compare_col_diff: "차이점/해석",
+      paper_ref_actor: "액터 모델 (Actor Model)",
+      paper_ref_statecharts: "상태차트 (Statecharts)",
+      paper_ref_linearizability: "선형화 가능성 (Linearizability)",
+      paper_ref_queue: "마이클-스콧 큐 (Michael-Scott Queue)",
+      paper_ref_tail: "테일 앳 스케일 (Tail at Scale)",
+      paper_row_exec_topic: "실행 경계",
+      paper_row_exec_aerogel: "청크 단위 Actor 캡슐화 + 메시지 위임",
+      paper_row_exec_diff: 'Aerogel은 Actor를 "청크 단위"로 고정해 월드 변경 순서를 명시적으로 제한합니다.',
+      paper_row_fsm_topic: "상태 전이 규칙",
+      paper_row_fsm_aerogel: "Atomic* + 세대(version) 기반 Stream FSM",
+      paper_row_fsm_diff: "복합 상태도 대신 런타임 원자 타입 조합으로 전이 유효성만 엄격히 강제합니다.",
+      paper_row_lockfree_topic: "Lock-Free 데이터 평면",
+      paper_row_lockfree_aerogel: "Concurrent 자료구조 + CAS 단발 전환",
+      paper_row_lockfree_diff: "형식 검증 중심 접근보다 운영 코드에서의 가시성/선형화 준수에 집중합니다.",
+      paper_row_queue_topic: "큐 기반 비차단 처리",
+      paper_row_queue_aerogel: "다중 producer 경로를 단일 소비 흐름으로 수렴",
+      paper_row_queue_diff: "일반 큐 알고리즘을 청크/패킷 파이프라인 단계 경계에 맞춰 적용합니다.",
+      paper_row_coalesce_topic: "중복 요청 통합",
+      paper_row_coalesce_aerogel: "in-flight 레지스트리에서 동일 요청 coalescing",
+      paper_row_coalesce_diff: '지연 최적화 자체보다 "중복 작업 제거 + 취소 전파"의 일관성 보장을 우선합니다.',
+      tech_addon_consistency_title: "정합성 보장",
+      tech_addon_consistency_1: "청크 단위 변경 연산 순서는 큐를 통해 직렬화됩니다.",
+      tech_addon_consistency_2: "오래된 스트림 요청은 세대(version) 비교로 폐기됩니다.",
+      tech_addon_consistency_3: "동일 키 in-flight 작업은 단일 결과로 합쳐집니다.",
+      tech_addon_consistency_4: "모든 처리가 틱에서 한꺼번에 실행되지 않으며, 단계별 비차단 경로에서 분산 처리됩니다.",
+      tech_addon_consistency_5: "청크 간 전역 실행 순서는 보장하지 않으며, 순서 보장은 청크 경계 내부에 한정됩니다.",
+      tech_addon_recovery_title: "실패 복구 시퀀스",
+      tech_addon_recovery_1: "요청 취소 감지 시 하위 단계로 취소 의도가 전파됩니다.",
+      tech_addon_recovery_2: "중간 단계 실패는 해당 작업만 중단하고 큐는 계속 진행됩니다.",
+      tech_addon_recovery_3: "최신 목표가 존재하면 pendingTarget 기준으로 재수행됩니다.",
+      tech_addon_recovery_4: "실패 처리의 기본 단위는 작업 단위이며, 전체 파이프라인 트랜잭션 롤백을 전제로 하지 않습니다.",
+      tech_addon_risk_title: "동시성 위험 맵",
+      tech_addon_risk_1: "공유 상태 레이스 -> Atomic/CAS 전환으로 흡수",
+      tech_addon_risk_2: "중복 flush 스케줄링 -> 단일 드레이너 플래그로 차단",
+      tech_addon_risk_3: "오래된 작업 실행 -> version/target 검증으로 폐기",
+      tech_addon_tradeoff_title: "설계 트레이드오프",
+      tech_addon_tradeoff_1: "장점: 락 경합 감소, 단계 분리, 취소/병합 제어 명확화",
+      tech_addon_tradeoff_2: "비용: 상태 전이 추론 복잡도 증가, 디버깅 포인트 분산",
+      tech_addon_tradeoff_3: "운영: 관측 지표와 로그 키 표준화가 필수",
+      tech_addon_compat_title: "호환성 경계",
+      tech_addon_compat_desc: "Aerogel 내부 구현체 및 플러그인에서는 아무 스레드에서나 접근이 가능합니다. 런타임이 청크 경계와 상태 전이 규칙으로 동시 접근을 흡수합니다.",
+      tech_addon_compat_1: "스레드 접근은 자유롭지만, 장시간 블로킹 호출은 큐 지연을 유발할 수 있습니다.",
+      tech_addon_compat_2: "교차 청크 동기 대기 대신 비차단 위임 패턴 사용이 권장됩니다.",
+      tech_addon_compat_3: "단일 전역 락 기반 코드 경로는 병렬 처리 이점을 크게 낮출 수 있습니다.",
+      faq_title: "FAQ",
+      faq_desc: "Aerogel의 실행 모델과 멀티스레드 동작에서 자주 나오는 질문을 정리했습니다.",
+      faq_q_1: "왜 모든 처리를 틱에서 한 번에 실행하지 않나요?",
+      faq_a_1: "Aerogel은 틱 경계 일괄 실행 대신 단계별 비차단 파이프라인으로 작업을 분산해, 특정 단계 지연이 전체 경로를 멈추지 않도록 설계되었습니다.<br>또한 즉각성이 필요한 작업은 이벤트 기반으로 바로 실행 경로에 진입할 수 있습니다.",
+      faq_q_2: "아무 스레드에서 접근 가능하다는 건 정확히 무슨 뜻인가요?",
+      faq_a_2: "플러그인/내부 구현에서 호출 스레드 제약을 강하게 두지 않되, 런타임이 청크 경계/상태 전이 규칙으로 동시 접근 충돌을 흡수한다는 의미입니다.",
+      faq_q_3: "그럼 스레드 안전성은 자동으로 해결되나요?",
+      faq_a_3: "완전 자동은 아닙니다. 전역 공유 상태, 장시간 블로킹 호출, 전역 락 경로는 여전히 주의가 필요하며 비차단 위임 패턴을 권장합니다.",
+      faq_q_4: "청크 간 작업 순서도 보장되나요?",
+      faq_a_4: "아니요. 순서 보장은 기본적으로 청크 경계 내부에서만 제공되고, 청크 간에는 전역 순서를 강제하지 않습니다.",
+      faq_q_5: "중간 실패가 나면 전체 작업이 롤백되나요?",
+      faq_a_5: "기본적으로 작업 단위 실패 처리입니다. 실패한 작업만 중단/재시도하고 전체 파이프라인 트랜잭션 롤백을 전제로 하지 않습니다.",
+      faq_q_6: "병렬 처리면 데이터가 무조건 깨지지 않나요?",
+      faq_a_6: "아닙니다. Aerogel은 청크 경계별 직렬화, Atomic/CAS 상태 전이, in-flight 작업 병합으로 동시 접근을 제어해 병렬 처리와 데이터 일관성을 함께 유지합니다.",
+      faq_q_7: "병렬 처리면 매번 결과가 랜덤해지지 않나요?",
+      faq_a_7: "핵심 상태 전이는 원자 규칙과 청크 경계 순서로 제한되므로, 결과를 바꾸는 비결정 경로를 줄이도록 설계되어 있습니다.",
+      faq_q_8: "동시성 구조면 항상 더 빠른가요?",
+      faq_a_8: "항상은 아닙니다. 병렬화 이점은 작업 특성과 경합 상태에 따라 달라지며, 블로킹 호출이나 전역 락 경로가 있으면 이점이 크게 줄어듭니다.",
+      faq_q_9: "병렬 처리 구조는 디버깅이 거의 불가능한가요?",
+      faq_a_9: "난이도는 올라가지만 불가능하진 않습니다. Aerogel은 상태 키(inFlight, pendingTarget, version)와 단계 로그를 기준으로 추적할 수 있게 설계되어 있습니다.",
+      faq_q_10: "청크는 무조건 전부 순차 처리해야 안전한 것 아닌가요?",
+      faq_a_10: '아닙니다. 안전성의 핵심은 "전체 순차"가 아니라 "경계 내 순차"입니다. Aerogel은 청크 내부 변경은 순차로 보장하고, 청크 간 작업은 경계 규칙과 원자 전이로 병렬 실행해 일관성과 처리 효율을 함께 확보합니다.',
       issue_report_link: "이 버전 이슈 등록",
       sort_latest: "최신순",
       sort_version: "버전순",
@@ -2592,6 +3377,78 @@
       team_role_owner: "Project Owner",
       team_role_core: "Core Developer",
       team_role_maintainer: "Maintainer",
+      paper_compare_title: "Paper-Aligned Technical Comparison",
+      paper_compare_desc: "This table maps Aerogel's execution model, state-transition rules, and concurrency control structure to established research context.",
+      paper_compare_col_topic: "Topic",
+      paper_compare_col_aerogel: "Aerogel Approach",
+      paper_compare_col_paper: "Paper Reference",
+      paper_compare_col_diff: "Difference / Interpretation",
+      paper_ref_actor: "Actor Model",
+      paper_ref_statecharts: "Statecharts",
+      paper_ref_linearizability: "Linearizability",
+      paper_ref_queue: "Michael–Scott Queue",
+      paper_ref_tail: "Tail at Scale",
+      paper_row_exec_topic: "Execution Boundary",
+      paper_row_exec_aerogel: "Chunk-scoped actor encapsulation + message delegation",
+      paper_row_exec_diff: 'Aerogel fixes the actor boundary at chunk scope and explicitly limits world-mutation order.',
+      paper_row_fsm_topic: "State Transition Rule",
+      paper_row_fsm_aerogel: "Atomic* + generation(version)-based stream FSM",
+      paper_row_fsm_diff: "Instead of compound statecharts, Aerogel enforces transition validity via runtime atomic primitives.",
+      paper_row_lockfree_topic: "Lock-Free Data Plane",
+      paper_row_lockfree_aerogel: "Concurrent structures + one-shot CAS transitions",
+      paper_row_lockfree_diff: "It prioritizes practical visibility/linearizability compliance in production code over formal modeling depth.",
+      paper_row_queue_topic: "Queue-based Non-Blocking Flow",
+      paper_row_queue_aerogel: "Multiple producer paths converged into a single consumer flow",
+      paper_row_queue_diff: "Generic queue algorithms are applied at chunk/packet pipeline stage boundaries.",
+      paper_row_coalesce_topic: "Duplicate Request Coalescing",
+      paper_row_coalesce_aerogel: "Same-key requests merged in an in-flight registry",
+      paper_row_coalesce_diff: 'It prioritizes consistency of "dedup + cancellation propagation" over raw latency optimization.',
+      tech_addon_consistency_title: "Consistency Guarantees",
+      tech_addon_consistency_1: "Chunk mutation operations are serialized through per-chunk queues.",
+      tech_addon_consistency_2: "Stale stream requests are discarded using generation(version) checks.",
+      tech_addon_consistency_3: "Same-key in-flight work is merged into one shared result.",
+      tech_addon_consistency_4: "Processing is not executed all-at-once on tick boundaries; work is distributed across staged non-blocking paths.",
+      tech_addon_consistency_5: "Global execution order across chunks is not guaranteed; ordering guarantees are scoped to each chunk boundary.",
+      tech_addon_recovery_title: "Failure Recovery Sequence",
+      tech_addon_recovery_1: "When cancellation is detected, cancel intent is propagated downstream.",
+      tech_addon_recovery_2: "Mid-stage failure stops only the failed task while queue progression continues.",
+      tech_addon_recovery_3: "If a newer target exists, execution resumes from pendingTarget.",
+      tech_addon_recovery_4: "Failure handling is task-scoped and does not assume full pipeline transactional rollback.",
+      tech_addon_risk_title: "Concurrency Risk Map",
+      tech_addon_risk_1: "Shared-state race -> absorbed by Atomic/CAS transitions",
+      tech_addon_risk_2: "Duplicate flush scheduling -> blocked by single-drainer flag",
+      tech_addon_risk_3: "Stale task execution -> discarded by version/target validation",
+      tech_addon_tradeoff_title: "Design Trade-offs",
+      tech_addon_tradeoff_1: "Pros: reduced lock contention, staged separation, clearer cancel/merge control",
+      tech_addon_tradeoff_2: "Cost: higher state-transition reasoning complexity, distributed debugging points",
+      tech_addon_tradeoff_3: "Operations: standardized observability metrics and log keys are required",
+      tech_addon_compat_title: "Compatibility Boundary",
+      tech_addon_compat_desc: "Internal Aerogel implementations and plugins can be accessed from any thread. Runtime absorbs concurrent access via chunk boundaries and transition rules.",
+      tech_addon_compat_1: "Thread access is flexible, but long blocking calls can increase queue latency.",
+      tech_addon_compat_2: "Non-blocking delegation is recommended over cross-chunk synchronous waiting.",
+      tech_addon_compat_3: "Single global-lock code paths can significantly reduce parallelism gains.",
+      faq_title: "FAQ",
+      faq_desc: "Frequently asked questions about Aerogel's execution model and multithreaded behavior.",
+      faq_q_1: "Why not execute everything at once on tick boundaries?",
+      faq_a_1: "Aerogel distributes work across staged non-blocking pipelines instead of tick-batch execution, so delay in one stage does not stall the whole path.<br>For latency-sensitive cases, work can also enter execution immediately through event-driven paths.",
+      faq_q_2: "What does 'accessible from any thread' actually mean?",
+      faq_a_2: "It means plugin/internal calls are not tightly restricted by caller thread, while runtime absorbs concurrency conflicts using chunk boundaries and transition rules.",
+      faq_q_3: "So is thread safety fully automatic?",
+      faq_a_3: "Not fully. Global shared state, long blocking calls, and global-lock paths still require care; non-blocking delegation patterns are recommended.",
+      faq_q_4: "Is ordering guaranteed across chunks too?",
+      faq_a_4: "No. Ordering guarantees are primarily scoped within each chunk boundary; global cross-chunk order is not enforced.",
+      faq_q_5: "Does a mid-stage failure roll back the whole pipeline?",
+      faq_a_5: "By default, failure handling is task-scoped. Failed tasks are stopped/retried without assuming full transactional rollback of the entire pipeline.",
+      faq_q_6: "Does parallel processing always break data consistency?",
+      faq_a_6: "No. Aerogel controls concurrent access with chunk-scoped serialization, Atomic/CAS transitions, and in-flight coalescing, preserving both parallelism and data consistency.",
+      faq_q_7: "Does parallel execution make results random every run?",
+      faq_a_7: "Core state transitions are constrained by atomic rules and chunk-boundary ordering, reducing nondeterministic paths that can alter outcomes.",
+      faq_q_8: "Is a concurrent architecture always faster?",
+      faq_a_8: "Not always. Gains depend on workload characteristics and contention; blocking calls or global-lock paths can significantly reduce benefits.",
+      faq_q_9: "Is debugging almost impossible in parallel systems?",
+      faq_a_9: "It is harder, but not impossible. Aerogel is structured for tracing via state keys (inFlight, pendingTarget, version) and stage-level logs.",
+      faq_q_10: "Must all chunks be processed strictly sequentially to stay safe?",
+      faq_a_10: 'No. Safety comes from "sequential within boundaries," not "global sequential execution." Aerogel keeps chunk-internal mutations ordered while running cross-chunk work in parallel with boundary rules and atomic transitions for consistency and throughput.',
       issue_report_link: "Report issue for this version",
       sort_latest: "Latest",
       sort_version: "Version",
@@ -2713,6 +3570,10 @@
       if (el.dataset.i18n === "hero_title") el.setAttribute("data-text", el.textContent);
     });
 
+    document.querySelectorAll("[data-i18n-html]").forEach((el) => {
+      el.innerHTML = t(el.dataset.i18nHtml);
+    });
+
     document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
       el.setAttribute("placeholder", t(el.dataset.i18nPlaceholder));
     });
@@ -2721,7 +3582,21 @@
       el.setAttribute("aria-label", t(el.dataset.i18nAriaLabel));
     });
 
+    updateFaqLineAlignment();
   }
+
+  function updateFaqLineAlignment() {
+    document.querySelectorAll(".faq-line-a").forEach((line) => {
+      const answer = line.querySelector(".faq-answer");
+      if (!answer) return;
+      const styles = window.getComputedStyle(answer);
+      const lineHeight = parseFloat(styles.lineHeight) || 0;
+      const singleLine = lineHeight > 0 && answer.scrollHeight <= lineHeight * 1.35;
+      line.classList.toggle("single-line", singleLine);
+    });
+  }
+
+  window.addEventListener("resize", updateFaqLineAlignment);
 
   function formatDate(dateString) {
     const date = new Date(dateString);
@@ -3250,9 +4125,6 @@
     const digest = getSha256Digest(item.jarAsset);
     const latestDownloadCount = getAssetDownloadCount(item.jarAsset);
     const compareUrl = getCompareUrl(item.release.tag_name, previousTag);
-    const compareMarkup = compareUrl
-      ? `<a class="compare-link" href="${compareUrl}" target="_blank" rel="noopener noreferrer">${t("compare_link")}</a>`
-      : `<span class="compare-empty">${t("compare_empty")}</span>`;
     const issueUrl = getIssueReportUrl(item.release.tag_name);
     const releasePageUrl = item.release.html_url || "https://github.com/MCAerogel/Aerogel/releases";
     const menuCompareItem = compareUrl
@@ -3308,7 +4180,6 @@
             </div>
             <p class="checksum-value">${checksumValue}</p>
           </div>
-          <div class="extra-links">${compareMarkup}</div>
         </div>
       </div>
       <div class="latest-actions">
