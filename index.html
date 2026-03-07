@@ -3429,6 +3429,9 @@
   const LAST_SEEN_TAG_KEY = "aerogel_last_seen_tag_v1";
   const COMPARE_PREFETCH_LIMIT = 12;
   const LOCALE = (navigator.language || "en").toLowerCase().startsWith("ko") ? "ko" : "en";
+  const NOTES_TRANSLATE_API_URL = "https://translate.googleapis.com/translate_a/single";
+  const BROWSER_LANG = (navigator.languages && navigator.languages[0]) || navigator.language || "en";
+  const NOTES_TARGET_LANG = String(BROWSER_LANG).split("-")[0].toLowerCase() || "en";
   document.documentElement.lang = LOCALE;
   const I18N = {
     ko: {
@@ -3454,6 +3457,7 @@
       compat_stage_value: "초기 개발 버전",
       notes_title: "릴리즈 노트 미리보기",
       notes_loading: "최신 릴리즈 노트를 불러오는 중...",
+      notes_translating: "브라우저 언어로 번역 중...",
       notes_empty: "표시할 릴리즈 노트가 없습니다.",
       notes_link: "전체 릴리즈 노트 보기",
       subscribe_title: "릴리즈 구독",
@@ -3662,6 +3666,7 @@
       compat_stage_value: "Early Development",
       notes_title: "Release Notes Preview",
       notes_loading: "Loading latest release notes...",
+      notes_translating: "Translating to your browser language...",
       notes_empty: "No release notes available.",
       notes_link: "Open Full Release Notes",
       subscribe_title: "Release Subscription",
@@ -3870,7 +3875,9 @@
   let releaseItems = [];
   let sortMode = "latest";
   let renderToken = 0;
+  let notesRenderToken = 0;
   const compareInFlight = new Map();
+  const notesTranslateCache = new Map();
   let activeBuildMenuButton = null;
   const groupVisibleCountMap = new Map();
   const GROUP_INITIAL_VISIBLE_COUNT = 5;
@@ -4683,6 +4690,7 @@
   }
 
   function renderNotes(release) {
+    const currentToken = ++notesRenderToken;
     if (!release) {
       notesPreviewEl.textContent = t("notes_empty");
       notesLinkEl.href = "https://github.com/MCAerogel/Aerogel/releases";
@@ -4694,10 +4702,50 @@
       notesPreviewEl.textContent = t("notes_empty");
     } else {
       const lines = body.split(/\r?\n/).filter((line) => line.trim() !== "");
-      notesPreviewEl.textContent = lines.slice(0, 4).join("\n");
+      const previewText = lines.slice(0, 4).join("\n");
+      notesPreviewEl.textContent = previewText;
+      if (NOTES_TARGET_LANG !== "en") {
+        notesPreviewEl.textContent = t("notes_translating");
+        translateReleaseNotes(previewText, NOTES_TARGET_LANG)
+          .then((translatedText) => {
+            if (notesRenderToken !== currentToken) return;
+            notesPreviewEl.textContent = translatedText || previewText;
+          })
+          .catch(() => {
+            if (notesRenderToken !== currentToken) return;
+            notesPreviewEl.textContent = previewText;
+          });
+      }
     }
 
     notesLinkEl.href = release.html_url || "https://github.com/MCAerogel/Aerogel/releases";
+  }
+
+  async function translateReleaseNotes(text, targetLang) {
+    const plainText = String(text || "").trim();
+    const normalizedTarget = String(targetLang || "").trim().toLowerCase();
+    if (!plainText || !normalizedTarget || normalizedTarget === "en") {
+      return plainText;
+    }
+
+    const cacheKey = `${normalizedTarget}:${plainText}`;
+    if (notesTranslateCache.has(cacheKey)) {
+      return notesTranslateCache.get(cacheKey);
+    }
+
+    const url = `${NOTES_TRANSLATE_API_URL}?client=gtx&sl=auto&tl=${encodeURIComponent(normalizedTarget)}&dt=t&q=${encodeURIComponent(plainText)}`;
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Translation API error (${response.status})`);
+    }
+
+    const data = await response.json();
+    const translated = Array.isArray(data?.[0])
+      ? data[0].map((segment) => (Array.isArray(segment) ? segment[0] : "")).join("")
+      : "";
+    const result = translated || plainText;
+    notesTranslateCache.set(cacheKey, result);
+    return result;
   }
 
   async function loadReleases() {
