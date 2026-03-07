@@ -1086,6 +1086,10 @@
       gap: 16px;
     }
 
+    .grid:has(.version-group-card:hover) .version-group-card:not(:hover) {
+      transform: none;
+    }
+
     .release-card {
       border: 1px solid var(--line);
       border-radius: 20px;
@@ -1127,28 +1131,116 @@
       padding: 18px 18px 14px;
       position: relative;
       overflow: hidden;
-      transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
-      transform-origin: center top;
+      transition: transform 260ms cubic-bezier(0.2, 0.85, 0.2, 1), border-color 220ms ease, box-shadow 260ms ease;
+      transform-origin: center center;
+      transform: translateZ(0);
+      transform-style: preserve-3d;
       z-index: 1;
+      will-change: transform;
+      backface-visibility: hidden;
+    }
+
+    .version-group-card::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, transparent 26%, rgba(183, 230, 255, 0.46) 44%, rgba(255, 205, 151, 0.39) 50%, rgba(126, 202, 255, 0.44) 56%, transparent 74%);
+      opacity: 0;
+      transform: translateX(-130%) skewX(-12deg);
+      filter: blur(0.2px);
+      mix-blend-mode: soft-light;
+      transition: opacity 180ms ease, transform 1200ms cubic-bezier(0.2, 0.88, 0.24, 1);
+      transition-delay: 0ms, 0ms;
+      z-index: 0;
+    }
+
+    .version-group-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      background:
+        radial-gradient(220px 120px at 15% 10%, rgba(109, 191, 255, 0.2), transparent 58%),
+        radial-gradient(180px 140px at 85% 90%, rgba(255, 176, 120, 0.14), transparent 64%),
+        conic-gradient(from 210deg at 78% 24%, rgba(133, 208, 255, 0.18), rgba(255, 198, 136, 0.1), rgba(133, 208, 255, 0.18));
+      opacity: 0;
+      transform: scale(1.03);
+      transition: opacity 260ms ease, transform 260ms ease;
+      z-index: 0;
     }
 
     .version-group-card:hover {
-      transform: scale(1.03);
-      border-color: rgba(140, 201, 255, 0.42);
-      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.48), 0 0 26px rgba(95, 176, 247, 0.2);
-      z-index: 4;
+      transform: translateZ(0);
+      border-color: rgba(160, 218, 255, 0.7);
+      box-shadow: 0 34px 72px rgba(0, 0, 0, 0.58), 0 0 0 1px rgba(152, 214, 255, 0.24) inset, 0 0 34px rgba(95, 176, 247, 0.28), 0 0 0 2px rgba(255, 205, 152, 0.1);
+      z-index: 12;
+    }
+
+    .version-group-card:hover::before {
+      opacity: 0.72;
+      transform: translateX(130%) skewX(-12deg);
+      transition-delay: 80ms, 140ms;
+    }
+
+    .version-group-card:hover::after {
+      opacity: 1;
+      transform: scale(1);
     }
 
     .version-group-card.expanded {
       z-index: 3;
     }
 
+    .version-group-card:hover > * {
+      position: relative;
+      z-index: 1;
+    }
+
     .version-group-header {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
       gap: 10px;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
+    }
+
+    .version-group-card.latest-mc-parent {
+      border-color: rgba(139, 215, 255, 0.46);
+      background:
+        radial-gradient(200px 120px at 12% 8%, rgba(96, 170, 219, 0.2), transparent 62%),
+        linear-gradient(160deg, rgba(31, 43, 57, 0.95) 0%, rgba(20, 29, 40, 0.88) 100%);
+      box-shadow: 0 0 0 1px rgba(132, 206, 252, 0.14) inset, 0 0 16px rgba(112, 195, 247, 0.22), 0 14px 36px rgba(0, 0, 0, 0.42);
+      animation: latest-mc-header-glow 2200ms ease-in-out infinite;
+    }
+
+    .version-group-title-block {
+      min-width: 0;
+      display: grid;
+      gap: 6px;
+    }
+
+    .version-early-badge {
+      display: inline-flex;
+      align-items: flex-start;
+      gap: 6px;
+      color: #ffb3b3;
+      font-size: 0.79rem;
+      font-weight: 700;
+      line-height: 1.2;
+      width: fit-content;
+    }
+
+    .version-early-icon {
+      width: 17px;
+      height: 17px;
+      flex: 0 0 auto;
+      color: #ff6767;
+      filter: drop-shadow(0 0 8px rgba(255, 103, 103, 0.55));
+      margin-top: 1px;
     }
 
     .version-group-count {
@@ -1192,6 +1284,51 @@
       min-width: 0;
       display: grid;
       gap: 3px;
+    }
+
+    .version-group-meta-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+
+    .version-freshness-badge {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 5px 11px;
+      font-size: 0.69rem;
+      font-weight: 700;
+      line-height: 1.2;
+      border: 1px solid transparent;
+      white-space: nowrap;
+      width: fit-content;
+      justify-self: start;
+    }
+
+    .version-freshness-badge.freshness-hot {
+      color: #c4ffe1;
+      background: rgba(37, 121, 74, 0.34);
+      border-color: rgba(112, 235, 164, 0.34);
+    }
+
+    .version-freshness-badge.freshness-warm {
+      color: #d5f0ff;
+      background: rgba(37, 83, 118, 0.34);
+      border-color: rgba(130, 200, 245, 0.34);
+    }
+
+    .version-freshness-badge.freshness-cool {
+      color: #ffe8bf;
+      background: rgba(112, 78, 31, 0.34);
+      border-color: rgba(238, 187, 97, 0.34);
+    }
+
+    .version-freshness-badge.freshness-stale {
+      color: #d7deea;
+      background: rgba(52, 61, 77, 0.45);
+      border-color: rgba(154, 169, 195, 0.3);
     }
 
     .version-group-build {
@@ -1276,14 +1413,38 @@
       transition: border-color 160ms ease, background 160ms ease;
     }
 
+    .version-build-item.latest-build-item {
+      border-color: rgba(122, 214, 164, 0.5);
+      background: linear-gradient(160deg, rgba(26, 47, 41, 0.88), rgba(17, 34, 31, 0.82));
+      box-shadow: 0 0 0 1px rgba(122, 214, 164, 0.2) inset;
+      position: relative;
+      overflow: hidden;
+      animation: latest-build-glow 2400ms ease-in-out infinite;
+    }
+
     .version-build-item:hover {
       border-color: rgba(141, 198, 240, 0.34);
       background: rgba(24, 35, 48, 0.74);
     }
 
+    .version-build-item.latest-build-item:hover {
+      border-color: rgba(142, 231, 181, 0.72);
+      background: linear-gradient(160deg, rgba(32, 60, 51, 0.9), rgba(21, 42, 37, 0.86));
+    }
+
     .version-build-item:focus-visible {
       outline: 2px solid rgba(141, 205, 255, 0.62);
       outline-offset: 2px;
+    }
+
+    .version-group-build-footer {
+      margin: 0 0 10px;
+      padding: 8px 10px;
+      border: 1px dashed rgba(143, 176, 208, 0.3);
+      border-radius: 10px;
+      background: rgba(28, 39, 52, 0.36);
+      display: flex;
+      justify-content: flex-start;
     }
 
     .version-build-top {
@@ -1405,10 +1566,11 @@
       box-sizing: border-box;
     }
 
-    .version-build-item:hover .version-build-download-icon {
+    .version-build-item.latest-build-item .version-build-download-icon {
       opacity: 1;
       border-color: rgba(164, 220, 255, 0.52);
       background: rgba(54, 90, 122, 0.62);
+      animation: build-download-bob 900ms ease-in-out infinite;
     }
 
     .group-more-wrap {
@@ -1456,6 +1618,23 @@
       height: 22px;
       flex: 0 0 auto;
       filter: drop-shadow(0 1px 3px rgba(83, 190, 109, 0.22));
+      transform-origin: 50% 50%;
+      transition: transform 220ms ease;
+    }
+
+    .version-group-card:hover .mc-title-icon {
+      transform: rotate(-4deg) scale(1.16);
+      animation: creeper-icon-pop 520ms cubic-bezier(0.2, 0.88, 0.24, 1);
+    }
+
+    .version-group-card:hover .mc-title-icon rect:nth-of-type(2),
+    .version-group-card:hover .mc-title-icon rect:nth-of-type(3) {
+      animation: creeper-eye-pulse 820ms ease-in-out infinite;
+      transform-origin: center;
+    }
+
+    .version-group-card:hover .mc-title-icon rect:nth-of-type(4) {
+      animation: creeper-mouth-glitch 920ms steps(2, end) infinite;
     }
 
     .meta {
@@ -2522,6 +2701,12 @@
 
       .version-group-card {
         transform: none;
+        filter: none;
+      }
+
+      .grid:has(.version-group-card:hover) .version-group-card:not(:hover) {
+        transform: none;
+        filter: none;
       }
 
       .version-group-card.expanded .version-group-builds {
@@ -2546,6 +2731,88 @@
 
       .jar {
         max-width: 45%;
+      }
+    }
+
+    @keyframes version-card-sweep {
+      0% {
+        transform: translateX(-130%) skewX(-14deg);
+      }
+      100% {
+        transform: translateX(130%) skewX(-14deg);
+      }
+    }
+
+    @keyframes build-download-bob {
+      0%,
+      100% {
+        transform: translateY(-1.5px);
+      }
+      50% {
+        transform: translateY(1.5px);
+      }
+    }
+
+    @keyframes latest-build-glow {
+      0%,
+      100% {
+        border-color: rgba(122, 214, 164, 0.46);
+        box-shadow: 0 0 0 1px rgba(122, 214, 164, 0.2) inset, 0 0 8px rgba(122, 214, 164, 0.12);
+      }
+      50% {
+        border-color: rgba(149, 238, 191, 0.78);
+        box-shadow: 0 0 0 1px rgba(122, 214, 164, 0.28) inset, 0 0 16px rgba(122, 214, 164, 0.24);
+      }
+    }
+
+    @keyframes latest-mc-header-glow {
+      0%,
+      100% {
+        border-color: rgba(139, 215, 255, 0.4);
+        box-shadow: 0 0 0 1px rgba(132, 206, 252, 0.1) inset, 0 0 12px rgba(112, 195, 247, 0.14);
+      }
+      50% {
+        border-color: rgba(171, 228, 255, 0.76);
+        box-shadow: 0 0 0 1px rgba(132, 206, 252, 0.2) inset, 0 0 18px rgba(112, 195, 247, 0.28);
+      }
+    }
+
+    @keyframes creeper-icon-pop {
+      0% {
+        transform: rotate(0deg) scale(1);
+      }
+      50% {
+        transform: rotate(-6deg) scale(1.2);
+      }
+      100% {
+        transform: rotate(-4deg) scale(1.16);
+      }
+    }
+
+    @keyframes creeper-eye-pulse {
+      0%,
+      100% {
+        opacity: 1;
+      }
+      45% {
+        opacity: 0.55;
+      }
+      55% {
+        opacity: 1;
+      }
+    }
+
+    @keyframes creeper-mouth-glitch {
+      0%,
+      80%,
+      100% {
+        transform: translateX(0);
+      }
+      40% {
+        transform: translateX(0.55px);
+      }
+      60% {
+        transform: translateX(-0.55px);
       }
     }
 
@@ -3310,6 +3577,7 @@
       search_aria_label: "버전 검색",
       latest_label: "최신 개발 초기 버전",
       latest_download: "최신 버전 다운로드",
+      early_dev_badge: "개발 초기 버전입니다, 기여 및 테스트 목적의 사용을 권장합니다.",
       latest_menu_aria: "최신 버전 메뉴 열기",
       latest_menu_release: "릴리즈 페이지 열기",
       latest_menu_compare: "이전 버전과 비교",
@@ -3323,6 +3591,11 @@
       build_menu_no_hash: "SHA-256 없음",
       build_integrity_verified: "검증됨",
       build_click_download_hint: "클릭하여 다운로드",
+      freshness_today: "오늘 업데이트",
+      freshness_week: "최근 7일",
+      freshness_month: "최근 30일",
+      freshness_older: "30일+",
+      freshness_unknown: "날짜 미확인",
       release_date: "릴리즈: {date}",
       release_size: "파일 크기: {size}",
       release_downloads: "다운로드: {count}",
@@ -3512,6 +3785,7 @@
       search_aria_label: "Search versions",
       latest_label: "Latest Early Development Build",
       latest_download: "Download Latest",
+      early_dev_badge: "This is an early development build. Recommended for contribution and testing use.",
       latest_menu_aria: "Open latest build menu",
       latest_menu_release: "Open release page",
       latest_menu_compare: "Compare with previous",
@@ -3525,6 +3799,11 @@
       build_menu_no_hash: "No SHA-256",
       build_integrity_verified: "Verified",
       build_click_download_hint: "Click to download",
+      freshness_today: "Updated today",
+      freshness_week: "Last 7 days",
+      freshness_month: "Last 30 days",
+      freshness_older: "30+ days",
+      freshness_unknown: "Date unknown",
       release_date: "Released: {date}",
       release_size: "File size: {size}",
       release_downloads: "Downloads: {count}",
@@ -3596,6 +3875,15 @@
   const groupVisibleCountMap = new Map();
   const GROUP_INITIAL_VISIBLE_COUNT = 5;
   const GROUP_VISIBLE_INCREMENT = 5;
+  const HOVER_EXPAND_MEDIA = window.matchMedia("(hover: hover) and (pointer: fine)");
+
+  function setVersionGroupExpanded(card, expanded) {
+    card.classList.toggle("expanded", expanded);
+    const toggleRow = card.querySelector(".version-group-latest");
+    if (toggleRow instanceof HTMLElement) {
+      toggleRow.setAttribute("aria-expanded", expanded ? "true" : "false");
+    }
+  }
 
   function t(key, vars = {}) {
     const table = I18N[LOCALE] || I18N.en;
@@ -3665,6 +3953,21 @@
     return new Intl.DateTimeFormat(LOCALE === "ko" ? "ko-KR" : "en-US", formatOptions).format(date);
   }
 
+  function getFreshnessBadgeInfo(dateString) {
+    const publishedDate = new Date(dateString);
+    if (Number.isNaN(publishedDate.getTime())) {
+      return { label: t("freshness_unknown"), tone: "freshness-stale" };
+    }
+
+    const DAY_MS = 24 * 60 * 60 * 1000;
+    const elapsedDays = Math.floor((Date.now() - publishedDate.getTime()) / DAY_MS);
+
+    if (elapsedDays <= 0) return { label: t("freshness_today"), tone: "freshness-hot" };
+    if (elapsedDays <= 7) return { label: t("freshness_week"), tone: "freshness-warm" };
+    if (elapsedDays <= 30) return { label: t("freshness_month"), tone: "freshness-cool" };
+    return { label: t("freshness_older"), tone: "freshness-stale" };
+  }
+
   function formatSize(bytes) {
     if (typeof bytes !== "number" || Number.isNaN(bytes)) return LOCALE === "ko" ? "크기 정보 없음" : "No size";
     const mb = bytes / (1024 * 1024);
@@ -3685,6 +3988,11 @@
     const title = `[${tag}] `;
     const body = `Version: ${tag}\nEnvironment:\nJava:\nOS:\n\nDescribe the issue:\n`;
     return `https://github.com/MCAerogel/Aerogel/issues/new?title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
+  }
+
+  function hasEarlyDevelopmentTitle(release) {
+    const title = String(release?.name || "");
+    return /early development version/i.test(title);
   }
 
   function compareVersionTags(a, b) {
@@ -4040,13 +4348,20 @@
     }));
   }
 
-  function createVersionGroupCard(group) {
+  function createVersionGroupCard(group, latestMinecraftVersion) {
     const card = document.createElement("article");
     card.className = "version-group-card";
+    if (String(group.minecraftVersion || "").trim() === String(latestMinecraftVersion || "").trim()) {
+      card.classList.add("latest-mc-parent");
+    }
     const latestBuild = group.builds[0];
     const titleText = t("release_title", { tag: group.minecraftVersion });
     const countText = t("group_build_count", { count: formatInteger(group.builds.length) });
     const latestDate = formatDate(latestBuild.release.published_at);
+    const freshnessBadge = getFreshnessBadgeInfo(latestBuild.release.published_at);
+    const earlyDevBadgeMarkup = hasEarlyDevelopmentTitle(latestBuild.release)
+      ? `<span class="version-early-badge"><svg class="version-early-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3.2 2.9 19.5a1.1 1.1 0 0 0 1 1.7h16.2a1.1 1.1 0 0 0 1-1.7L12 3.2Z" fill="currentColor" fill-opacity=".22" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 8.4v6.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="17.6" r="1.3" fill="currentColor"/></svg>${t("early_dev_badge")}</span>`
+      : "";
     const totalBuilds = group.builds.length;
     const currentVisibleCount = Number(groupVisibleCountMap.get(group.minecraftVersion) || GROUP_INITIAL_VISIBLE_COUNT);
     const visibleCount = Math.min(Math.max(currentVisibleCount, GROUP_INITIAL_VISIBLE_COUNT), totalBuilds);
@@ -4056,17 +4371,18 @@
     const visibleBuilds = group.builds.slice(0, visibleCount);
     const remainingCount = Math.max(0, totalBuilds - visibleCount);
 
-    const rowsMarkup = visibleBuilds.map((item) => {
+    const rowsMarkup = visibleBuilds.map((item, index) => {
       const buildTag = (item.titleInfo?.buildTag || item.release.tag_name || "").replace(/^#/, "");
       const issueUrl = getIssueReportUrl(item.release.tag_name);
       const releaseUrl = item.release.html_url || "https://github.com/MCAerogel/Aerogel/releases";
       const compareUrl = getCompareUrl(item.release.tag_name, item.previousTag);
       const sha256 = getSha256Digest(item.jarAsset);
+      const isLatestBuild = index === 0;
       const integrityMarkup = sha256
         ? `<span class="integrity-badge integrity-ok version-build-integrity">${t("build_integrity_verified")}</span>`
         : "";
       return `
-        <li class="version-build-item" data-download-url="${item.jarAsset.browser_download_url}" role="link" tabindex="0">
+        <li class="version-build-item${isLatestBuild ? " latest-build-item" : ""}" data-download-url="${item.jarAsset.browser_download_url}" role="link" tabindex="0">
           <div class="version-build-top">
             <div class="version-build-left">
               <svg class="version-build-download-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -4103,23 +4419,28 @@
 
     card.innerHTML = `
       <div class="version-group-header">
-        <h3 class="release-title release-title-row">
-          <svg class="mc-title-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <rect x="2.5" y="2.5" width="19" height="19" rx="3.2" fill="#58c86f"/>
-            <rect x="6.2" y="6.4" width="3.2" height="3.2" fill="#0c1b12"/>
-            <rect x="14.6" y="6.4" width="3.2" height="3.2" fill="#0c1b12"/>
-            <rect x="9.4" y="10.2" width="5.2" height="3.2" fill="#0c1b12"/>
-            <rect x="7.8" y="13.4" width="3.2" height="4.2" fill="#0c1b12"/>
-            <rect x="13" y="13.4" width="3.2" height="4.2" fill="#0c1b12"/>
-          </svg>
-          <span>${titleText}</span>
-        </h3>
+        <div class="version-group-title-block">
+          <h3 class="release-title release-title-row">
+            <svg class="mc-title-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect x="2.5" y="2.5" width="19" height="19" rx="3.2" fill="#58c86f"/>
+              <rect x="6.2" y="6.4" width="3.2" height="3.2" fill="#0c1b12"/>
+              <rect x="14.6" y="6.4" width="3.2" height="3.2" fill="#0c1b12"/>
+              <rect x="9.4" y="10.2" width="5.2" height="3.2" fill="#0c1b12"/>
+              <rect x="7.8" y="13.4" width="3.2" height="4.2" fill="#0c1b12"/>
+              <rect x="13" y="13.4" width="3.2" height="4.2" fill="#0c1b12"/>
+            </svg>
+            <span>${titleText}</span>
+          </h3>
+        </div>
         <span class="version-group-count">${countText}</span>
       </div>
       <div class="version-group-latest" role="button" tabindex="0" aria-expanded="false">
         <div class="version-group-latest-meta">
           <p class="version-group-hint">${t("group_hover_hint")}</p>
-          <span class="meta">${t("release_date", { date: latestDate })}</span>
+          <div class="version-group-meta-row">
+            <span class="meta">${t("release_date", { date: latestDate })}</span>
+          </div>
+          <span class="version-freshness-badge ${freshnessBadge.tone}">${freshnessBadge.label}</span>
         </div>
         <div class="version-build-right">
           <svg class="version-group-expand-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -4127,6 +4448,7 @@
           </svg>
         </div>
       </div>
+      ${earlyDevBadgeMarkup ? `<div class="version-group-build-footer">${earlyDevBadgeMarkup}</div>` : ""}
       <div class="version-group-builds">
         <ul class="version-build-list">
           ${rowsMarkup}
@@ -4254,8 +4576,12 @@
     }
 
     const groups = groupItemsByMinecraftVersion(items);
+    const latestMinecraftVersion = groups.reduce((maxVersion, group) => {
+      if (!maxVersion) return group.minecraftVersion;
+      return compareVersionTags(group.minecraftVersion, maxVersion) > 0 ? group.minecraftVersion : maxVersion;
+    }, "");
     groups.forEach((group) => {
-      releasesEl.appendChild(createVersionGroupCard(group));
+      releasesEl.appendChild(createVersionGroupCard(group, latestMinecraftVersion));
     });
     hydrateChangeSummaries(token);
   }
@@ -4352,8 +4678,8 @@
   function toggleVersionGroupFromToggleRow(toggleRow) {
     const card = toggleRow.closest(".version-group-card");
     if (!(card instanceof HTMLElement)) return;
-    const expanded = card.classList.toggle("expanded");
-    toggleRow.setAttribute("aria-expanded", expanded ? "true" : "false");
+    const expanded = !card.classList.contains("expanded");
+    setVersionGroupExpanded(card, expanded);
   }
 
   function renderNotes(release) {
@@ -4415,7 +4741,6 @@
         renderLatest(items[0], items[1]?.release?.tag_name || "");
         renderNotes(items[0].release);
         applyFilter();
-        setStatus(t("status_fallback"));
       } else {
         setStatus(t("status_error"));
         setListStats(0, 0, "");
@@ -4578,6 +4903,26 @@
       closeBuildMoreMenus();
       closeLatestMoreMenus();
     }
+  });
+  releasesEl.addEventListener("mouseover", (event) => {
+    if (!HOVER_EXPAND_MEDIA.matches) return;
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) return;
+    const card = target.closest(".version-group-card");
+    if (!(card instanceof HTMLElement) || !releasesEl.contains(card)) return;
+    const related = event.relatedTarget;
+    if (related instanceof Node && card.contains(related)) return;
+    setVersionGroupExpanded(card, true);
+  });
+  releasesEl.addEventListener("mouseout", (event) => {
+    if (!HOVER_EXPAND_MEDIA.matches) return;
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) return;
+    const card = target.closest(".version-group-card");
+    if (!(card instanceof HTMLElement) || !releasesEl.contains(card)) return;
+    const related = event.relatedTarget;
+    if (related instanceof Node && card.contains(related)) return;
+    setVersionGroupExpanded(card, false);
   });
   window.addEventListener("resize", closeBuildMoreMenus);
   window.addEventListener("scroll", closeBuildMoreMenus, true);
